@@ -1,0 +1,51 @@
+.order-history {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .order-history .order-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .order-history .order-details span {
+    font-weight: bold;
+  }
+
+  .order-history .order-details .order-date {
+    color: #888;
+  }
+
+  .order-history .order-details .order-number {
+    color: #555;
+  }
+
+  .order-history .order-details .order-status {
+    color: #ff6600;
+  }
+
+  .order-history .product-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .order-history .product-details .product-name {
+    font-weight: bold;
+  }
+
+  .order-history .product-details .product-quantity {
+    color: #888;
+  }
+
+  .order-history .product-details .product-price {
+    color: #555;
+  }
+
+  .order-history .total-amount {
+    text-align: right;
+    font-weight: bold;
+  }

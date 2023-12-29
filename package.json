@@ -1,0 +1,33 @@
+{
+  "name": "first-week-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "country-and-province": "^2.0.0",
+    "country-state-city": "^3.2.1",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "file-type": "^18.7.0",
+    "mongoose": "^8.0.2",
+    "nocache": "^4.0.0",
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.1",
+    "otp-generator": "^4.0.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  }
+}

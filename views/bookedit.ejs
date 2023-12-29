@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contact V1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/assetsproductform/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+
+  <style>
+	.input1::-webkit-outer-spin-button,
+.input1::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+  </style>
+ 
+
+  
+	<div class="contact1">
+        
+		<div class="container-contact1">
+			<div class="contact1-pic js-tilt" data-tilt>
+							
+<span class="text-secondary">Current Book Image: </span>
+<img src="<%= item.Image[0].slice('./public'.length) %>" alt="IMG">
+			</div>
+
+			<form enctype="multipart/form-data" class="contact1-form validate-form" action="/admin/bookedit/<%= item._id %>" method="post" onsubmit="return validateDate()">
+				<span class="contact1-form-title">
+				Edit Book Details
+				</span>
+
+				<div class="wrap-input1 validate-input" data-validate = "Book Name is required">
+					<input class="input1" type="text" name="bookname" placeholder="Book Name" required value="<%= item.bookname%>" pattern="^[A-Za-z0-9\s]+$" title="Enter letters and spaces only">
+					<span class="shadow-input1"></span>
+                    <p class="text-danger"><%=error%></p>
+                 
+				</div>
+
+				<div class="wrap-input1 validate-input" data-validate = "Book genre is required" >
+
+					<!-- <select class="input1" name="genrename" required>
+    <option value="<%= item.bookgenre %>"><%= item.bookgenre %></option>
+    <% genres.forEach((genre) => { %>
+        <option value="<%= genre.genrename %>"><%= genre.genrename %></option>
+    <% }) %>
+</select> -->
+
+					<select class="input1" name="genrename" required >
+                        <option  value="<%= item.genrename%>" ><%= item.genrename%></option>
+                        <% genres.forEach((genre)=>{ %>
+                        <option  value="<%= genre.genrename%>"><%= genre.genrename%></option>
+						<% }) %>
+                   
+                      </select> 
+                      
+				</div>
+
+
+				<div class="wrap-input1 validate-input" data-validate = "Language is required">
+					<select class="input1" name="language" required>
+                        <option value="<%= item.language%>" ><%= item.language%></option>
+                  
+                        <option value="English">English</option>
+						<option value="Malayalam">Malayalam</option>
+					    <option value="Hindi">Hindi</option>
+						<option value="Marathi ">Marathi </option>
+						<option value="Russian">Russian</option>
+						<option value="Tamil">Tamil</option>
+						<option value="Telungu">Telungu</option>
+						<option value="Kannada">Kannada</option>
+                     
+                
+                      </select>
+					<!-- <input class="input1" id="languageInput" name="language" placeholder="language" required type="text"> -->
+					<span class="shadow-input1"></span>
+				
+				</div>
+                <div  class="wrap-input1 validate-input  " data-validate = "Image is required">
+					<input  type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="">
+                     <p style="font-size: 13px;"><%= item.Image[0].slice('./public'.length) %></p>
+					<span class="shadow-input1"></span>
+                  
+				</div>
+
+
+                <div class="wrap-input1 validate-input" data-validate = "Author is required" >
+					<input class="input1" name="author" placeholder="Author" required type="text" value="<%= item.author%>" pattern="^[A-Za-z\s]+$" title="Enter letters and spaces only">
+					<span class="shadow-input1"></span>
+				</div>
+
+                <div class="wrap-input1 validate-input" data-validate = "About author is required">
+					<textarea class="input1" name="aboutauthor" placeholder="About author" required type="text"><%= item.aboutauthor%></textarea>
+					<!-- <input class="input1" name="aboutauthor" placeholder="About author" required type="text" value="<%= item.aboutauthor%>"> -->
+					<span class="shadow-input1"></span>
+				</div>
+
+                <div class="wrap-input1 validate-input" data-validate = "Publisher is required">
+                
+					<input class="input1" name="publisher" placeholder="Publisher" required type="text" value="<%= item.publisher%>" pattern="^[A-Za-z\s]+$" title="Enter letters and spaces only">
+					<span class="shadow-input1"></span>
+				</div> 
+
+				<div class="wrap-input1 validate-input" data-validate = " Binding is required">
+					<select class="input1" name="binding" required>
+                        <option value="<%= item.binding%>"><%= item.binding%></option>
+                  
+                        <option value="Paperback">Paperback</option>
+						<option value="Hardback">Hardback</option>
+					    <option value="Paperback">Paperback</option>
+						<option value="Spiral Binding">Spiral Binding</option>
+						<option value="Saddle Stitching">Saddle Stitching</option>
+						<option value="Perfect Binding">Perfect Binding</option>
+						<option value="Comb Binding">Comb Binding</option>
+						<option value="Wire-O Binding">Wire-O Binding</option>
+                     
+                
+                      </select>
+					<!-- <input class="input1" name="binding" placeholder="Binding" required type="text"> -->
+					<span class="shadow-input1"></span>
+				
+				</div>  
+
+                <div class="wrap-input1 validate-input" data-validate = " ISBN is required">
+					<input class="input1" name="ISBN" placeholder="ISBN" required type="number" value="<%= item.ISBN%>">
+					<span class="shadow-input1"></span>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = " Publication date is required">
+
+					<input class="input1" name="publicationdate" placeholder="Date of publication" required type="date" value="<%= item.publicationdate.toISOString().split('T')[0] %>">
+
+
+					<span class="shadow-input1"></span>
+					<p class="text-danger" id="dateErrorMessage"></p>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = " NO of pages is required">
+					<input class="input1" name="pages" placeholder="NO of pages" required type="number" value="<%= item.pages%>">
+					<span class="shadow-input1"></span>
+				</div>  
+
+                <div class="wrap-input1 validate-input" data-validate = "Book Overview is required">
+					<textarea  class="input1" name="bookoverview" placeholder="Book Overview" required type="text"><%= item.bookoverview%></textarea>
+					<!-- <input class="input1" name="bookoverview" placeholder="Book Overview" required type="text" value="<%= item.bookoverview%>"> -->
+					<span class="shadow-input1"></span>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = "Price is required">
+					<input class="input1" name="price" placeholder="price" required type="number" value="<%= item.price%>">
+					<span class="shadow-input1"></span>
+				</div>
+
+                
+                <div class="wrap-input1 validate-input" data-validate = "Quantity is required">
+					<input class="input1" name="quantity" placeholder="Quantity" required type="number" value="<%= item.quantity%>">
+					<span class="shadow-input1"></span>
+				</div> 
+
+				<div class="wrap-input1 validate-input" data-validate = "Status is required" >
+					<select class="input1" name="status" required>
+                        <option value="<%= item.status%>" ><%= item.status%></option>
+                  
+                        <option value="Available">Available</option>
+						<option value="Not-Available">Not-Available</option>
+					   
+                      </select>
+					<!-- <input class="input1" name="status" placeholder="Status" required type="text"> -->
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+    
+
+
+	<script>
+		// JavaScript to define getCurrentDate function and validate the entered date
+		function getCurrentDate() {
+			return new Date().toISOString().split('T')[0];
+		}
+	
+		function validateDate() {
+			var enteredDate = document.getElementById('publicationdate').value;
+			var currentDate = getCurrentDate();
+			var errorMessageSpan = document.getElementById('dateErrorMessage');
+	
+			if (enteredDate > currentDate) {
+				errorMessageSpan.textContent = "Please do not enter a future date.";
+				return false; // Prevent form submission
+			}
+	
+			errorMessageSpan.textContent = ""; // Clear previous error message
+			return true; // Allow form submission
+		}
+	</script>
+
+
+
+
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const languageInput = document.getElementById('languageInput');
+          const languageValidationMessage = document.querySelector('.wrap-input1 .validation-message');
+      
+          languageInput.addEventListener('click', function () {
+            validateLanguage();
+          });
+      
+          function validateLanguage() {
+            if (!languageInput.value.trim()) {
+              languageValidationMessage.innerHTML = 'Language is required';
+              languageInput.classList.add('alert-validate');
+              return false;
+            } else {
+              languageValidationMessage.innerHTML = '';
+              languageInput.classList.remove('alert-validate');
+              return true;
+            }
+          }
+      
+  
+        });
+      </script>
+
+
+
+
+
+
+
+      
+
+
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/bootstrap/js/popper.js"></script>
+	<script src="/assetsproductform/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+	<script src="/assetsproductform/js/main.js"></script>
+
+</body>
+</html>

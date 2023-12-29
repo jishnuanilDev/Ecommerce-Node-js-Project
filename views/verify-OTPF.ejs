@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V4</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/userlogin.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/book');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form method="post" action="/verifyOTPF" class="login100-form validate-form" method="post">
+				
+					<span class="login100-form-title">
+						OTP Verification
+					</span>  
+					<p class="logout text-success text-center mt-5">OTP has successfully send to your Email</p>
+		
+                    <p class="logout text-light text-center bg-danger mt-5"><%= OTPError %></p>
+                   
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "OTP is required">
+						<span class="label-input100">OTP </span>
+						<input class="input100" type="text" name="enteredOTP" placeholder="Please enter your OTP here">
+					
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					
+					<div id="timer" class="text-center text-danger mt-3 mb-3"></div>
+					<!-- <div class="text-right p-t-8 p-b-31">
+						<a href="/resend-OTP">
+						Resend OTP
+						</a>
+					</div> -->
+					
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Submit
+							</button>
+             
+						</div>
+           
+            
+            
+					</div>
+    
+					</div>
+				</form>
+			</div>
+		</div>
+	
+	
+
+<!-- Add this after your form -->
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	  const timerElement = document.getElementById('timer');
+	  let seconds = 10;
+	
+	  function updateTimer() {
+		timerElement.innerText = `Resend OTP in ${seconds} seconds`;
+	  }
+	
+	  function startTimer() {
+		updateTimer();
+		const timerInterval = setInterval(function () {
+		  seconds--;
+		  updateTimer();
+	
+		  if (seconds === 0) {
+			clearInterval(timerInterval);
+			timerElement.innerHTML = '<a href="/resend-OTP">Resend OTP</a>';
+		  }
+		}, 1000);
+	  }
+	
+	  // Start the timer when the page loads
+	  startTimer();
+	});
+	</script>
+	
+	
+<!--===============================================================================================-->
+	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/bootstrap/js/popper.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/js/userlogin.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

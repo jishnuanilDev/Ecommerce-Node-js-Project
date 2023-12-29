@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Contact V1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/assetsproductform/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assetsproductform/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="contact1">
+        
+		<div class="container-contact1">
+			<div class="contact1-pic js-tilt" data-tilt>
+			
+<span class="text-secondary">Book Image: </span>
+				<img src="<%= item.Image[0].slice('./public'.length) %>" alt="IMG">
+				
+		
+			</div>
+
+			<form enctype="multipart/form-data" class="contact1-form validate-form" action="/update-products" method="post">
+				<span class="contact1-form-title">
+				All Details 
+				</span>
+
+				<div class="wrap-input1 validate-input" data-validate = "Book Name is required">
+					<input class="input1" type="text" name="bookname" placeholder="Book Name" required value="<%= item.bookname%>" readonly>
+					<span class="shadow-input1"></span>
+                
+                 
+				</div>
+
+                <div class="wrap-input1 validate-input" data-validate = "Language is required">
+					<input class="input1" id="languageInput" name="language" placeholder="" required type="text" value="<%= item.genrename%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>
+
+
+				<div class="wrap-input1 validate-input" data-validate = "Language is required">
+					<input class="input1" id="languageInput" name="language" placeholder="language" required type="text" value="<%= item.language%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>
+                <div  class="wrap-input1 validate-input  " data-validate = "Image is required">
+					<input type="text" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="<%= item.Image%>" readonly>
+					<span class="shadow-input1"></span>
+                  
+				</div>
+
+
+                <div class="wrap-input1 validate-input" data-validate = "Author is required" >
+					<input class="input1" name="author" placeholder="Author" required type="text" value="<%= item.author%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>
+
+                <div class="wrap-input1 validate-input" data-validate = "About author is required">
+					<textarea class="input1" name="aboutauthor" placeholder="About author" required type="text" readonly><%= item.aboutauthor%></textarea>
+					<!-- <input class="input1" name="aboutauthor" placeholder="About author" required type="text" value="<%= item.aboutauthor%>" readonly> -->
+					<span class="shadow-input1"></span>
+				</div>
+
+                <div class="wrap-input1 validate-input" data-validate = "Publisher is required">
+                
+					<input class="input1" name="publisher" placeholder="Publisher" required type="text" value="<%= item.publisher%>" readonly>
+					<span class="shadow-input1"></span>
+				</div> 
+
+
+                <div class="wrap-input1 validate-input" data-validate = " Binding is required">
+					<input class="input1" name="binding" placeholder="Binding" required type="text" value="<%= item.binding%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>  
+
+                <div class="wrap-input1 validate-input" data-validate = " ISBN is required">
+					<input class="input1" name="ISBN" placeholder="ISBN" required type="number" value="<%= item.ISBN%>" readonly>
+					<span class="shadow-input1"></span>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = " Publication date is required">
+					<input class="input1" name="publicationdate" placeholder="Date of publication" required type="text" value=" <%= item.publicationdate.toLocaleDateString('en-US', { year: 'numeric' , month: 'long' ,
+                    day: 'numeric' }) %>" readonly>
+					<span class="shadow-input1"></span>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = " NO of pages is required">
+					<input class="input1" name="pages" placeholder="NO of pages" required type="number" value="<%= item.pages%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>  
+
+                <div class="wrap-input1 validate-input" data-validate = "Book Overview is required">
+					<textarea  class="input1" name="bookoverview" placeholder="Book Overview" required type="text" readonly><%= item.bookoverview%></textarea>
+					<!-- <input class="input1" name="bookoverview" placeholder="Book Overview" required type="text" value="<%= item.bookoverview%>" readonly> -->
+					<span class="shadow-input1"></span>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = "Price is required">
+					<input class="input1" name="price" placeholder="price" required type="number" value="<%= item.price%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>
+
+                
+                <div class="wrap-input1 validate-input" data-validate = "Quantity is required">
+					<input class="input1" name="quantity" placeholder="Quantity" required type="number" value="<%= item.quantity%>" readonly>
+					<span class="shadow-input1"></span>
+				</div> 
+
+                <div class="wrap-input1 validate-input" data-validate = "Status is required">
+					<input class="input1" name="status" placeholder="Status" required type="text" value="<%= item.status%>" readonly>
+					<span class="shadow-input1"></span>
+				</div>
+
+			
+			</form>
+		</div>
+	</div>
+
+    
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const languageInput = document.getElementById('languageInput');
+          const languageValidationMessage = document.querySelector('.wrap-input1 .validation-message');
+      
+          languageInput.addEventListener('click', function () {
+            validateLanguage();
+          });
+      
+          function validateLanguage() {
+            if (!languageInput.value.trim()) {
+              languageValidationMessage.innerHTML = 'Language is required';
+              languageInput.classList.add('alert-validate');
+              return false;
+            } else {
+              languageValidationMessage.innerHTML = '';
+              languageInput.classList.remove('alert-validate');
+              return true;
+            }
+          }
+      
+  
+        });
+      </script>
+      
+
+
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/bootstrap/js/popper.js"></script>
+	<script src="/assetsproductform/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assetsproductform/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+	<script src="/assetsproductform/js/main.js"></script>
+
+</body>
+</html>

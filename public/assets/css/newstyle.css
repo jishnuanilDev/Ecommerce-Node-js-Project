@@ -1,0 +1,92 @@
+/* Add this style to your CSS file or within a <style> tag in your HTML */
+.form-group input {
+    border: 1px solid #ced4da;
+    /* You can adjust the color and width as needed */
+    border-radius: 4px;
+    /* Optional: Add border-radius for rounded corners */
+    padding: 8px;
+    /* Optional: Add padding for better visual appearance */
+}
+
+
+.form-group select {
+    border: 1px solid #ced4da;
+    /* You can adjust the color and width as needed */
+    border-radius: 4px;
+    /* Optional: Add border-radius for rounded corners */
+    padding: 8px;
+    /* Optional: Add padding for better visual appearance */
+}
+
+
+.custom-card {
+    width: 18rem;
+    box-shadow: 0 4px 8px rgba(240, 4, 4, 0.1);
+    /* Adjust the values as needed */
+    border: none;
+    /* Remove default card border */
+}
+
+.custom-card:hover {
+    box-shadow: 0 8px 16px rgba(219, 0, 0, 0.975);
+    /* Adjust hover effect if needed */
+}
+
+
+.custom-card2 {
+    width: 18rem;
+    box-shadow: 0 4px 8px rgba(240, 4, 4, 0.1);
+    /* Adjust the values as needed */
+    border: none;
+    /* Remove default card border */
+}
+
+.custom-card2:hover {
+    box-shadow: 0 8px 16px rgba(219, 172, 0, 0.975);
+    /* Adjust hover effect if needed */
+}
+
+
+
+/* Apply your custom styles here */
+button {
+
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4CAF50;
+    /* Change color on hover */
+    color: rgb(255, 255, 255);
+}
+
+
+body {
+    background-color: #f8f9fa;
+  }
+
+  .profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }

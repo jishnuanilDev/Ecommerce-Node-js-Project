@@ -1,0 +1,484 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Book Shop</title>
+<meta name="description" content>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
+
+
+
+
+
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/slicknav.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/price_rangs.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/nice-select.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-area">
+          <div class="main-header ">
+            <div class="header-top ">
+              
+              <div class="container">
+                <div class="row">
+                  <div class="col-xl-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm">
+                      <div class="header-info-left d-flex align-items-center">
+    
+                        <div class="logo">
+                          <a href="/userhomepage"><img style="width: 200px;" src="assets/img/logo/" alt></a>
+                        </div>
+    
+                        <form style="display: flex;" action="#" class="form-box ">
+                          <input style="margin-right: 10px;" type="text" name="Search" placeholder="Search book by author or publisher">
+                      
+                          <div class="search-icon">
+                            <i class="ti-search"></i>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="header-info-right d-flex align-items-center">
+                        <ul>
+                     
+                          <li class="shopping-card">
+                            <a href="/userviewcart"><img src="assets/img/icon/cart.svg" alt></a>
+                          </li>
+                          <!-- <li><a href="/userLogout" class="btn header-btn">Search</a></li> -->
+                          <li class="nav-item dropdown no-arrow ">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jishnu Anil</span>
+                                <img  style="width: 40px;" class="img-profile rounded-circle"
+                                    src="assetsss/img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/userprofile">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/userLogout" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="header-bottom  header-sticky">
+              <div class="container">
+                <div class="row align-items-center">
+                  <div class="col-xl-12">
+    
+                    <div class="logo2 text-center">
+                      <a href="/userhomepage"><img style="width: 110px;" src="assets/img/logo/biblio.jpg" alt></a>
+                    </div>
+    
+                    <div class="main-menu text-center d-none d-lg-block ">
+                    
+                      <nav>
+    
+                        <ul id="navigation">
+                       
+                          <li><a href="index.html">Home</a></li>
+                          <li><a href="categories.html">Categories</a></li>
+                          <li><a href="about.html">About</a></li>
+                    
+                         
+                          </li>
+                          <li><a href="blog.html">Blog</a></li>
+                          <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+    
+                  <div class="col-xl-12">
+                    <div class="mobile_menu d-block d-lg-none"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+<main>
+
+
+
+
+<section class="checkout_area section-padding">
+<div class="container">
+
+
+        <div class="cupon_area">
+            <div class="check_title">
+              <h2> Have a coupon?
+                <a href="#" id="couponLink">Click here to enter your code</a>
+              </h2>
+            </div>
+        <form>
+                <div id="couponForm" style="display: none;">
+                    <input type="text" name="first_name" placeholder="Enter coupon code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter coupon Code'" required class="single-input border" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+              <button  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" class="genric-btn danger radius">Add coupon</button>
+                </div>
+        </form>
+          </div>
+  
+<div class="billing_details">
+<div class="row">
+<div class="col-lg-8">
+
+<h3>Billing Details</h3> 
+<a  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" href="/useraddaddress" class="genric-btn danger radius mb-5">Add new billing Address  +</a>
+<% addresses.forEach((address, Index) => { %>
+    <div style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" class="col-md-4 mt-3">
+      <div class="card mb-2" style="width: 100%; height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Saved Address <%= Index + 1 %></h5>
+          <h6 style="font-weight: bold;" class="card-subtitle mb-2 text-muted " ><%= address.name %></h6>
+          <p class="card-text">
+            <%= address.streetaddress %>, <%= address.city %>, <%= address.state %>
+          </p>
+          <p class="card-text"><%= address.zipcode %></p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <form method="get" action="/useraddress-edit" class="mr-2">
+            <input type="hidden" value="<%= Index %>" name="addressIndex">
+            <button class="genric-btn link radius" type="submit">Edit</button>
+          </form>
+  
+          <form method="post" action="/useraddress-delete">
+            <input type="hidden" value="<%= address._id %>" name="addressId">
+            <button class="genric-btn link radius" type="submit">Delete</button>
+          </form>
+  
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="selectedAddress" id="<%= 'addressRadio' + Index %>" value="<%= Index %>">
+            <label class="form-check-label" for="<%= 'addressRadio' + Index %>"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+  
+ 
+             
+
+</div>
+
+<div class="col-lg-4">
+<div class="order_box">
+<h2>Your Order</h2>
+<ul class="list">
+   
+<li>
+<a style="font-weight: bold;" href="#">Product<span style="font-weight: bold;">Total</span> 
+</a>
+</li>
+<ul class="list list_1">
+  <% cart.items.forEach(book => { %>
+    <li>
+      <a href="#">
+        <%= book.productId.bookname %>
+        <span class="middle">x<%= book.quantity %></span>
+        <span class="last">₹ <%= book.productId.price * book.quantity %></span>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+<ul class="list list_2">
+  <li>
+    <% let sum = 0 %>
+    <% cart.items.forEach(book => { %>
+      <% sum += book.productId.price * book.quantity %>
+    <% }) %>
+    <a href="#">Subtotal <span>₹ <%= sum %></span></a>
+  </li>
+</ul>
+
+<li>
+<a href="#">Shipping
+<span>₹ 50</span>
+</a>
+</li>
+<li>
+<a style="font-weight: 600; color: crimson;" href="#">Total<span style="font-weight:600;">₹ <%= sum+50 %></span>
+</a>
+</li>
+</ul>
+
+<h3 class="text-center">Select payment method</h3>
+<div class="payment_item">
+    <div class="custom-dropdown">
+      <input type="radio" id="f-option5" name="selector" />
+      <label for="f-option5" class="dropdown-label">Select Payment Method</label>
+      <div class="dropdown-content">
+        <label for="credit-card">
+          <input type="radio" id="credit-card" name="payment-method" />
+          Credit Card
+        </label>
+        <label for="paypal">
+          <input type="radio" id="paypal" name="payment-method" />
+          PayPal
+        </label>
+        <!-- Add more payment options as needed -->
+      </div>
+    </div>
+  
+    <p id="payment-info">Payment information will be provided after selecting a payment method.</p>
+  </div>
+  
+  <div class="payment_item active">
+    <div class="radion_btn">
+      <input type="radio" id="f-option6" name="selector" />
+      <label for="f-option6">Cash on Delivery</label>
+      <img src="assets/img/gallery/card.jpg" alt />
+      <div class="check"></div>
+    </div>
+    <p id="payment-info">You have chosen Cash on Delivery. Please have the exact amount ready in cash when our delivery person arrives. Payment will be collected at the time of delivery.</p>
+  </div>
+<div class="creat_account checkout-cap">
+<input type="checkbox" id="f-option8" name="selector" />
+<label for="f-option8">I’ve read and accept the <a href="#">terms & conditions*</a> </label>
+</div>
+<form method="post" action="/confirmCheckoutCOD">
+    
+    <input type="hidden" id="selectedAddressIndex" name="selectedAddressIndex" value="">
+    
+    <button class="btn w-100" type="submit" onclick="continueToCheckout()">Continue to Checkout</button>
+  </form>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<footer>
+<div class="footer-wrappper section-bg">
+<div class="footer-area footer-padding">
+<div class="container">
+<div class="row justify-content-between">
+<div class="col-xl-3 col-lg-5 col-md-4 col-sm-6">
+<div class="single-footer-caption mb-50">
+<div class="single-footer-caption mb-30">
+
+<div class="footer-logo mb-25">
+<a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt></a>
+</div>
+<div class="footer-tittle">
+<div class="footer-pera">
+<p>Get the breathing space now, and we’ll extend your term at the other end year for go.</p>
+</div>
+</div>
+
+<div class="footer-social">
+<a href="https://bit.ly/sai4ull"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
+<div class="single-footer-caption mb-50">
+<div class="footer-tittle">
+<h4>Book Category</h4>
+<ul>
+<li><a href="#">History</a></li>
+<li><a href="#">Horror - Thriller</a></li>
+<li><a href="#">Love Stories</a></li>
+<li><a href="#">Science Fiction</a></li>
+<li><a href="#">Business</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+<div class="single-footer-caption mb-50">
+<div class="footer-tittle">
+<h4>&nbsp;</h4>
+<ul>
+<li><a href="#">Biography</a></li>
+<li><a href="#">Astrology</a></li>
+<li><a href="#">Digital Marketing</a></li>
+<li><a href="#">Software Development</a></li>
+<li><a href="#">Ecommerce</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+<div class="single-footer-caption mb-50">
+<div class="footer-tittle">
+<h4>Site Map</h4>
+<ul class="mb-20">
+<li><a href="#">Home</a></li>
+<li><a href="#">About Us</a></li>
+<li><a href="#">FAQs</a></li>
+<li><a href="#">Blog</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer-bottom-area">
+<div class="container">
+<div class="footer-border">
+<div class="row d-flex align-items-center">
+<div class="col-xl-12 ">
+<div class="footer-copy-right text-center">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" style="color: black" target="_blank" rel="nofollow noopener">Colorlib</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<div id="back-top">
+<a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<script>
+    function continueToCheckout() {
+        event.preventDefault();
+      var cashOnDeliverySelected = document.getElementById('f-option6').checked;
+  
+      if (cashOnDeliverySelected) {
+        // Continue to checkout logic here
+ 
+        // Add more logic here to proceed to the checkout page
+      } else {
+        alert("Please select Cash on Delivery before continuing to checkout.");
+      }
+
+  
+      // Get the selected address index
+      var selectedAddressIndex = document.querySelector('input[name="selectedAddress"]:checked');
+      
+      if (selectedAddressIndex) {
+        // Set the value of the hidden input with the selected address index 
+        document.getElementById('selectedAddressIndex').value = selectedAddressIndex.value;
+        // Submit the form to proceed to the checkout page
+        document.forms[document.forms.length - 1].submit();
+      } else {
+        alert("Please select an address before continuing to checkout.");
+      }
+    }
+
+
+  </script>
+
+
+ 
+<script>
+    // Get the link and the form container
+    var couponLink = document.getElementById("couponLink");
+    var couponForm = document.getElementById("couponForm");
+  
+    // Add an event listener for the link click
+    couponLink.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent the default link behavior
+  
+      // Toggle the visibility of the form container
+      couponForm.style.display = couponForm.style.display === "none" ? "block" : "none";
+    });
+  </script>
+
+<script>
+    // Get the payment info element
+    var paymentInfo = document.getElementById("payment-info");
+  
+    // Add an event listener for radio button changes
+    document.querySelectorAll('input[name="payment-method"]').forEach(function(radio) {
+      radio.addEventListener("change", function() {
+        // Update the payment info based on the selected payment method
+        if (radio.id === "credit-card") {
+          paymentInfo.textContent = "Please enter your credit card information.";
+        } else if (radio.id === "paypal") {
+          paymentInfo.textContent = "You will be redirected to PayPal for payment.";
+        }
+        // Add more conditions for additional payment methods as needed
+      });
+    });
+  </script>
+  
+
+
+
+
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.counterup.min.js"></script>
+<script src="./assets/js/waypoints.min.js"></script>
+<script src="./assets/js/price_rangs.js"></script>
+
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"82f17e7738212e88","b":1,"version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+</body>
+</html>
