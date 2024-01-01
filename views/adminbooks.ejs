@@ -12,13 +12,13 @@
     <title> Admin</title>
 
     <!-- Custom fonts for this template-->
-    <link href="assetsss/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/assetsss/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template--> 
-    <link href="assetsss/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/assetsss/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/adminpanel">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/adminpanel">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -53,13 +53,13 @@
 
             
             <li i class="nav-item">
-              <a class="nav-link collapsed" href="/adminorders" data-toggle="" data-target=""
+              <a class="nav-link collapsed" href="/admin/adminorders" data-toggle="" data-target=""
                     aria-expanded="" aria-controls="">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Orders</span>
                 </a>
 
-                <a class="nav-link collapsed" href="/adminusers" data-toggle="" data-target=""
+                <a class="nav-link collapsed" href="/admin/adminusers" data-toggle="" data-target=""
                 aria-expanded="" aria-controls="">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Users</span>
@@ -74,8 +74,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                       
-                        <a class="collapse-item" href="/adminbooks">Book Management</a>
-                        <a class="collapse-item" href="/admingenres">Genre Management</a>
+                        <a class="collapse-item" href="/admin/adminbooks">Book Management</a>
+                        <a class="collapse-item" href="/admin/admingenres">Genre Management</a>
                     
                     </div>
                 </div>
@@ -207,7 +207,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="assetsss/img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="/assetsss/img/undraw_profile_1.svg"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -219,7 +219,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="assetsss/img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="/assetsss/img/undraw_profile_2.svg"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -231,7 +231,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="assetsss/img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="/assetsss/img/undraw_profile_3.svg"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -265,7 +265,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jishnu Anil</span>
                                 <img class="img-profile rounded-circle"
-                                    src="assetsss/img/undraw_profile.svg">
+                                    src="/assetsss/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -306,7 +306,7 @@
 
                     <!-- DataTales Example -->
                     <div class="d-flex justify-content-end mb-2">
-                        <a href="/add-products" class="btn btn-primary btn-icon-split ml-auto">
+                        <a href="/admin/add-products" class="btn btn-primary btn-icon-split ml-auto">
                             <span class="icon text-white-50">
                                 <i class="fas fa-arrow-right"></i>
                             </span>
@@ -343,7 +343,7 @@
                             <% book.Image.forEach((image)=>{ %>
 
                            
-                                            <td><img style="width: 50px;" src="<%= image.slice('./public/'.length) %>" alt="img"></td>
+                                            <td><img style="width: 50px;" src="<%= image.slice('./public'.length) %>" alt="img"></td>
                                             <% }) %>
                                             <td><%= book.bookname %></td>
                                             <td><%= book.genrename %></td>
@@ -352,12 +352,12 @@
                                             <td><%= book.status %></td>
                                             <td> <%= book.isListed ? 'Listed': 'Unlisted' %></td>
                                             <td>
-                                              <a class="text-primary" href="/admin/bookedit/<%= book._id %> ">Edit</a>
-                                              <a class="text-success" href="admin/bookview/<%= book.id %>">| View more</a>
+                                              <a class="text-primary" href="/admin/admin/bookedit/<%= book._id %> ">Edit</a>
+                                              <a class="text-success" href="/admin/admin/bookview/<%= book.id %>">| View more</a>
                                               <% if(book.isListed===true) { %>
-                                                <a class="text-warning" href="/admin/productunlist/<%= book.id %>">| Unlist</a>
+                                                <a class="text-warning" href="/admin/admin/productunlist/<%= book.id %>">| Unlist</a>
                                              <% }else{ %>
-                                                <a class="text-warning" href="/admin/productlist/<%= book.id %>">| List</a>
+                                                <a class="text-warning" href="/admin/admin/productlist/<%= book.id %>">| List</a>
                                              <% } %>
                                              
                                               <!-- <a class="text-danger" onclick="confirmDelete();" href="/admin/bookdelete/<%= book.id %>">| Delete</a> -->
@@ -374,7 +374,7 @@
                                 <ul class="pagination justify-content-center">
                                   <% if (currentPage > 1) { %>
                                     <li class="page-item">
-                                      <a class="page-link" href="/adminbooks?page=<%= currentPage - 1 %>" aria-label="Previous">
+                                      <a class="page-link" href="/admin/adminbooks?page=<%= currentPage - 1 %>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                       </a>
                                     </li>
@@ -382,13 +382,13 @@
                               
                                   <% for (let i = 1; i <= totalPages; i++) { %>
                                     <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                                      <a class="page-link" href="/adminbooks?page=<%= i %>"><%= i %></a>
+                                      <a class="page-link" href="/admin/adminbooks?page=<%= i %>"><%= i %></a>
                                     </li>
                                   <% } %>
                               
                                   <% if (currentPage < totalPages) { %>
                                     <li class="page-item">
-                                      <a class="page-link" href="/adminbooks?page=<%= currentPage + 1 %>" aria-label="Next">
+                                      <a class="page-link" href="/admin/adminbooks?page=<%= currentPage + 1 %>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                       </a>
                                     </li>
@@ -443,7 +443,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/adminLogout">Logout</a>
+                    <a class="btn btn-primary" href="/admin/adminLogout">Logout</a>
                 </div>
             </div>
         </div>
@@ -463,21 +463,21 @@ function confirmDelete() {
     </script>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="assetsss/vendor/jquery/jquery.min.js"></script>
-    <script src="assetsss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assetsss/vendor/jquery/jquery.min.js"></script>
+    <script src="/assetsss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="assetsss/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/assetsss/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assetsss/js/sb-admin-2.min.js"></script>
+    <script src="/assetsss/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="assetsss/vendor/chart.js/Chart.min.js"></script>
+    <script src="/assetsss/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="assetsss/js/demo/chart-area-demo.js"></script>
-    <script src="assetsss/js/demo/chart-pie-demo.js"></script>
+    <script src="/assetsss/js/demo/chart-area-demo.js"></script>
+    <script src="/assetsss/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

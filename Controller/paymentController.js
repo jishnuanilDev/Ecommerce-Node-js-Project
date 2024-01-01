@@ -27,7 +27,7 @@ try{
 
         res.render('checkoutpage',{ addresses,cart});
     }else{
-        res.redirect('/')
+        res.redirect('/user')
     }
 } catch (error) {
     console.error(error);
@@ -78,6 +78,8 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
         await cartModule.clearCart(userId);
   
         res.render('orderplaced');
+      }else{
+        res.redirect('/user')
       }
     } catch (error) {
       console.error(error);

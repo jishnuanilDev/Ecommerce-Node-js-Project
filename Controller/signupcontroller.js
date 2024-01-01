@@ -17,7 +17,7 @@ const signUpController={};
 signUpController.showSignupInfo = (req, res) => {   /// sigup page 
 
   if (req.session.userlogin) {
-      res.redirect('/userhomepage');
+      res.redirect('/user/userhomepage');
   }
   else {
       res.render('signuppage',{error:''});
@@ -27,7 +27,7 @@ signUpController.showSignupInfo = (req, res) => {   /// sigup page
 
 
 signUpController.register = (req, res) => {
-  res.redirect('/signup');
+  res.redirect('/user/signup');
  };
  
 
@@ -71,7 +71,7 @@ req.session.useremail = email;
 
   } catch (err) {
     console.error("Error during signup:", err);
-    res.redirect('/signup');
+    res.redirect('/user/signup');
   }
 } 
 
@@ -106,9 +106,9 @@ const newUser = new Model({
             req.session.userlogin = true;
             req.session.userId = newUser._id;
             if (req.session.userlogin) {
-              res.redirect('/userhomepage');
+              res.redirect('/user/userhomepage');
             } else {
-              res.redirect('/');
+              res.redirect('/user');
             }
           })
           .catch((err) => {
@@ -150,7 +150,7 @@ const newUser = new Model({
       res.render('verify-otp',{errorOTP:""});
     }catch (err) {
       console.error("Error during signup:", err);
-      res.redirect('/signup');
+      res.redirect('/user/signup');
     }
      
     }

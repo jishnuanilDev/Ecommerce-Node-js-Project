@@ -7,7 +7,7 @@ let adminLogincontroller={};
 //adminlogin get
 adminLogincontroller.showAdminLoginInfo = (req,res)=>{
     if (req.session.adminlogin) {
-        res.redirect('/adminpanel');
+        res.redirect('/admin/adminpanel');
     } else {
 res.render('adminlogpage',{errorMessage:''});
     }

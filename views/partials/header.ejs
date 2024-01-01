@@ -11,10 +11,10 @@
                   <div class="header-info-left d-flex align-items-center">
 
                     <div class="logo">
-                      <a href="/userhomepage"><img style="width: 200px;" src="assets/img/logo/" alt></a>
+                      <a href="/user/userhomepage"><img style="width: 200px;" src="/assets/img/logo/" alt></a>
                     </div>
 
-                    <form class="form-box" style="display: flex;" action="/userSearch" method="get">
+                    <form class="form-box" style="display: flex;" action="/user/userSearch" method="get">
                       <input type="text" name="search" class="form-control mr-2" placeholder="Search here">
                       <button  class="btn bg-mute " type="submit">Search</button>
                     </form>
@@ -24,7 +24,7 @@
                       <li><a href="#">FAQ</a></li>
                       <li><a href="#">Track Order</a></li>
                       <li class="shopping-card">
-                        <a href="/userviewcart"><img src="assets/img/icon/cart.svg" alt></a>
+                        <a href="/user/userviewcart"><img src="/assets/img/icon/cart.svg" alt></a>
                       </li>
                       <!-- <li><a href="/userLogout" class="btn header-btn">Search</a></li> -->
                       <li class="nav-item dropdown no-arrow ">
@@ -32,12 +32,12 @@
                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jishnu Anil</span>
                           <img style="width: 40px;" class="img-profile rounded-circle"
-                            src="assetsss/img/undraw_profile.svg">
+                            src="/assetsss/img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                           aria-labelledby="userDropdown">
-                          <a class="dropdown-item" href="/userprofile">
+                          <a class="dropdown-item" href="/user/userprofile">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                           </a>
@@ -50,7 +50,7 @@
                             Activity Log
                           </a>
                           <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="/userLogout" data-toggle="modal" data-target="#logoutModal">
+                          <a class="dropdown-item" href="/user/userLogout" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                           </a>
@@ -68,7 +68,29 @@
               <div class="col-xl-12">
 
                 <div class="logo2">
-                  <a href="/userhomepage"><img style="width: 110px;" src="assets/img/logo/" alt></a>
+                  <a href="/user/userhomepage"><img style="width: 110px;" src="/assets/img/logo/" alt></a>
+                </div>
+
+                <div class="main-menu text-center d-none d-lg-block">
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="/user/userhomepage">Home</a></li>
+                      <li><a href="/user/userhomepage-books">Categories</a></li>
+                      <li><a href="about.html">About</a></li>
+                      <!-- <li><a href="#">Pages</a> -->
+                        <ul class="submenu">
+                          <li><a href="login.html">login</a></li>
+                          <li><a href="cart.html">Cart</a></li>
+                          <li><a href="checkout.html">Checkout</a></li>
+                          <li><a href="book-details.html">book Details</a></li>
+                          <li><a href="blog_details.html">Blog Details</a></li>
+                          <li><a href="elements.html">Element</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="blog.html">Blog</a></li>
+                      <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                  </nav>
                 </div>
 
 

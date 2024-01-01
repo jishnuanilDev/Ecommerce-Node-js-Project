@@ -12,6 +12,9 @@ let cartController = {};
 
 cartController.quantityUpdate = async (req, res) => {
     try {
+        if(req.session.userlogin){
+
+    
         const { bookId, quantity } = req.params;
     
         // Find the cart item by bookId
@@ -27,6 +30,9 @@ cartController.quantityUpdate = async (req, res) => {
     
         // Send a success response
         res.json({ success: true, message: 'Quantity updated successfully', updatedCartItem: cartItem });
+    }else{
+        res.redirect('/user')
+    }
       } catch (error) {
         console.error('Error updating quantity:', error);
     
@@ -116,9 +122,9 @@ cartController.addToCart = async (req, res) => {
                 await existingCart.save();
             }
 
-            res.redirect(`/books/bookInfo/${bookId}`);
+            res.redirect(`/user/books/bookInfo/${bookId}`);
         } else {
-            res.redirect('/');
+            res.redirect('/user');
         }
     } catch (err) {
         console.error("Error during addToCart:", err);
@@ -177,7 +183,7 @@ cartController.viewcart = async (req, res) => {
 
             res.render('usercart', { cart, userId });
         } else {
-            res.redirect('/');
+            res.redirect('/user');
         }
     } catch (error) {
         console.error(error);
@@ -200,9 +206,9 @@ cartController.removeCart = async (req, res) => {
                 { new: true }
             );
 
-            res.redirect('/userviewcart');
+            res.redirect('/user/userviewcart');
         } else {
-            res.redirect('/');
+            res.redirect('/user');
         }
     } catch (error) {
         console.error(error);

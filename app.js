@@ -14,7 +14,8 @@ require('dotenv').config();
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
-const route=require('./routes/route');
+const userroute=require('./routes/userroute');
+const adminroute=require('./routes/adminroute');
 
 
 const mongoose = require('mongoose');
@@ -57,7 +58,9 @@ app.use(
 
 
  
-app.use('/',route);
+app.use('/user', userroute);
+app.use('/admin', adminroute);
+
 
 
 

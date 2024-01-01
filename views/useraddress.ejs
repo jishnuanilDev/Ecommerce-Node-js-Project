@@ -13,33 +13,33 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="sidebar/css/style.css">
-  <link href="assetsss/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/sidebar/css/style.css">
+  <link href="/assetsss/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="assetsss/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/assetsss/css/sb-admin-2.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="newAssetUser/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="/newAssetUser/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
 
-  <link href="newAssetUser/css/sb-admin-2.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="assets/css/slicknav.css">
-  <link rel="stylesheet" href="assets/css/animate.min.css">
-  <link rel="stylesheet" href="assets/css/price_rangs.css">
-  <link rel="stylesheet" href="assets/css/magnific-popup.css">
-  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-  <link rel="stylesheet" href="assets/css/themify-icons.css">
-  <link rel="stylesheet" href="assets/css/slick.css">
-  <link rel="stylesheet" href="assets/css/nice-select.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/newstyle.css">
+  <link href="/newAssetUser/css/sb-admin-2.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/css/slicknav.css">
+  <link rel="stylesheet" href="/assets/css/animate.min.css">
+  <link rel="stylesheet" href="/assets/css/price_rangs.css">
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="/assets/css/themify-icons.css">
+  <link rel="stylesheet" href="/assets/css/slick.css">
+  <link rel="stylesheet" href="/assets/css/nice-select.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/newstyle.css">
 
 </head>
 
@@ -61,12 +61,12 @@
             <span class="sr-only">Toggle Menu</span>
           </button>
         </div>
-        <h1 class="text-center my-auto "><a href="/userprofile" class="text-light text-center mt-3">Account</a></h1>
+        <h1 class="text-center my-auto "><a href="/user/userprofile" class="text-light text-center mt-3">Account</a></h1>
 
         <hr>
         <ul class="list-unstyle components mb-5">
           <li class="">
-            <a href="/userprofile" style="font-size: smaller;"><span class="fa fa-user mr-3"></span> Personal
+            <a href="/user/userprofile" style="font-size: smaller;"><span class="fa fa-user mr-3"></span> Personal
               Details</a>
           </li>
           <li>
@@ -79,7 +79,7 @@
             <a href="#" style="font-size: smaller;"><span class="fa fa-shopping-cart  mr-3"></span> My Cart</a>
           </li>
           <li>
-            <a href="/userChangePassword" style="font-size: smaller;"><span class="fa fa-key mr-3"></span> Password</a>
+            <a href="/user/userChangePassword" style="font-size: smaller;"><span class="fa fa-key mr-3"></span> Password</a>
           </li>
           <li>
             <a href="#" style="font-size: smaller;"><span class="fa fa-address-book mr-3"></span> My Address</a>
@@ -99,7 +99,7 @@
             <div class="card custom-card mr-2 mb-2" style="width: 18rem;">
               <div class="card-body text-center">
                 <h5 style="font-weight: 600;" class="card-title text-danger">Add new Address</h5>
-                <a href="/useraddaddress"> <img class="mt-3" width="64" height="64" src="images/address.png"
+                <a href="/user/useraddaddress"> <img class="mt-3" width="64" height="64" src="/images/address.png"
                     alt="address--v1" /></a>
               </div>
             </div>
@@ -123,12 +123,12 @@
                   </p>
 
                   <div class="d-flex">
-                    <form method="get" action="/useraddress-edit" class="mr-2">
+                    <form method="get" action="/user/useraddress-edit" class="mr-2">
                       <input type="hidden" value="<%= Index %>" name="addressIndex">
                       <button class="genric-btn primary-border circle arrow" type="submit">Edit</button>
                     </form>
 
-                    <form method="post" action="/useraddress-delete">
+                    <form method="post" action="/user/useraddress-delete">
                       <input type="hidden" value="<%= address._id %>" name="addressId">
                       <button class="genric-btn danger-border circle arrow" type="submit">Delete</button>
                     </form>
@@ -192,50 +192,50 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="/userLogout">Logout</a>
+          <a class="btn btn-primary" href="/user/userLogout">Logout</a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="newAssetUser/vendor/jquery/jquery.min.js"></script>
-  <script src="newAssetUser/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/newAssetUser/vendor/jquery/jquery.min.js"></script>
+  <script src="/newAssetUser/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="newAssetUser/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/newAssetUser/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="newAssetUser/js/sb-admin-2.min.js"></script>
+  <script src="/newAssetUser/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="newAssetUser/vendor/chart.js/Chart.min.js"></script>
+  <script src="/newAssetUser/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="newAssetUser/js/demo/chart-area-demo.js"></script>
-  <script src="newAssetUser/js/demo/chart-pie-demo.js"></script>
+  <script src="/newAssetUser/js/demo/chart-area-demo.js"></script>
+  <script src="/newAssetUser/js/demo/chart-pie-demo.js"></script>
 
-  <script src="assetsss/vendor/jquery/jquery.min.js"></script>
-  <script src="assetsss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assetsss/vendor/jquery/jquery.min.js"></script>
+  <script src="/assetsss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="assetsss/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/assetsss/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="assetsss/js/sb-admin-2.min.js"></script>
+  <script src="/assetsss/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="assetsss/vendor/chart.js/Chart.min.js"></script>
+  <script src="/assetsss/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="assetsss/js/demo/chart-area-demo.js"></script>
-  <script src="assetsss/js/demo/chart-pie-demo.js"></script>
+  <script src="/assetsss/js/demo/chart-area-demo.js"></script>
+  <script src="/assetsss/js/demo/chart-pie-demo.js"></script>
 
 
-  <script src="sidebar/js/jquery.min.js"></script>
-  <script src="sidebar/js/popper.js"></script>
-  <script src="sidebar/js/bootstrap.min.js"></script>
-  <script src="sidebar/js/main.js"></script>
+  <script src="/sidebar/js/jquery.min.js"></script>
+  <script src="/sidebar/js/popper.js"></script>
+  <script src="/sidebar/js/bootstrap.min.js"></script>
+  <script src="/sidebar/js/main.js"></script>
 
 </body>
 

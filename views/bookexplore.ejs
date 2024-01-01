@@ -6,7 +6,7 @@
 <title>Book Shop</title>
 <meta name="description" content>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/icon/favicon.png">
 
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
@@ -154,10 +154,10 @@
 <div class="properties pb-30">
 <div class="properties-card">
 <div class="properties-img">
-<a href="/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
+<a href="/user/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
 </div>
 <div class="properties-caption properties-caption2">
-<h3><a href="/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
+<h3><a href="/user/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
 <p><%= book.author%></p>
 <div class="properties-footer d-flex justify-content-between align-items-center">
 <div class="review">
@@ -190,7 +190,7 @@
     <ul class="pagination justify-content-center">
       <% if (currentPage > 1) { %>
         <li class="page-item">
-          <a class="page-link" href="/userhomepage-books?page=<%= currentPage - 1 %>" aria-label="Previous">
+          <a class="page-link" href="/user/userhomepage-books?page=<%= currentPage - 1 %>" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
@@ -198,13 +198,13 @@
   
       <% for (let i = 1; i <= totalPages; i++) { %>
         <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-          <a class="page-link" href="/userhomepage-books?page=<%= i %>"><%= i %></a>
+          <a class="page-link" href="/user/userhomepage-books?page=<%= i %>"><%= i %></a>
         </li>
       <% } %>
   
       <% if (currentPage < totalPages) { %>
         <li class="page-item">
-          <a class="page-link" href="/userhomepage-books?page=<%= currentPage + 1 %>" aria-label="Next">
+          <a class="page-link" href="/user/userhomepage-books?page=<%= currentPage + 1 %>" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
@@ -241,7 +241,7 @@
 
 <section class="subscribe-area">
 <div class="container">
-<div class="subscribe-caption text-center  subscribe-padding section-img2-bg" data-background="assets/img/gallery/section-bg1.jpg">
+<div class="subscribe-caption text-center  subscribe-padding section-img2-bg" data-background="/assets/img/gallery/section-bg1.jpg">
 <div class="row justify-content-center">
 <div class="col-xl-6 col-lg-8 col-md-9">
 <h3>Join Newsletter</h3>
@@ -356,9 +356,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
         if (selectedValue === 'All') {
        
-       window.location.href = '/userhomepage-books';
+       window.location.href = '/user/userhomepage-books';
      }else{
-        window.location.href = "/filter-genre/" + selectedValue;
+        window.location.href = "/user/filter-genre/" + selectedValue;
         }
      }
    
@@ -374,10 +374,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
       if (selectedValue === 'All') {
        
-        window.location.href = '/userhomepage-books';
+        window.location.href = '/user/userhomepage-books';
       } else {
      
-        window.location.href = "/filter-book/" + selectedValue;
+        window.location.href = "/user/filter-book/" + selectedValue;
     
       }
     }

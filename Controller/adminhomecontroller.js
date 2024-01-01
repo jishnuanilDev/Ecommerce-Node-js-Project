@@ -20,7 +20,7 @@ adminHomeController.adminPageInfo = (req, res) => {  // adminpanel
         if (req.session.adminlogin) {
             res.render('adminpanel');
         } else {
-            res.redirect('/adminlogin');
+            res.redirect('/admin');
         }
     } catch (error) {
         console.error('Error toggling user block status:', error);
@@ -40,7 +40,7 @@ adminHomeController.adminOrdersInfo = async (req, res) => {
           
             res.render('adminorders', { orders });
         } else {
-            res.redirect('/adminlogin');
+            res.redirect('/admin');
         }
     } catch (error) {
         console.error('Error toggling user block status:', error);
@@ -66,7 +66,9 @@ adminHomeController.updateOrderStatus = async (req, res) => {
                 return res.status(404).send('Order not found');
             }
 
-   res.redirect('/adminorders')
+   res.redirect('/admin/adminorders')
+        }else{
+            res.redirect('/admin')
         }
     } catch (error) {
         console.error('Error updating order status:', error);
@@ -87,7 +89,7 @@ adminHomeController.adminUsersInfo = async (req, res) => {  // list users in adm
             const users = await User.find({})
             res.render('adminusers', { users });
         } else {
-            res.redirect('/adminlogin');
+            res.redirect('/admin');
         }
     } catch (error) {
         console.error('Error toggling user block status:', error);
@@ -110,11 +112,11 @@ adminHomeController.blockUser = async (req, res) => {   // blockuser list
             if (user) {
                 user.isBlocked = true;
                 await user.save();
-                res.redirect('/adminusers')
+                res.redirect('/admin/adminusers')
             }
 
         } else {
-            res.redirect('/adminlogin');
+            res.redirect('/admin');
         }
     } catch (error) {
         console.error('Error toggling user block status:', error);
@@ -143,12 +145,12 @@ adminHomeController.unBlockUser = async (req, res) => {  // unblock userlist
             if (user) {
                 user.isBlocked = false;
                 await user.save();
-                res.redirect('/adminusers');
+                res.redirect('/admin/adminusers');
             }
 
 
         } else {
-            res.redirect('/adminlogin');
+            res.redirect('/admin');
         }
     } catch (error) {
         console.error('Error toggling user block status:', error);
@@ -185,7 +187,7 @@ adminHomeController.booksInfo = async (req, res) => {
         });
 
     } else {
-        res.redirect('/adminlogin');
+        res.redirect('/admin');
     }
 }
 
@@ -211,7 +213,7 @@ adminHomeController.genresInfo = (req, res) => {
         });
 
     } else {
-        res.redirect('/adminlogin');
+        res.redirect('/admin');
     }
 }
 
@@ -228,7 +230,7 @@ adminHomeController.addProduct = (req, res) => {
         });
 
     } else {
-        res.redirect('/adminlogin');
+        res.redirect('/admin');
     }
 }
 
@@ -284,7 +286,7 @@ adminHomeController.postProduct = async (req, res) => {
 
             newProduct.save()
                 .then(() => {
-                    res.redirect('/adminbooks');
+                    res.redirect('/admin/adminbooks');
                 })
 
 
@@ -295,7 +297,7 @@ adminHomeController.postProduct = async (req, res) => {
             res.status(500).send('Internal server error');
         }
     } else {
-        res.redirect('/adminlogin')
+        res.redirect('/admin')
     }
 
 
@@ -310,7 +312,7 @@ adminHomeController.addGenre = (req, res) => {
     if (req.session.adminlogin) {
         res.render('add-genres', { error: '', genre: '' });
     } else {
-        res.redirect('/adminlogin');
+        res.redirect('/admin');
     }
 }
 
@@ -348,13 +350,13 @@ adminHomeController.postGenre = async (req, res) => {
 
 
             await newGenre.save();
-            res.redirect('/admingenres');
+            res.redirect('/admin/admingenres');
         } catch (err) {
             console.error('Error saving genre:', err);
             res.status(500).send('Internal Server Error');
         }
     } else {
-        res.redirect('/adminlogin')
+        res.redirect('/admin')
     }
 
 };
@@ -386,7 +388,7 @@ adminHomeController.editBookInfo = async (req, res) => {
         }
     } else {
 
-        res.redirect('/adminlogin');
+        res.redirect('/admin');
 
     }
 }
@@ -450,10 +452,10 @@ adminHomeController.postUpdateInfo = async (req, res) => {
                 Image: imagePath,
             });
 
-            res.redirect('/adminbooks');
+            res.redirect('/admin/adminbooks');
         }
         else {
-            res.redirect('/adminlogin')
+            res.redirect('/admin')
         }
 
 
@@ -478,9 +480,9 @@ adminHomeController.deleteGenre = async (req, res) => {
 
             await genreSchema.findByIdAndDelete(genreId);
 
-            res.redirect('/admingenres')
+            res.redirect('/admin/admingenres')
         } else {
-            res.redirect('/adminlogin')
+            res.redirect('/admin')
         }
 
 
@@ -502,7 +504,7 @@ adminHomeController.editGenre = async (req, res) => {
             const genre = await genreSchema.findById(genreId);
             res.render('genreedit', { genre, error: '' });
         } else {
-            res.redirect('/adminlogin')
+            res.redirect('/admin')
         }
 
     } catch (err) {
@@ -551,9 +553,9 @@ adminHomeController.postEditGenre = async (req, res) => {
 
             });
 
-            res.redirect('/admingenres');
+            res.redirect('/admin/admingenres');
         } else {
-            res.redirect('/adminlogin');
+            res.redirect('/admin');
         }
     } catch (err) {
         // Handle database update error
@@ -580,14 +582,14 @@ adminHomeController.productUnlist = async (req, res) => {     /// product unlist
             if (book) {
                 book.isListed = false;
                 await book.save()
-                res.redirect('/adminbooks')
+                res.redirect('/admin/adminbooks')
             }
         } catch (error) {
             console.error('Error toggling user block status:', error);
             res.status(500).send('Internal Server Error');
         }
     } else {
-        res.redirect('/adminlogin')
+        res.redirect('/admin')
     }
 
 }
@@ -607,14 +609,14 @@ adminHomeController.productList = async (req, res) => {     /// product unlist
             if (book) {
                 book.isListed = true;
                 await book.save()
-                res.redirect('/adminbooks')
+                res.redirect('/admin/adminbooks')
             }
         } catch (error) {
             console.error('Error toggling user block status:', error);
             res.status(500).send('Internal Server Error');
         }
     } else {
-        res.redirect('/adminlogin')
+        res.redirect('/admin')
     }
 
 }
@@ -634,14 +636,14 @@ adminHomeController.genreUnlist = async (req, res) => {     /// genre unlist
             if (genre) {
                 genre.isListed = false;
                 await genre.save()
-                res.redirect('/admingenres')
+                res.redirect('/admin/admingenres')
             }
         } catch (error) {
             console.error('Error toggling user block status:', error);
             res.status(500).send('Internal Server Error');
         }
     } else {
-        res.redirect('/adminlogin')
+        res.redirect('/admin')
     }
 
 }
@@ -662,10 +664,10 @@ adminHomeController.genreList = async (req, res) => {     /// genre unlist
             if (genre) {
                 genre.isListed = true;
                 await genre.save()
-                res.redirect('/admingenres')
+                res.redirect('/admin/admingenres')
             }
         } else {
-            res.redirect('/adminlogin')
+            res.redirect('/admin')
         }
 
     } catch (error) {
@@ -689,7 +691,7 @@ adminHomeController.viewbookdetails = async (req, res) => {
             const item = await productSchema.findById(bookId);
             res.render('viewmorebook', { item });
         } else {
-            res.redirect('/adminlogin')
+            res.redirect('/admin')
         }
 
     } catch (error) {
@@ -711,11 +713,11 @@ adminHomeController.deleteBook = async (req, res) => {
 
             await productSchema.findByIdAndDelete(bookId);
 
-            res.redirect('/adminbooks')
+            res.redirect('/admin/adminbooks')
             // res.render('admingenres', { genres});
 
         } else {
-            res.redirect('/adminlogin')
+            res.redirect('/admin')
         }
 
 
@@ -733,7 +735,7 @@ adminHomeController.logoutAdmin = (req, res) => {
     req.session.adminlogin = false;
 
 
-    res.redirect('/adminlogin');
+    res.redirect('/admin');
 
 };
 

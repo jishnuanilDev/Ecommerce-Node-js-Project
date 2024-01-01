@@ -33,7 +33,7 @@ userHomeController.showHomeInfo = async (req, res) => {
       res.render("userhomepage", { books,});
     } else {
 
-      res.redirect('/');
+      res.redirect('/user');
     }
 
   } catch (err) {
@@ -76,6 +76,8 @@ userHomeController.userExplorebooks = async(req,res)=>{
       }
 res.render('bookexplore',{books,genres,message:'',totalPages,currentPage: page});
 
+    }else{
+      res.redirect('/user')
     }
   }catch (err) {
     console.error("Error:", err);
@@ -88,8 +90,10 @@ res.render('bookexplore',{books,genres,message:'',totalPages,currentPage: page})
 
 
 userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage info
-  if (req.session.userlogin) {
+ 
     try {
+
+      if (req.session.userlogin) {
       const bookId = req.params.id;
       const userId = req.session.userId;
 
@@ -108,20 +112,23 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
         res.render('bookinfo', { bookpage, cart, userId, inCart })
       }
 
-
+    } else {
+      res.redirect('/user')
+    }
     } catch (err) {
       console.error(":", err);
       res.status(500).send('Internal Server Error');
     }
-  } else {
-    res.redirect('/')
-  }
+
 
 
 }
 
 
-userHomeController.userProfile = async (req, res) => {   //UserProfilepage
+userHomeController.userProfile = async (req, res) => {  
+  try{
+
+ //UserProfilepage
   if (req.session.userlogin) {
     const userId = req.session.userId
 
@@ -129,8 +136,12 @@ userHomeController.userProfile = async (req, res) => {   //UserProfilepage
 
     res.render('userprofile', { user });
   } else {
-    res.redirect('/');
+    res.redirect('/user');
   }
+}  catch (err) {
+  console.error("Error:", err);
+  return res.status(500).send('Internal Server Error');
+}
 };
 
 
@@ -147,9 +158,9 @@ userHomeController.userProfileEdit = async (req, res) => {
         res.send('user not found');
       }
       await User.findByIdAndUpdate(userId, { firstname: firstname, lastname: lastname, email: email })
-      res.redirect('/userprofile')
+      res.redirect('/user/userprofile')
     } else {
-      res.redirect('/')
+      res.redirect('/user')
     }
   } catch (err) {
     console.error("Error:", err);
@@ -165,15 +176,17 @@ userHomeController.userPasswordSection = (req, res) => {  /// UserpasswordPage
   if (req.session.userlogin) {
     res.render('userchangepassword', { Perror: '', Perror2: '', Perror3: '' })
   } else {
-    res.redirect('/');
+    res.redirect('/user');
   }
 
 }
 
 userHomeController.userAddress = async (req, res) => {
-  if (req.session.userlogin) {
-    const userId = req.session.userId;
+ 
     try {
+      const userId = req.session.userId;
+
+      if (req.session.userlogin) {
       const user = await User.findById(userId);
 
       if (!user) {
@@ -185,13 +198,14 @@ userHomeController.userAddress = async (req, res) => {
 
 
       res.render('useraddress', { addresses });
+    } else {
+      res.redirect('/user');
+    }
     } catch (err) {
       console.error("Error fetching user address:", err);
       res.status(500).send('Internal Server Error');
     }
-  } else {
-    res.redirect('/');
-  }
+  
 };
 
 
@@ -210,7 +224,7 @@ userHomeController.userAddAddress = (req, res) => {
 
       res.render('addaddress', { States });
     } else {
-      res.redirect('/');
+      res.redirect('/user');
     }
   } catch (err) {
     console.error("Error fetching user address:", err);
@@ -222,8 +236,9 @@ userHomeController.userAddAddress = (req, res) => {
 
 
 userHomeController.userAddressPost = async (req, res) => {
-  if (req.session.userlogin) {
+  
     try {
+      if (req.session.userlogin) {
       const userId = req.session.userId;
       const { name, phone, email, streetaddress, landmark, country, state, city, addressline1, addressline2, zipcode } = req.body;
 
@@ -272,14 +287,16 @@ userHomeController.userAddressPost = async (req, res) => {
 
 
 
-      res.redirect('/useraddress');
+      res.redirect('/user/useraddress');
+
+    } else {
+      res.redirect('/user')
+    }
     } catch (err) {
       console.error("Error saving user address:", err);
       res.status(500).send('Internal Server Error');
     }
-  } else {
-    res.redirect('/')
-  }
+
 
 
 };
@@ -287,13 +304,14 @@ userHomeController.userAddressPost = async (req, res) => {
 
 
 userHomeController.userAddressDelete = async (req, res) => {
-  if (req.session.userlogin) {
 
-    const userId = req.session.userId;
-
-    const addressIdToDelete = req.body.addressId;
-    console.log(addressIdToDelete);
     try {
+      if (req.session.userlogin) {
+
+        const userId = req.session.userId;
+    
+        const addressIdToDelete = req.body.addressId;
+        console.log(addressIdToDelete);
       const user = await User.findById(userId);
       const updatedUser = await User.findOneAndUpdate(
         { _id: userId },
@@ -304,15 +322,15 @@ userHomeController.userAddressDelete = async (req, res) => {
       if (!updatedUser) {
         return res.status(404).json({ error: 'Address not found' });
       }
-      res.redirect('/useraddress')
-
+      res.redirect('/user/useraddress')
+    } else {
+      res.redirect('/user');
+    }
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  } else {
-    res.redirect('/');
-  }
+  
 
 };
 
@@ -393,13 +411,13 @@ userHomeController.userAddressEditPost = async (req, res) => {
       }
 
 
-      res.redirect('/useraddress');
+      res.redirect('/user/useraddress');
     } catch (err) {
       console.error("Error saving user address:", err);
       res.status(500).send('Internal Server Error');
     }
   } else {
-    res.redirect('/')
+    res.redirect('/user')
   }
 
 
@@ -440,9 +458,9 @@ userHomeController.userPasswordChange = async (req, res) => {
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       await User.findByIdAndUpdate(userId, { password: hashedPassword });
 
-      return res.redirect('/userhomepage');
+      return res.redirect('/user/userhomepage');
     } else {
-      return res.redirect('/');
+      return res.redirect('/user');
     }
   } catch (error) {
     console.error(error);
@@ -477,7 +495,7 @@ userHomeController.userorders = async (req, res) => {
       res.render('userorders', { orders }); // Pass orders as an object to the view
 
     } else {
-      res.redirect('/');
+      res.redirect('/user');
     }
 
   } catch (error) {
@@ -510,14 +528,14 @@ userHomeController.userOrderCancel = async (req, res) => {
         order.status = 'Cancelled';
         await order.save();
 
-       res.redirect('/user-myOrders')
+       res.redirect('/user/user-myOrders')
 
   
     } else {
       return res.status(401).json({ error: 'Unauthorized' });
     }
   }else{
-    res.redirect('/')
+    res.redirect('/user')
   }
  } catch (error) {
     console.error(error);
@@ -538,17 +556,19 @@ userHomeController.userSearch = async (req, res) => {
           bookname: new RegExp("^" + search, "i"),
       });
 
+      const genres = await genreSchema.find({})
+
       console.log(books);
       if (req.session.userlogin) {
           if (books.length > 0) {
-              res.render("bookexplore", { books});
+              res.render("bookexplore", { books,genres,message:'',totalPages:"",currentPage: ""});
           
           } else {
               res.render("sampleuserhome");
           }
 
       } else {
-          res.redirect('/adminlogin')
+          res.redirect('/user')
       }
 
 
@@ -570,7 +590,7 @@ userHomeController.logoutUser = (req, res) => {
   req.session.userlogin = false;
 
   // Redirect to the home page or any other appropriate page
-  res.render('loginpage', { errorMessage: '', logout: 'Logout Successfully', blocked: '' });
+  res.render('loginpage', { errorMessage: '', logout: 'Logout Successfully', blocked: '' ,reset:""});
 
 };
 

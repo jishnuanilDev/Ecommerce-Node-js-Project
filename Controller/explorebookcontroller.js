@@ -40,7 +40,7 @@ exploreBookController.userFilterGenre = async (req, res) => {
 
             res.render('bookexplore', {books ,genres,message:"",totalPages:'',currentPage: ""});
         } else {
-            res.redirect('/');
+            res.redirect('/user');
         }
     } catch (err) {
         console.error('Error:', err);
@@ -71,7 +71,7 @@ exploreBookController.userFilterBook = async (req, res) => {
 
             res.render('bookexplore', {books,genres,message:'',totalPages:"",currentPage: ""});
         } else {
-            res.redirect('/');
+            res.redirect('/user');
         }
     } catch (err) {
         console.error('Error:', err);

@@ -6,23 +6,23 @@
 <title>Book Shop</title>
 <meta name="description" content>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/icon/favicon.png">
 
 
 
 
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="assets/css/slicknav.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/price_rangs.css">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
-<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="assets/css/themify-icons.css">
-<link rel="stylesheet" href="assets/css/slick.css">
-<link rel="stylesheet" href="assets/css/nice-select.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/assets/css/slicknav.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/price_rangs.css">
+<link rel="stylesheet" href="/assets/css/magnific-popup.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/assets/css/themify-icons.css">
+<link rel="stylesheet" href="/assets/css/slick.css">
+<link rel="stylesheet" href="/assets/css/nice-select.css">
+<link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <header>
@@ -37,7 +37,7 @@
                       <div class="header-info-left d-flex align-items-center">
     
                         <div class="logo">
-                          <a href="/userhomepage"><img style="width: 200px;" src="assets/img/logo/" alt></a>
+                          <a href="/user/userhomepage"><img style="width: 200px;" src="/assets/img/logo/" alt></a>
                         </div>
     
                         <form style="display: flex;" action="#" class="form-box ">
@@ -52,7 +52,7 @@
                         <ul>
                      
                           <li class="shopping-card">
-                            <a href="/userviewcart"><img src="assets/img/icon/cart.svg" alt></a>
+                            <a href="/user/userviewcart"><img src="/assets/img/icon/cart.svg" alt></a>
                           </li>
                           <!-- <li><a href="/userLogout" class="btn header-btn">Search</a></li> -->
                           <li class="nav-item dropdown no-arrow ">
@@ -60,12 +60,12 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jishnu Anil</span>
                                 <img  style="width: 40px;" class="img-profile rounded-circle"
-                                    src="assetsss/img/undraw_profile.svg">
+                                    src="/assetsss/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/userprofile">
+                                <a class="dropdown-item" href="/user/userprofile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -78,7 +78,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/userLogout" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/user/userLogout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -96,7 +96,7 @@
                   <div class="col-xl-12">
     
                     <div class="logo2 text-center">
-                      <a href="/userhomepage"><img style="width: 110px;" src="assets/img/logo/biblio.jpg" alt></a>
+                      <a href="/user/userhomepage"><img style="width: 110px;" src="/assets/img/logo/biblio.jpg" alt></a>
                     </div>
     
                     <div class="main-menu text-center d-none d-lg-block ">
@@ -169,7 +169,7 @@
 <div class="col-lg-8">
 
 <h3>Billing Details</h3> 
-<a  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" href="/useraddaddress" class="genric-btn danger radius mb-5">Add new billing Address  +</a>
+<a  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" href="/user/useraddaddress" class="genric-btn danger radius mb-5">Add new billing Address  +</a>
 <% addresses.forEach((address, Index) => { %>
     <div style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" class="col-md-4 mt-3">
       <div class="card mb-2" style="width: 100%; height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -182,12 +182,12 @@
           <p class="card-text"><%= address.zipcode %></p>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <form method="get" action="/useraddress-edit" class="mr-2">
+          <form method="get" action="/user/useraddress-edit" class="mr-2">
             <input type="hidden" value="<%= Index %>" name="addressIndex">
             <button class="genric-btn link radius" type="submit">Edit</button>
           </form>
   
-          <form method="post" action="/useraddress-delete">
+          <form method="post" action="/user/useraddress-delete">
             <input type="hidden" value="<%= address._id %>" name="addressId">
             <button class="genric-btn link radius" type="submit">Delete</button>
           </form>
@@ -273,7 +273,7 @@
     <div class="radion_btn">
       <input type="radio" id="f-option6" name="selector" />
       <label for="f-option6">Cash on Delivery</label>
-      <img src="assets/img/gallery/card.jpg" alt />
+      <img src="/assets/img/gallery/card.jpg" alt />
       <div class="check"></div>
     </div>
     <p id="payment-info">You have chosen Cash on Delivery. Please have the exact amount ready in cash when our delivery person arrives. Payment will be collected at the time of delivery.</p>
@@ -282,7 +282,7 @@
 <input type="checkbox" id="f-option8" name="selector" />
 <label for="f-option8">I’ve read and accept the <a href="#">terms & conditions*</a> </label>
 </div>
-<form method="post" action="/confirmCheckoutCOD">
+<form method="post" action="/user/confirmCheckoutCOD">
     
     <input type="hidden" id="selectedAddressIndex" name="selectedAddressIndex" value="">
     
@@ -308,7 +308,7 @@
 <div class="single-footer-caption mb-30">
 
 <div class="footer-logo mb-25">
-<a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt></a>
+<a href="index.html"><img src="/assets/img/logo/logo2_footer.png" alt></a>
 </div>
 <div class="footer-tittle">
 <div class="footer-pera">
@@ -459,30 +459,30 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="./assets/js/popper.min.js"></script>
-<script src="./assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
 
-<script src="./assets/js/owl.carousel.min.js"></script>
-<script src="./assets/js/slick.min.js"></script>
-<script src="./assets/js/jquery.slicknav.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/slick.min.js"></script>
+<script src="/assets/js/jquery.slicknav.min.js"></script>
 
-<script src="./assets/js/wow.min.js"></script>
-<script src="./assets/js/jquery.magnific-popup.js"></script>
-<script src="./assets/js/jquery.nice-select.min.js"></script>
-<script src="./assets/js/jquery.counterup.min.js"></script>
-<script src="./assets/js/waypoints.min.js"></script>
-<script src="./assets/js/price_rangs.js"></script>
+<script src="/assets/js/wow.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.js"></script>
+<script src="/assets/js/jquery.nice-select.min.js"></script>
+<script src="/assets/js/jquery.counterup.min.js"></script>
+<script src="/assets/js/waypoints.min.js"></script>
+<script src="/assets/js/price_rangs.js"></script>
 
-<script src="./assets/js/contact.js"></script>
-<script src="./assets/js/jquery.form.js"></script>
-<script src="./assets/js/jquery.validate.min.js"></script>
-<script src="./assets/js/mail-script.js"></script>
-<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+<script src="/assets/js/contact.js"></script>
+<script src="/assets/js/jquery.form.js"></script>
+<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/mail-script.js"></script>
+<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
 
-<script src="./assets/js/plugins.js"></script>
-<script src="./assets/js/main.js"></script>
+<script src="/assets/js/plugins.js"></script>
+<script src="/assets/js/main.js"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
