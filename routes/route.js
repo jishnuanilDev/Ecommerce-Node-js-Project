@@ -8,6 +8,7 @@ const userHomeController = require('../Controller/userhomeontroller');
 const adminLoginController = require('../Controller/adminlogincontroller');
 const cartController = require('../Controller/cartController');
 const paymentController = require('../Controller/paymentController');
+const exploreBookController = require('../Controller/explorebookcontroller');
 const checkBlocked = require('../middleware/userBlocked');
 const  validateFields  = require('../middleware/ValidateFields');
 
@@ -45,6 +46,15 @@ router.get('/resend-OTP',signUpController.resendOTP);
 
 router.get('/userhomepage', checkBlocked, userHomeController.showHomeInfo); //userhomepage access
 
+router.get('/userhomepage-books', userHomeController.userExplorebooks); //userhomepage access
+
+router.get('/filter-genre/:genrename', exploreBookController.userFilterGenre); //userhomepage access
+
+router.get('/filter-book/:publisher',exploreBookController.userFilterBook); //userhomepage access
+
+router.get('/userSearch', userHomeController.userSearch); 
+
+
 router.get('/books/bookInfo/:id', checkBlocked, userHomeController.bookPageInfo); // get bookdetails info
 
 
@@ -54,6 +64,7 @@ router.get('/userviewcart', cartController.viewcart);  /// view cart
 router.get('/updateTotalSum', cartController.cartSummary); 
 
 
+router.get('/removecart/:id', cartController.removeCart); 
 
 router.get('/userPayment', paymentController.userPayment);  /// view cart
 router.post('/confirmCheckoutCOD',paymentController.confirmCheckoutCOD)
@@ -61,6 +72,8 @@ router.post('/confirmCheckoutCOD',paymentController.confirmCheckoutCOD)
 // router.post('/cart-update-quantity/:productId', cartController.updateQuantity);
 router.put('/updateQuantity/:bookId/:quantity', cartController.quantityUpdate);
 router.get('/user-myOrders', userHomeController.userorders);
+router.post('/orders/cancel-order/:id', userHomeController.userOrderCancel);
+
 
 
 router.get('/userLogout', userHomeController.logoutUser); //logoutUser
@@ -91,7 +104,10 @@ router.get('/adminpanel', adminHomeController.adminPageInfo); //get admin login 
 
 router.get('/adminorders', adminHomeController.adminOrdersInfo);  // admin orders
 
+router.post('/updateOrderStatus/:id',adminHomeController.updateOrderStatus);
+
 router.get('/adminusers',  adminHomeController.adminUsersInfo)  // admin users info
+
 
 
 router.get('/adminusers/block/:id', adminHomeController.blockUser); // block management user

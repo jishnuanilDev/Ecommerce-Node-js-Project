@@ -317,65 +317,63 @@
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                         <div class="m-l-25 m-r--38 m-lr-0-xl">
                             <div class="wrap-table-shopping-cart">
-                                <table class="table-shopping-cart">
-                                    <tr class="table_head">
-                                        <th class="column-1">Product</th>
-                                        <th class="column-2"></th>
-                                        <th class="column-3">Price</th>
-                                        <th class="column-4">Quantity</th>
-                                        <th class="column-5">Total</th>
-                                    </tr>
-
-                                    <% cart.items.forEach(book=> { %>
-                                        <tbody>
-
-
-
+                                <table class="table table-shopping-cart">
+                                    <thead>
+                                        <tr class="table_head">
+                                            <th class="column-1">Product</th>
+                                            <th class="column-2"></th>
+                                            <th class="column-3">Price</th>
+                                            <th class="column-4">Quantity</th>
+                                            <th class="column-5">Total</th>
+                                            <th class="column-6">Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% cart.items.forEach(book => { %>
                                             <tr class="table_row">
-
                                                 <td class="column-1">
                                                     <div class="how-itemcart1">
-                                                        <img src="<%= book.productId.Image[0].slice('./public/'.length) %>"
-                                                            alt="IMG">
+                                                        <img src="<%= book.productId.Image[0].slice('./public/'.length) %>" alt="IMG" class="img-fluid">
                                                     </div>
                                                 </td>
                                                 <td class="column-2">
                                                     <%= book.productId.bookname %>
                                                 </td>
-                                                <td class="column-3">₹ <%= book.productId.price %>
-                                                </td>
+                                                <td class="column-3">₹ <%= book.productId.price %></td>
                                                 <td class="column-4">
                                                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                                         <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m quantity-decrement"
-                                                            data-book-id="<%=book.productId._id%>">
-                                                            -
-                                                        </div>
-                                                        <input class="mtext-104 cl3 txt-center num-product"
-                                                            type="number" name="num-product1"
-                                                            value="<%= book.quantity %>"
-                                                            data-book-id="<%=book.productId._id%>"
-                                                            data-price="<%= book.productId.price %>"
-                                                            data-total-quantity="<%= book.productId.totalQuantity %>"
-                                                            disabled>
+                                                            data-book-id="<%=book.productId._id%>">-</div>
+                                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1"
+                                                            value="<%= book.quantity %>" data-book-id="<%=book.productId._id%>"
+                                                            data-price="<%= book.productId.price %>" data-total-quantity="<%= book.productId.quantity %>"
+                                                            max="<%= book.productId.quantity %>">
                                                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m quantity-increment"
-                                                            data-book-id="<%=book.productId._id%>"
-                                                            data-max-quantity="<%= book.productId.totalQuantity %>">
-                                                            +
+                                                            data-book-id="<%=book.productId._id%>" data-max-quantity="<%= book.productId.quantity %>">+
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="column-5"><span id="total-price-<%= book.productId._id %>">
+                                                <td class="column-5 mr-3">
+                                                    <span id="total-price-<%= book.productId._id %>">
                                                         <%= book.productId.price * book.quantity %>
-                                                    </span></td>
-
-
+                                                    </span>
+                                                </td>
+                                                <td class="column-6">
+                                                    <% if (book.productId.quantity > 0) { %>
+                                                        <span class="text-success">In-Stock</span>
+                                                    <% } else { %>
+                                                        <span class="text-danger">Out-of-stock</span>
+                                                    <% } %>
+                                                </td>
+                                                <td class="column-2">
+                                         <a href="/removecart/<%= book.id%>"> <img style="width: 25px;" src="cartasset/images/icons/delete.png" alt=""></a>
+                                                </td>
+                                             
                                             </tr>
-
-                                        </tbody>
-
-
-                                        <% }) %>
+                                 
+                                    </tbody>
                                 </table>
+                                
                             </div>
 
                         </div>
@@ -387,25 +385,30 @@
                             </h4>
                             <div class="flex-w flex-t bor12 p-b-13">
                                 <div class="size-208">
-                                  <span style="font-weight: 600;" class="stext-110 cl2 ">
-                                    Total:
-                                  </span>
+                                    <span style="font-weight: 600;" class="stext-110 cl2 ">
+                                        Total:
+                                    </span>
                                 </div>
                                 <div class="size-209">
-                                  <!-- Display the total sum inside the span -->
-                                  <span style="font-weight: 800;" class="mtext-110 cl2" id="subtotal-price-"></span>
-                              
-                            
-                              
-                                  <span style="font-weight: 800;" class="mtext-110 cl2" id="total-sum-result"></span>
+                                    <!-- Display the total sum inside the span -->
+                                    <span style="font-weight: 800;" class="mtext-110 cl2" id="subtotal-price-"></span>
+
+
+
+                                    <span style="font-weight: 800;" class="mtext-110 cl2" id="total-sum-result"></span>
                                 </div>
-                              </div>
-
-
+                            </div>
+                            <% if (book.productId.quantity > 0) { %>
                             <a href="/userPayment"
                                 class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                                 Proceed to Checkout
                             </a>
+                            <% } else { %>
+                                <a href=""
+                                class="flex-c-m stext-101 cl0 size-116 bg-secondary bor14 hov-btn3 p-lr-15 trans-04 pointer ">
+                                Proceed to Checkout
+                            </a>
+                            <% } %>
                             <hr>
                             <a href="/userhomepage"
                                 class="flex-c-m stext-101 cl0 size-116 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer text-dark">
@@ -413,10 +416,10 @@
                             </a>
                         </div>
                     </div>
-
+                    <% }) %>
                 </div>
                 <% }else { %>
-                    <h3 class="txt-center text-muted">Your Cart is empty</h3>
+                    <h3 class="text-center text-muted">Your Cart is empty</h3>
                     <% } %>
         </div>
     </form>
@@ -555,77 +558,78 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
-    
+
 
 
     <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const quantityButtons = document.querySelectorAll('.quantity-decrement, .quantity-increment');
+        document.addEventListener('DOMContentLoaded', function () {
+            const quantityButtons = document.querySelectorAll('.quantity-decrement, .quantity-increment');
 
-    quantityButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const input = this.parentElement.querySelector('.num-product');
-        const bookId = input.dataset.bookId;
-        const price = parseFloat(input.dataset.price);
-        const currentValue = parseInt(input.value - 1) || 0;
-        const direction = this.classList.contains('quantity-increment') ? 1 : -1;
-        const newValue = Math.max(1, currentValue + direction);
+            quantityButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const input = this.parentElement.querySelector('.num-product');
+                    const bookId = input.dataset.bookId;
+                    const price = parseFloat(input.dataset.price);
+                    const maxQuantity = parseInt(input.getAttribute('max'))
 
-        // Update quantity in cart data
-        updateCartQuantity(bookId, newValue);
+                    let currentValue = parseInt(input.value - 1) || 0;
+                    const direction = this.classList.contains('quantity-increment') ? 1 : -1;
+                    const newValue = Math.min(Math.max(1, currentValue + direction), maxQuantity);
 
-        // Update UI
-        input.value = newValue;
-        updateTotalPrice(bookId, price, newValue);
+                    // Update UI
+                    input.value = newValue;
+                    updateTotalPrice(bookId, price, newValue);
 
-        // Update total sum dynamically using Ajax
-        updateTotalSum();
-      });
-    });
+                    // Update quantity in cart data
+                    updateCartQuantity(bookId, newValue);
 
-    function updateCartQuantity(bookId, quantity) {
-      // Make an AJAX request to update the quantity on the server
-      fetch(`/updateQuantity/${bookId}/${quantity}`, {
-        method: 'PUT', // Assuming you are using a PUT request for updates
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Quantity updated successfully:', data);
-        })
-        .catch(error => console.error('Error updating quantity:', error));
-    }
+                    // Update total sum dynamically using Ajax
+                    updateTotalSum();
+                });
+            });
 
-    function updateTotalPrice(bookId, price, quantity) {
-      const totalPriceElement = document.getElementById(`total-price-${bookId}`);
+            function updateTotalPrice(bookId, price, quantity) {
+                const totalPriceElement = document.getElementById(`total-price-${bookId}`);
 
-      if (totalPriceElement) {
-        const newTotalPrice = price * quantity;
-        totalPriceElement.textContent = `₹ ${newTotalPrice.toFixed(2)}`;
+                if (totalPriceElement) {
+                    const newTotalPrice = price * quantity;
+                    totalPriceElement.textContent = `₹ ${newTotalPrice.toFixed(2)}`;
+                }
+            }
 
-      }
-    }
+            function updateCartQuantity(bookId, quantity) {
+                // Make an AJAX request to update the quantity on the server
+                fetch(`/updateQuantity/${bookId}/${quantity}`, {
+                    method: 'PUT', // Assuming you are using a PUT request for updates
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Quantity updated successfully:', data);
+                    })
+                    .catch(error => console.error('Error updating quantity:', error));
+            }
 
-    function updateTotalSum() {
-  // Make an Ajax request to update the total sum
-  fetch('/updateTotalSum')
-    .then(response => response.json())
-    .then(data => {
-    
-      const totalSumElement = document.getElementById('total-sum-result');
-      const subtotalPriceElement = document.getElementById('subtotal-price-');
+            function updateTotalSum() {
+                // Make an Ajax request to update the total sum
+                fetch('/updateTotalSum')
+                    .then(response => response.json())
+                    .then(data => {
+                        const totalSumElement = document.getElementById('total-sum-result');
 
-      if (totalSumElement && subtotalPriceElement) {
-        totalSumElement.textContent = `₹ ${data.totalSum.toFixed(2)}`;
 
-      }
-    })
-    .catch(error => console.error('Error updating total sum:', error));
-}
-  });
-</script>
+                        if (totalSumElement) {
+                            totalSumElement.textContent = `₹ ${data.totalSum.toFixed(2)}`;
 
-      
-    
+                        }
+                    })
+                    .catch(error => console.error('Error updating total sum:', error));
+            }
+        });
+
+    </script>
+
+
+
 
 
 

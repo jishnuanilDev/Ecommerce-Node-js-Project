@@ -55,7 +55,7 @@ cartController.cartSummary = async (req, res) => {
         
         let totalSum = 0;
         for (const item of cart.items) {
-          totalSum += item.productId.price+item.productId.price * item.quantity ;
+          totalSum += item.productId.price * item.quantity ;
         }
     
        
@@ -94,7 +94,7 @@ cartController.addToCart = async (req, res) => {
 
             if (!existingCart) {
        
-                const newCart = new cartSchema({
+                const newCart = new Cart({
                     userId: userId,
                     items: [{ productId: bookId, quantity: 1 }]
                 });
@@ -169,9 +169,38 @@ cartController.viewcart = async (req, res) => {
             const userId = req.session.userId;
 
             const cart = await Cart.findOne({ userId }).populate('items.productId');
-
+            
+      
+            // cart.items.forEach(cartItem => {
+            //     console.log('productId:',cartItem.productId);
+            // });
 
             res.render('usercart', { cart, userId });
+        } else {
+            res.redirect('/');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
+cartController.removeCart = async (req, res) => {
+    try {
+        if (req.session.userlogin) {
+            const userId = req.session.userId;
+            const bookId = req.params.id;
+
+         
+            const cart = await Cart.findOneAndUpdate(
+                { userId },
+                { $pull: { items: { _id: bookId } } },
+                { new: true }
+            );
+
+            res.redirect('/userviewcart');
         } else {
             res.redirect('/');
         }

@@ -9,8 +9,7 @@ let productSchema = mongoose.Schema({
     },
     genrename: {
  type:String
-    //  type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'genre'
+    
     },
     language:String,
     Image:[{

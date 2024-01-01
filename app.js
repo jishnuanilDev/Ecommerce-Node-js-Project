@@ -5,11 +5,12 @@ const fs=require('fs');
 const ejs=require('ejs');
 const path=require('path');
 const bodyparser=require('body-parser');
+const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
 const app =express();
 const Model = require('./models/userschema');
 const nocache =require('nocache')
-const port=process.env.PORT || 3000;
+require('dotenv').config();
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
@@ -23,6 +24,7 @@ const session = require('express-session');
 
 
 
+app.use(flash());
 app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
 app.use('/static',express.static(path.join(__dirname,'public')))
@@ -37,14 +39,15 @@ mongoose.connect('mongodb://0.0.0.0:27017/User')
     console.error('Error connecting to the database:', err);
 })
 
-const secretKey=crypto.randomBytes(32).toString('hex'); //
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+
 app.use(nocache())
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 // Configure express-session
 app.use(
   session({
-    secret: 'secretKey',
+    secret: 'SESSION_SECRET',
     resave: false,
     saveUninitialized: false,
   })
@@ -58,5 +61,5 @@ app.use('/',route);
 
 
 
-
+const port=process.env.PORT || 3000;
 app.listen(port,()=>console.log('server started'));

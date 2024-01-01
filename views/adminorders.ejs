@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title> Admin</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom fonts for this template-->
     <link href="assetsss/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -315,47 +315,70 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>order ID</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                            <th>Payment method</th>
+                                            <th>Total Amount</th>
+                                            <th>Action</th>
+                                            <th>view more</th>
                                         </tr>
                                     </thead>
                                 
                                     <tbody>
+                                        <% orders.forEach(order=> { %>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td><%= order.userId.firstname%><%= order.userId.lastname%></td>
+                                            <td><%= order._id%></td>
+                                            <td><%= order.status%></td>
+                                            <td><%= order.orderDate.toLocaleString('en-US', {
+                                                timeZone: 'UTC' }) %></td>
+                                            <td>Cash on delivery</td>
+                                            <td><%= order.totalAmount%></td>
+                                            <td>
+                                                <form id="updateOrderStatusForm" action="/updateOrderStatus/<%= order._id%>" method="post">
+                                                 
+                                                    <select name="status" id="statusSelect">
+                                                      <option selected value="<%= order.status %>"><%= order.status %></option>
+                                                      <option value="Ordered">ordered</option>
+                                                      <option  value="Shipped">Shipped</option>
+                                                      <option value="Delivered">Delivered</option>
+                                                      <option value="Cancelled">Cancelled</option>
+                                                     
+                                                    </select>
+                                                    <button class="btn btn-primary btn-sm" type="submit">Update</button>
+
+                                                 
+                                                  </form>
+                                            </td>
+                                            <td><a href="#" class="genric-btn primary-border small"  onclick="toggleDetails('<%= order._id %>')">Click here</a></td>
+                                            
+                                    
+
+
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
+                                        
+                                        <tr id="<%= `details${order._id}` %>" style="display: none;">
+                                            <% order.userId.address.forEach(address=>{ %>
+                                             
+                                                <td><span style="font-weight: 900;">Address:</span><%= address.streetaddress %></td>
+                                           <% }) %>
+                                            
+                                        
+                                            <td >
+                                                <% order.items.forEach(item=>{ %>
+                                                    <span style="font-weight: 900;">Book:</span>   <%= item.productId.bookname%> 
+                                               <span style="font-weight: 900;">Quantity:</span>  <%= item.productId.quantity%>
+                                          <hr>
+                                                <% }) %>
+                                           
+                                            </td>
+
+                                          
+                                        
+                                           
                                         </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
+                                        <% }); %>
                                      
                                     </tbody>
                                 </table>
@@ -411,7 +434,13 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function toggleDetails(orderId) {
+            const detailsRow = document.getElementById(`details${orderId}`);
+            detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+        }
+    </script>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="assetsss/vendor/jquery/jquery.min.js"></script>
     <script src="assetsss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

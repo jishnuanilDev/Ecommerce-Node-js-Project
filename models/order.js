@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const products= require('./productschema');
+const users = require('./userschema');
 
 const orderSchema = new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"users"
+        ref:"User"
     },
   address:{
     mobile:Number,
@@ -25,9 +27,10 @@ const orderSchema = new mongoose.Schema({
     }
   ],
   totalAmount: Number,
-  OrderStatus:{
+  status:{
     type:String,
-    enum:['Order Placed','Shipped','Delivered','Cancelled','Returned']
+    enum:['Order Placed','Shipped','Delivered','Cancelled','Returned'],
+    default:'Order Placed'
   },
   orderDate: { 
     type: Date, 

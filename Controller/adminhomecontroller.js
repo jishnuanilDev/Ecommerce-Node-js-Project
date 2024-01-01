@@ -1,7 +1,8 @@
 const express = require('express');
-const Model = require('../models/userschema');
+const User = require('../models/userschema');
 const productSchema = require('../models/productschema');  
 const genreSchema = require('../models/genreschema');
+const orderSchema = require('../models/order');
 const fileUpload = require('express-fileupload');
 const router = express.Router();
 let userlogin
@@ -11,6 +12,7 @@ router.use(fileUpload());
 
 
 let adminHomeController = {};
+
 
 
 adminHomeController.adminPageInfo = (req, res) => {  // adminpanel
@@ -31,10 +33,12 @@ adminHomeController.adminPageInfo = (req, res) => {  // adminpanel
 
 
 
-adminHomeController.adminOrdersInfo = (req, res) => { // list user orders in admin panel
+adminHomeController.adminOrdersInfo = async (req, res) => {
     try {
         if (req.session.adminlogin) {
-            res.render('adminorders');
+            const orders = await orderSchema.find({}).populate('userId').populate('items.productId'); // Populate the userId field and produc
+          
+            res.render('adminorders', { orders });
         } else {
             res.redirect('/adminlogin');
         }
@@ -42,8 +46,35 @@ adminHomeController.adminOrdersInfo = (req, res) => { // list user orders in adm
         console.error('Error toggling user block status:', error);
         res.status(500).send('Internal Server Error');
     }
+};
 
-}
+
+adminHomeController.updateOrderStatus = async (req, res) => {
+    try {
+        if (req.session.adminlogin) {
+            const updateStatus = req.body.status; // Assuming your status is present in req.body.status
+            const orderId = req.params.id;
+
+            // Use the { new: true } option to get the updated document after the update
+            const updatedOrder = await orderSchema.findByIdAndUpdate(
+                orderId,
+                { status: updateStatus },
+                { new: true }
+            );
+
+            if (!updatedOrder) {
+                return res.status(404).send('Order not found');
+            }
+
+   res.redirect('/adminorders')
+        }
+    } catch (error) {
+        console.error('Error updating order status:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
 
 
 
@@ -53,7 +84,7 @@ adminHomeController.adminUsersInfo = async (req, res) => {  // list users in adm
 
     try {
         if (req.session.adminlogin) {
-            const users = await Model.find({})
+            const users = await User.find({})
             res.render('adminusers', { users });
         } else {
             res.redirect('/adminlogin');
@@ -74,7 +105,7 @@ adminHomeController.blockUser = async (req, res) => {   // blockuser list
         if (req.session.adminlogin) {
             const userId = req.params.id;
 
-            const user = await Model.findById(userId)
+            const user = await User.findById(userId)
 
             if (user) {
                 user.isBlocked = true;
@@ -107,7 +138,7 @@ adminHomeController.unBlockUser = async (req, res) => {  // unblock userlist
         if (req.session.adminlogin) {
             const userId = req.params.id;
 
-            const user = await Model.findById(userId)
+            const user = await User.findById(userId)
 
             if (user) {
                 user.isBlocked = false;
@@ -130,11 +161,23 @@ adminHomeController.unBlockUser = async (req, res) => {  // unblock userlist
 
 
 
-adminHomeController.booksInfo = (req, res) => {
+adminHomeController.booksInfo = async (req, res) => {
 
     if (req.session.adminlogin) {
+
+        const page = parseInt(req.query.page) || 1; // Get the requested page number or default to 1
+        const pageSize = 6; // Number of books per page
+        
+        const skip = (page - 1) * pageSize;
+    
+        const books = await productSchema.find({}).skip(skip).limit(pageSize);
+        const totalBooks = await productSchema.countDocuments({});
+    
+        const totalPages = Math.ceil(totalBooks / pageSize);
+    
+
         productSchema.find({}).then((books) => {
-            res.render('adminbooks', { books });
+            res.render('adminbooks', { books,totalPages,currentPage: page });
 
         }).catch((error) => {
             console.error('Error fetching user data:', error);
@@ -291,7 +334,7 @@ adminHomeController.postGenre = async (req, res) => {
                 // Genre with the same name already exists
                 return res.render('add-genres', { error: 'Genre with the same name already exists', genre: '' });
             }
-            const Alphabetic = /^[a-zA-Z]+$/;
+            const Alphabetic =/^[a-zA-Z]+$/;
             if (!Alphabetic.test(genrename)) {
                 // Invalid characters in genrename. Only alphabets are allowed.
                 return res.render('add-genres', { error: 'Invalid characters in Genre Name. ', genre: '' });
@@ -693,6 +736,11 @@ adminHomeController.logoutAdmin = (req, res) => {
     res.redirect('/adminlogin');
 
 };
+
+
+
+
+
 
 
 

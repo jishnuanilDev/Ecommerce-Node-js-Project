@@ -1,3 +1,5 @@
+
+
 <header>
     <div class="header-area">
       <div class="main-header ">
@@ -12,13 +14,9 @@
                       <a href="/userhomepage"><img style="width: 200px;" src="assets/img/logo/" alt></a>
                     </div>
 
-                    <form style="display: flex;" action="#" class="form-box ">
-                      <input style="margin-right: 10px;" type="text" name="Search"
-                        placeholder="Search book by author or publisher">
-
-                      <div class="search-icon">
-                        <i class="ti-search"></i>
-                      </div>
+                    <form class="form-box" style="display: flex;" action="/userSearch" method="get">
+                      <input type="text" name="search" class="form-control mr-2" placeholder="Search here">
+                      <button  class="btn bg-mute " type="submit">Search</button>
                     </form>
                   </div>
                   <div class="header-info-right d-flex align-items-center">

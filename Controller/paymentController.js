@@ -37,43 +37,53 @@ try{
 
 
 
-paymentController.confirmCheckoutCOD = async (req,res)=>{
+paymentController.confirmCheckoutCOD = async (req, res) => {
     try {
-        if (req.session.userlogin) {
-          const userId = req.session.userId;
-          const selectedAddressIndex = req.body.selectedAddressIndex; 
-    
-        
-          const cart = await Cart.findOne({ userId }).populate('items.productId');
-    
-       
-          let totalAmount = 0;
-          const orderItems = cart.items.map(item => {
-            totalAmount += item.productId.price * item.quantity;
-            return { productId: item.productId._id, quantity: item.quantity };
-          });
-    
-          
-          const order = new orderSchema({
-            userId,
-            items: orderItems,
-            totalAmount,
-        
-          }); 
-    
-       
-          await order.save();
-    
-         
-          await cartModule.clearCart(userId);
-    
-res.render('orderplaced')
+      if (req.session.userlogin) {
+        const userId = req.session.userId;
+        const selectedAddressIndex = req.body.selectedAddressIndex;
+  
+        const cart = await Cart.findOne({ userId }).populate('items.productId');
+  
+        let totalAmount = 0;
+        const orderItems = cart.items.map(item => {
+          totalAmount += item.productId.price * item.quantity;
+          return { productId: item.productId._id, quantity: item.quantity };
+        });
+  
+        const order = new orderSchema({
+          userId,
+          items: orderItems,
+          totalAmount,
+        });
+  
+        await order.save();
+  
+        // Update product quantities based on the items in the order
+        for (const item of orderItems) {
+          const product = await productSchema.findById(item.productId);
+  
+          if (product) {
+            // Update product quantity
+            product.quantity -= item.quantity;
+  
+            // Save the updated product
+            await product.save();
+          } else {
+            console.error('Product not found:', item.productId);
+          }
         }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+  
+        // Clear the user's cart
+        await cartModule.clearCart(userId);
+  
+        res.render('orderplaced');
       }
-}
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
 
 

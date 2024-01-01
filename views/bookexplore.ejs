@@ -1,0 +1,420 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Book Shop</title>
+<meta name="description" content>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/assets/css/slicknav.css">
+<link rel="stylesheet" href="/assets/css/animate.min.css">
+<link rel="stylesheet" href="/assets/css/price_rangs.css">
+<link rel="stylesheet" href="/assets/css/magnific-popup.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/assets/css/themify-icons.css">
+<link rel="stylesheet" href="/assets/css/slick.css">
+<link rel="stylesheet" href="/assets/css/nice-select.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+    <%- include('./partials/header') %>
+
+<main>
+
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="slider-area">
+<div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
+<div class="hero-caption hero-caption2">
+<h2>Book Category</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="listing-area pt-50 pb-50">
+<div class="container">
+<div class="row">
+
+<div class="col-xl-4 col-lg-4 col-md-6">
+
+<div class="category-listing mb-50">
+
+<div class="single-listing">
+  
+
+<div class="select-Categories pb-30">
+    <div class="small-tittle mb-20">
+        <h4>Filter by Genres</h4>
+        </div>
+        <div class="col-xl-12">
+            <select name="select2" onchange="filterGenre(this)">
+                <option value="All" selected disabled hidden>All</option>
+                <% genres.forEach(genre => { %>
+                    <option value="<%= genre.genrename %>"><%= genre.genrename %></option>
+                <% }) %>
+            </select>
+        </div>
+        
+</div>
+
+
+<aside class="left_widgets p_filter_widgets price_rangs_aside sidebar_box_shadow mb-40">
+<div class="small-tittle">
+<h4>Filter by Price</h4>
+</div>
+<div class="col-xl-12">
+    <select name="select2">
+    <option value selected>All</option>
+    <option value>Under ₹499</option>
+    <option value>₹499 - ₹999</option>
+    <option value>₹1000 - ₹1999</option>
+    <option value>₹2000 - ₹4999</option>
+    <option value>Above ₹5000</option>
+
+    </select>
+    </div>
+</aside>
+
+
+
+
+<div class="select-Categories pt-100 pb-60">
+<div class="small-tittle mb-20">
+<h4>Filter by Publisher</h4>
+</div>
+<div class="col-xl-12">
+    <select name="select2" onchange="filterBook(this)">
+        <option value="All" selected>All</option>
+        <% books.forEach(book=>{ %>
+          <option value="<%= book.publisher%>"><%= book.publisher%></option>
+       <% }) %>
+
+    </select>
+    </div>
+</div>
+
+
+<div class="select-Categories">
+<div class="small-tittle mb-20">
+<h4>Filter by Author Name</h4>
+</div>
+<div class="col-xl-12">
+    <select name="select2">
+        <option value="All" selected>All</option>
+        <% books.forEach(book=>{ %>
+            <option value><%= book.author%></option>
+         <% }) %>
+    </select>
+    </div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+   
+<!-- <div class="row justify-content-end">
+<div class="col-xl-4">
+<div class="product_page_tittle">
+<div class="short_by">
+<select name="#" id="product_short_list">
+<option>Browse by popularity</option>
+<option>Name</option>
+<option>NEW</option>
+<option>Old</option>
+<option>Price</option>
+</select>
+</div>
+</div>
+</div>
+</div> -->
+
+
+<div class="col-xl-8 col-lg-8 col-md-6">
+<div class="best-selling p-0">
+    
+
+ 
+<div class="row">
+<% books.forEach(book=>{ %>
+ 
+<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-6">
+<div class="properties pb-30">
+<div class="properties-card">
+<div class="properties-img">
+<a href="/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
+</div>
+<div class="properties-caption properties-caption2">
+<h3><a href="/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
+<p><%= book.author%></p>
+<div class="properties-footer d-flex justify-content-between align-items-center">
+<div class="review">
+<div class="rating">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star-half-alt"></i>
+</div>
+<p>(<span>120</span> Review)</p>
+</div>
+<div class="price">
+<span>₹<%= book.price%></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<% }) %>
+
+
+
+
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="/userhomepage-books?page=<%= currentPage - 1 %>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      <% } %>
+  
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+          <a class="page-link" href="/userhomepage-books?page=<%= i %>"><%= i %></a>
+        </li>
+      <% } %>
+  
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="/userhomepage-books?page=<%= currentPage + 1 %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+
+
+
+</div>
+
+
+    <h3 class="text-center text-muted"><%= message%></h3>
+
+   
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+<!-- Bootstrap Pagination -->
+
+
+
+<section class="subscribe-area">
+<div class="container">
+<div class="subscribe-caption text-center  subscribe-padding section-img2-bg" data-background="assets/img/gallery/section-bg1.jpg">
+<div class="row justify-content-center">
+<div class="col-xl-6 col-lg-8 col-md-9">
+<h3>Join Newsletter</h3>
+<p>Lorem started its journey with cast iron (CI) products in 1980. The initial main objective was to ensure pure water and affordable irrigation.</p>
+<form action="#">
+<input type="text" placeholder="Enter your email">
+<button class="subscribe-btn">Subscribe</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<footer>
+<div class="footer-wrappper section-bg">
+<div class="footer-area footer-padding">
+<div class="container">
+<div class="row justify-content-between">
+<div class="col-xl-3 col-lg-5 col-md-4 col-sm-6">
+<div class="single-footer-caption mb-50">
+<div class="single-footer-caption mb-30">
+
+<div class="footer-logo mb-25">
+<a href="index.html"><img src="/assets/img/logo/logo2_footer.png" alt></a>
+</div>
+<div class="footer-tittle">
+<div class="footer-pera">
+<p>Get the breathing space now, and we’ll extend your term at the other end year for go.</p>
+</div>
+</div>
+
+<div class="footer-social">
+<a href="https://bit.ly/sai4ull"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
+<div class="single-footer-caption mb-50">
+<div class="footer-tittle">
+<h4>Book Category</h4>
+<ul>
+<li><a href="#">History</a></li>
+<li><a href="#">Horror - Thriller</a></li>
+<li><a href="#">Love Stories</a></li>
+<li><a href="#">Science Fiction</a></li>
+<li><a href="#">Business</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+<div class="single-footer-caption mb-50">
+<div class="footer-tittle">
+<h4>&nbsp;</h4>
+<ul>
+<li><a href="#">Biography</a></li>
+<li><a href="#">Astrology</a></li>
+<li><a href="#">Digital Marketing</a></li>
+<li><a href="#">Software Development</a></li>
+<li><a href="#">Ecommerce</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+<div class="single-footer-caption mb-50">
+<div class="footer-tittle">
+<h4>Site Map</h4>
+<ul class="mb-20">
+<li><a href="#">Home</a></li>
+<li><a href="#">About Us</a></li>
+<li><a href="#">FAQs</a></li>
+<li><a href="#">Blog</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer-bottom-area">
+<div class="container">
+<div class="footer-border">
+<div class="row d-flex align-items-center">
+<div class="col-xl-12 ">
+<div class="footer-copy-right text-center">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" style="color: black" target="_blank" rel="nofollow noopener">Colorlib</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<div id="back-top">
+<a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<script>
+    function filterGenre(selectElement) {
+        var selectedValue = selectElement.value;
+
+        if (selectedValue === 'All') {
+       
+       window.location.href = '/userhomepage-books';
+     }else{
+        window.location.href = "/filter-genre/" + selectedValue;
+        }
+     }
+   
+</script>
+
+
+
+
+<script>
+    function filterBook(selectElement) {
+      const selectedValue = selectElement.value;
+    
+    
+      if (selectedValue === 'All') {
+       
+        window.location.href = '/userhomepage-books';
+      } else {
+     
+        window.location.href = "/filter-book/" + selectedValue;
+    
+      }
+    }
+    </script>
+<script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/slick.min.js"></script>
+<script src="/assets/js/jquery.slicknav.min.js"></script>
+
+<script src="/assets/js/wow.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.js"></script>
+<script src="/assets/js/jquery.nice-select.min.js"></script>
+<script src="/assets/js/jquery.counterup.min.js"></script>
+<script src="/assets/js/waypoints.min.js"></script>
+<script src="/assets/js/price_rangs.js"></script>
+
+<script src="/assets/js/contact.js"></script>
+<script src="/assets/js/jquery.form.js"></script>
+<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/mail-script.js"></script>
+<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+
+<script src="/assets/js/plugins.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"82f17e6b3ed82e88","b":1,"version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+</body>
+</html>

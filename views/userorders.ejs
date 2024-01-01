@@ -105,55 +105,64 @@
               My Orders</h2>
 
 
-               <div>
-                  <% if (orders && orders.length> 0) { %>
-                    <% orders.forEach(order=> { %>
-                      <div class="container">
-      
-                        <div class="order-history">
-                          <div class="order-details">
-      
-                            <span class="order-date">Order Date: <%= order.orderDate.toLocaleString('en-US', { timeZone: 'UTC'
-                                }) %>
-                            </span>
-                            <span class="order-number">Order Id: <%= order._id %></span>
-                            <span class="order-status">Order Status: Shipped</span>
-                          </div>
-      
-                          <div class="product-details">
-                          
-                              <div >
-                                <% order.items.forEach(item => { %>
-                                <span class="product-name">
-                                  <%= item.productId.bookname %>
-                                </span>
-                               
-                                <img style="width: 50px;" src="<%= item.productId.Image[0].slice('./public/'.length) %>" alt="img">
-                                  <% }); %>
-                                  
-                              </div>
-                        <hr>
-                          </div>
-                          
-                          
-                          
-                            <div style="font-size: small;" class="text-center text-muted ">Refund policy expire in 10 days
-                            </div>
-                            <div class="total-amount">Total Amount:₹<%= order. totalAmount%>
-                            </div>
-                           
-                        </div>
-      
-                        
-                          <% }); %>
-                          <% } else { %>
-                            <p>No orders found for the user.</p>
-                            <% } %>
+            <div>
+              <% if (orders && orders.length> 0) { %>
+                <% orders.forEach(order=> { %>
+                  <div class="container">
+
+                    <div class="order-history">
+                      <div class="order-details">
+
+                        <span class="order-date">Order Date: <%= order.orderDate.toLocaleString('en-US', {
+                            timeZone: 'UTC' }) %>
+                        </span>
+                        <span class="order-number">Order Id: <%= order._id %></span>
+                        <% if(order.status==='Cancelled'){ %>
+                          <span class="order-status text-danger">Status:<%= order.status%></span> <br>
+                       <% }else{%>
+                        <span class="order-status text-success">Status:<%= order.status%></span> <br>
+                      <% } %>
+                       
+                        <form action="/orders/cancel-order/<%= order.id %>" method="post">
+                       
+                          <button type="submit" class="genric-btn danger radius">Cancel Order</button>
+                        </form>
                       </div>
-               </div>
+                      <% order.items.forEach(item=> { %>
+                        <div class="product-details">
+                          <div>
+                            <img style="width: 50px;" src="<%= item.productId.Image[0].slice('./public/'.length) %>"
+                            alt="img">
+                            <span class="product-name ml-2">
+                              <%= item.productId.bookname %>
+                            </span>
+                           
+                            <br>
+                          </div>
+
+                          <hr>
+                        </div>
+                        <% }); %>
 
 
-                
+
+                          <div style="font-size: small;" class="text-center text-muted ">Refund policy expire in 10 days
+                          </div>
+                          <div class="total-amount">Total Amount:₹<%= order. totalAmount%>
+                          </div>
+
+                    </div>
+
+
+                    <% }); %>
+                      <% } else { %>
+                         <h4 class="text-center text-muted">You have no Orders</h4>
+                        <% } %>
+                  </div>
+            </div>
+
+
+
 
 
 

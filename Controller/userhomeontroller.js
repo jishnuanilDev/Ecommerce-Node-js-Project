@@ -30,7 +30,7 @@ userHomeController.showHomeInfo = async (req, res) => {
 
 
       const books = await productSchema.find({});
-      res.render("userhomepage", { books });
+      res.render("userhomepage", { books,});
     } else {
 
       res.redirect('/');
@@ -42,6 +42,46 @@ userHomeController.showHomeInfo = async (req, res) => {
   }
 };
 
+
+
+
+
+userHomeController.userExplorebooks = async(req,res)=>{
+  try{
+    if(req.session.userlogin){
+
+
+      const page = parseInt(req.query.page) || 1; // Get the requested page number or default to 1
+    const pageSize = 12; // Number of books per page
+    
+    const skip = (page - 1) * pageSize;
+
+    const books = await productSchema.find({}).skip(skip).limit(pageSize);
+    const totalBooks = await productSchema.countDocuments({});
+
+    const totalPages = Math.ceil(totalBooks / pageSize);
+
+   
+      const userId = req.session.userId;
+
+  
+      const genres = await genreSchema.find({})
+      
+
+      if(!books){
+        res.send('book not found');
+      }
+      if(!genres){
+        res.send('genre not found');
+      }
+res.render('bookexplore',{books,genres,message:'',totalPages,currentPage: page});
+
+    }
+  }catch (err) {
+    console.error("Error:", err);
+    return res.status(500).send('Internal Server Error');
+  }
+}
 
 
 
@@ -295,10 +335,10 @@ userHomeController.userAddressEdit = async (req, res) => {
       }
 
       const userAddress = user.address[addressIndex];
-const States = State.getStatesOfCountry('IN')
+      const States = State.getStatesOfCountry('IN')
 
 
-      res.render('editaddress', { userAddress , States})
+      res.render('editaddress', { userAddress, States })
 
     }
   } catch (error) {
@@ -309,7 +349,7 @@ const States = State.getStatesOfCountry('IN')
 
 
 
- 
+
 
 userHomeController.userAddressEditPost = async (req, res) => {
   if (req.session.userlogin) {
@@ -326,20 +366,20 @@ userHomeController.userAddressEditPost = async (req, res) => {
       const userAdr = await User.findByIdAndUpdate(
         userId,
         {
-          
-            address: {
-              name:name,
-              phone:phone,
-              email:email,
-              streetaddress:streetaddress,
-              landmark: landmark,
-              country:country,
-              state:state,
-              city:city,
-              addressline1: addressline1,
-              addressline2:addressline2,
-              zipcode:zipcode 
-            
+
+          address: {
+            name: name,
+            phone: phone,
+            email: email,
+            streetaddress: streetaddress,
+            landmark: landmark,
+            country: country,
+            state: state,
+            city: city,
+            addressline1: addressline1,
+            addressline2: addressline2,
+            zipcode: zipcode
+
           },
         },
         { new: true }
@@ -419,22 +459,20 @@ userHomeController.userorders = async (req, res) => {
 
       // Assuming orderSchema has a field like "userId" to link orders to users
       const orders = await orderSchema
-      .find({ userId: userId })
-      .populate('items.productId');
+        .find({ userId: userId })
+        .populate('items.productId');
 
-      if (!orders || orders.length === 0) {
-        return res.send('No orders found for the user');
-      }
+
 
       // Iterate over orders and log productId
-    
 
-      orders.forEach(order => {
-        order.items.forEach(item => {
-          console.log('Product ID:', item.productId._id); // Accessing the ObjectId of the product
-          console.log('Book Name:', item.productId.bookname); // Accessing the bookname property of the product
-        });
-      })
+
+      // orders.forEach(order => {
+      //   order.items.forEach(item => {
+      //     console.log('Product ID:', item.productId._id); // Accessing the ObjectId of the product
+      //     console.log('Book Name:', item.productId.bookname); // Accessing the bookname property of the product
+      //   });
+      // })
 
       res.render('userorders', { orders }); // Pass orders as an object to the view
 
@@ -451,6 +489,82 @@ userHomeController.userorders = async (req, res) => {
 
 
 
+
+
+userHomeController.userOrderCancel = async (req, res) => {
+  try {
+    if (req.session.userlogin) {
+      const userId = req.session.userId;
+      const orderId = req.params.id;
+
+      // Find the order and check if it belongs to the user
+      const order = await orderSchema.findOne({ userId, _id: orderId });
+
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      // Check if the order can be canceled based on your business logic
+      if (order.status !== 'Cancelled') {
+        // Update order status to "canceled"
+        order.status = 'Cancelled';
+        await order.save();
+
+       res.redirect('/user-myOrders')
+
+  
+    } else {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  }else{
+    res.redirect('/')
+  }
+ } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+}
+
+
+
+
+userHomeController.userSearch = async (req, res) => {
+  const { search } = req.query; 
+  console.log(search);
+
+  try {
+      const books = await productSchema.find({
+          bookname: new RegExp("^" + search, "i"),
+      });
+
+      console.log(books);
+      if (req.session.userlogin) {
+          if (books.length > 0) {
+              res.render("bookexplore", { books});
+          
+          } else {
+              res.render("sampleuserhome");
+          }
+
+      } else {
+          res.redirect('/adminlogin')
+      }
+
+
+  } catch (error) {
+      console.error("Error searching for users:", error);
+      res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
+
+
+
+
+
+
 userHomeController.logoutUser = (req, res) => {
 
   req.session.userlogin = false;
@@ -459,6 +573,9 @@ userHomeController.logoutUser = (req, res) => {
   res.render('loginpage', { errorMessage: '', logout: 'Logout Successfully', blocked: '' });
 
 };
+
+
+
 
 
 
