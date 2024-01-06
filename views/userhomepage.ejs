@@ -22,35 +22,10 @@
   <link rel="stylesheet" href="/assets/css/slick.css">
   <link rel="stylesheet" href="/assets/css/nice-select.css">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/my.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-6pY+3lvPRusGDY0KCl4F6A5CBrn9CtpxwQxBsK53xy0zK9P6gP2za0MqBEpbJsk+Og+HA5Ig/KGTV56d1o4FeQ==" crossorigin="anonymous" />
 
-  <style>
 
-
-
-    .custom-bookname {
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-      /* Adjust the color as needed */
-    }
-
-    .custom-author {
-      font-weight: 400;
-      font-size: 16px;
-      font-style: italic;
-      color: #333;
-      /* Adjust the color as needed */
-    }
-
-    .custom-price {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: bolder;
-      font-size: 18px;
-      color: #320606;
-      /* Adjust the color as needed */
-    }
-  </style>
 
 </head>
 
@@ -60,7 +35,7 @@
 
 
 
-      <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
+      <div id="carouselExampleIndicators" class="carousel slide mb-5 " data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -113,35 +88,25 @@
         </div>
       </div>
 
-      <div class="container ">
+      <div class="container">
         <div class="row justify-content-center">
-          <% books.forEach((item)=>{ %>
+          <% books.forEach((item) => { %>
             <% if (item.isListed) { %>
-
-              <div class="card text-center mb-5 ml-2" style="width: 13rem;">
-                <a href="/user/books/bookInfo/<%= item.id%>"> <img class="card-img-top"
-                    src="<%= item.Image[0].slice('./public'.length) %>" alt="Card image cap"></a>
+              <div class="card text-center mb-5 ml-2 custom-card" style="width: 13rem;">
+                <a href="/user/books/bookInfo/<%= item.id %>">
+                  <img class="card-img-top" src="<%= item.Image[0].slice('./public'.length) %>" alt="Card image cap">
+                </a>
                 <div class="card-body">
-                  <p class="card-text  custom-bookname">
-                    <%= item.bookname%>
-                  </p>
-                  <p class="card-text custom-author">
-                    <%= item.author %>
-                  </p>
-                  <p class="card-text custom-price">₹<%= item.price %>
-                  </p>
+                  <p class="card-text custom-bookname"><%= item.bookname %></p>
+                  <p class="card-text custom-author"><%= item.author %></p>
+                  <p class="card-text custom-price text-danger">₹<%= item.price %></p>
                 </div>
               </div>
-
-              <% }else {%>
-
-                <% } %>
-                  <% }) %>
+            <% } else { %>
+              <!-- Add code for non-listed items if needed -->
+            <% } %>
+          <% }) %>
         </div>
-
-      
-
-
       </div>
 
 
@@ -174,8 +139,8 @@
                     <% books.forEach((item)=> { %>
                       <% if (item.isListed) { %>
                         <div class="single-services d-flex align-items-center">
-                          <div class="features-img">
-                            <img src="<%= item.Image[0].slice('./public'.length) %>" alt="">
+                          <div class="features-img custom-card">
+                            <img style="width:200px ;" src="<%= item.Image[0].slice('./public'.length) %>" alt="">
                           </div>
                           <div class="features-caption">
                             <img src="/assets/img/icon/logo.svg" alt="">
@@ -185,7 +150,7 @@
                             <p>By <%= item.author %>
                             </p>
                             <div class="price">
-                              <span>₹<%= item.price %></span>
+                              <span class="text-danger">₹<%= item.price %></span>
                             </div>
                             <div class="review">
                               <div class="rating">
@@ -261,7 +226,7 @@
             <% books.forEach((item)=>{ %>
               <% if (item.isListed) { %>
 
-                <div class="card text-center mb-5 ml-2" style="width: 13rem;">
+                <div class="card text-center mb-5 ml-2 custom-card" style="width: 13rem;">
                   <a href="/user/books/bookInfo/<%= item.id%>"> <img class="card-img-top"
                       src="<%= item.Image[0].slice('./public'.length) %>" alt="Card image cap"></a>
                   <div class="card-body">
@@ -292,7 +257,7 @@
 
 
       <section>
-        <div>
+        <div class="custom-card">
           <img style="width: 10px;" class="d-block w-100" src="/assets/img/blog/bookbanner.jpeg" alt="First slide">
         </div>
 

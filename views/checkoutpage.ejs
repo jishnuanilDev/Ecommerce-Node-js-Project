@@ -249,40 +249,35 @@
 </ul>
 
 <h3 class="text-center">Select payment method</h3>
-<div class="payment_item">
-    <div class="custom-dropdown">
-      <input type="radio" id="f-option5" name="selector" />
-      <label for="f-option5" class="dropdown-label">Select Payment Method</label>
-      <div class="dropdown-content">
-        <label for="credit-card">
-          <input type="radio" id="credit-card" name="payment-method" />
-          Credit Card
-        </label>
-        <label for="paypal">
-          <input type="radio" id="paypal" name="payment-method" />
-          PayPal
-        </label>
-        <!-- Add more payment options as needed -->
-      </div>
+<form method="post" action="/user/confirmCheckoutCOD">
+  <div class="payment_item active">
+    <div class="radion_btn">
+      <input type="radio" id="f-option5" name="paymentMethod"  value="onlinePayment" />
+      <label for="f-option5">Online payment</label>
+      <img src="/assets/img/gallery/card.jpg" alt />
+      <div class="check"></div>
     </div>
-  
-    <p id="payment-info">Payment information will be provided after selecting a payment method.</p>
+    <p id="payment-info">Please proceed to the next step to complete your payment securely.</p>
   </div>
   
   <div class="payment_item active">
     <div class="radion_btn">
-      <input type="radio" id="f-option6" name="selector" />
+      <input type="radio" id="f-option6" name="paymentMethod" value="cashOnDelivery" />
       <label for="f-option6">Cash on Delivery</label>
       <img src="/assets/img/gallery/card.jpg" alt />
       <div class="check"></div>
     </div>
+    <!-- Add information for the other payment method -->
+  </div>
+
+
     <p id="payment-info">You have chosen Cash on Delivery. Please have the exact amount ready in cash when our delivery person arrives. Payment will be collected at the time of delivery.</p>
   </div>
 <div class="creat_account checkout-cap">
 <input type="checkbox" id="f-option8" name="selector" />
 <label for="f-option8">I’ve read and accept the <a href="#">terms & conditions*</a> </label>
 </div>
-<form method="post" action="/user/confirmCheckoutCOD">
+
     
     <input type="hidden" id="selectedAddressIndex" name="selectedAddressIndex" value="">
     
@@ -392,34 +387,34 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 
 <script>
-    function continueToCheckout() {
-        event.preventDefault();
-      var cashOnDeliverySelected = document.getElementById('f-option6').checked;
-  
-      if (cashOnDeliverySelected) {
-        // Continue to checkout logic here
  
-        // Add more logic here to proceed to the checkout page
+  function continueToCheckout() {
+      event.preventDefault();
+
+      var cashOnDeliverySelected = document.getElementById('f-option6').checked;
+      var OnlineSelected = document.getElementById('f-option5').checked;
+      if (cashOnDeliverySelected || OnlineSelected ) {
+          // Continue to checkout logic here
+          // Add more logic here to proceed to the checkout page
       } else {
-        alert("Please select Cash on Delivery before continuing to checkout.");
+          alert("Please select Your payment method.");
+          return; // Prevent further execution
       }
 
-  
       // Get the selected address index
       var selectedAddressIndex = document.querySelector('input[name="selectedAddress"]:checked');
-      
+    
       if (selectedAddressIndex) {
-        // Set the value of the hidden input with the selected address index 
-        document.getElementById('selectedAddressIndex').value = selectedAddressIndex.value;
-        // Submit the form to proceed to the checkout page
-        document.forms[document.forms.length - 1].submit();
+          // Set the value of the hidden input with the selected address index 
+          document.getElementById('selectedAddressIndex').value = selectedAddressIndex.value;
+          // Submit the form to proceed to the checkout page
+          document.forms[document.forms.length - 1].submit();
       } else {
-        alert("Please select an address before continuing to checkout.");
+          alert("Please select an address before continuing to checkout.");
       }
-    }
+  }
+</script>
 
-
-  </script>
 
 
  
@@ -445,10 +440,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     document.querySelectorAll('input[name="payment-method"]').forEach(function(radio) {
       radio.addEventListener("change", function() {
         // Update the payment info based on the selected payment method
-        if (radio.id === "credit-card") {
-          paymentInfo.textContent = "Please enter your credit card information.";
-        } else if (radio.id === "paypal") {
-          paymentInfo.textContent = "You will be redirected to PayPal for payment.";
+        if (radio.id === "razorPay") {
+          paymentInfo.textContent = "";
+        } else if (radio.id === "credit-debit") {
+          paymentInfo.textContent = "";
         }
         // Add more conditions for additional payment methods as needed
       });
@@ -456,6 +451,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   </script>
   
 
+
+  <script>
+    function validateForm() {
+        // Check if the terms and conditions checkbox is checked
+        var termsCheckbox = document.getElementById('f-option8');
+        if (!termsCheckbox.checked) {
+            alert('Please accept the terms and conditions.');
+            return false; // Prevent form submission
+        }
+
+        // Additional validation logic can be added here if needed
+
+        return true; // Allow form submission
+    }
+</script>
 
 
 

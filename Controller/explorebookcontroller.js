@@ -21,32 +21,29 @@ let exploreBookController = {};
 exploreBookController.userFilterGenre = async (req, res) => {
     try {
         if (req.session.userlogin) {
-
-         
             const genrename = req.params.genrename.toLowerCase(); // Convert to lowercase for case-insensitive matching
+            console.log(genrename);
 
-            console.log(genrename); // Correct variable name
-
-     
-      
-            const books = await productSchema.find({ genrename:genrename });
-    
-         const genres = await genreSchema.find({})
+            const books = await productSchema.find({ genrename: genrename });
+            const genres = await genreSchema.find({});
 
             if (!books || books.length === 0) {
-                res.render('bookexplore', { books:[] ,genres,message:'No Results Found',totalPages:'',currentPage: ""});
+                return res.render('bookexplore', { books: [], genres, message: 'No Results Found', totalPages: '', currentPage: "" });
             }
-            
 
-            res.render('bookexplore', {books ,genres,message:"",totalPages:'',currentPage: ""});
+            return res.render('bookexplore', { books, genres, message: "", totalPages: '', currentPage: "" });
         } else {
-            res.redirect('/user');
+            return res.redirect('/user');
         }
     } catch (err) {
         console.error('Error:', err);
-        return res.status(500).send('Internal Server Error');
+        // Send an error response only if no response has been sent before
+        if (!res.headersSent) {
+            return res.status(500).send('Internal Server Error');
+        }
     }
 }
+
 
 
 

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="/assets/css/slick.css">
   <link rel="stylesheet" href="/assets/css/nice-select.css">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/my.css">
 </head>
 
 <body>
@@ -35,7 +36,7 @@
 
                 <div class="single-services d-flex align-items-center mb-0">
 
-                  <div class="features-img">
+                  <div class="features-img custom-card ">
 
                     <img src="<%= bookpage.Image[0].slice('./public'.length) %>" alt> 
 
@@ -54,7 +55,7 @@
                       </span>
                     </div>
 
-                    <p> <strong>About Book:</strong>
+                    <p > <strong>About Book:</strong>
                       <%= bookpage.bookoverview%>
                     </p>
                     <!-- <div class="review">
@@ -74,23 +75,33 @@
 <div style="display: flex; align-items: center;">
 
 <!-- Assuming you have productId and cart available in your template -->
-<form id="addToCartForm" action="/user/books/bookInfo/<%= bookpage.id %>" method="post" style="margin-right: 10px;">
+<% if(bookpage.quantity > 0) { %>
+  <form id="addToCartForm" action="/user/books/bookInfo/<%= bookpage.id %>" method="post" style="margin-right: 10px;">
 
 
-  <% if (inCart) { %>
-      <a  class="white-btn" href="/user/userviewcart">View Cart</a>
-  <% } else { %>
-      <button class="white-btn" type="submit" >Add to Cart</button>
-  <% } %>
-</form>
-
-
+    <% if (inCart) { %>
+        <a  class="white-btn" href="/user/userviewcart">View Cart</a>
+    <% } else { %>
+        <button class="white-btn" type="submit" >Add to Cart</button>
+    <% } %>
+  </form>
 
   <form action="/user/wishlist/add-to-wishlist/<%= bookpage.id %>" method="post">  
     <a style="width: 10px;" class="genric-btn primary-rounded-circle small "> <i style="font-size: 30px;"  class="fas fa-heart"></i> </a>
     
   </form> 
+<% }else { %>
+  <span style="margin-left: 15px; color: rgb(255, 0, 0); font-weight: bold; background-color: rgb(255, 255, 255); border-radius: 1px; padding: 5px;">Out Of Stock</span>
+<% } %>
+
 </div>
+
+
+
+
+
+ 
+
 
 
 
@@ -140,36 +151,36 @@
             <div class="row">
               <div class="offset-xl-1 col-lg-9">
                 <h5>Book Details</h5>
-                <p><b>ISBN:</b>
+                <p class=" custom-card"><b>ISBN:</b>
                   <%= bookpage.ISBN%>
                 </p>
-                <p><b>Publisher:</b>
+                <p class="custom-card"><b>Publisher:</b>
                   <%= bookpage.publisher%>
                 </p>
-                <p><b>Release date:</b>
+                <p class="custom-card"><b>Release date:</b>
                   <%= bookpage.publicationdate.toLocaleDateString('en-US', { year: 'numeric' , month: 'long' ,
                     day: 'numeric' }) %>
                 </p>
-                <p><b>Language:</b>
+                <p class="custom-card"><b>Language:</b>
                   <%= bookpage.language%>
                 </p>
-                <p><b>Binding:</b>
+                <p class="custom-card"><b>Binding:</b>
                   <%= bookpage.binding%>
                 </p>
-                <p><b>Binding:</b>
+                <p class="custom-card"><b>Binding:</b>
                   <%= bookpage.pages%>
                 </p>
 
-                <p><b>Genre:</b>
+                <p class="custom-card"><b>Genre:</b>
                   <%= bookpage.genrename%>
                 </p>
                 <p><b>Author:</b>
                   <%= bookpage.author%>
                 </p>
-                <p><b>Qantity:</b>
+                <p class="custom-card"><b>Qantity:</b>
                   <%= bookpage.quantity%>
                 </p>
-                <p><b>Status:</b>
+                <p class="custom-card"><b>Status:</b>
                   <%= bookpage.status%>
                 </p>
 
@@ -180,7 +191,7 @@
           </div>
           <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
 
-            <div class="row">
+            <div class="row custom-card">
               <div class="offset-xl-1 col-lg-9">
                 <h2>
                   <%= bookpage.author%>

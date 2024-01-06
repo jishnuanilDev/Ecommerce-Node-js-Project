@@ -19,7 +19,7 @@
 }
 
 
-.custom-card {
+.custom-card1 {
     width: 18rem;
     box-shadow: 0 4px 8px rgba(240, 4, 4, 0.1);
     /* Adjust the values as needed */
@@ -27,7 +27,7 @@
     /* Remove default card border */
 }
 
-.custom-card:hover {
+.custom-card1:hover {
     box-shadow: 0 8px 16px rgba(219, 0, 0, 0.975);
     /* Adjust hover effect if needed */
 }

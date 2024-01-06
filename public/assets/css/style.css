@@ -1263,7 +1263,7 @@ hr {
 
 .header-area .header-top .header-info-right .shopping-card::before {
     position: absolute;
-    content: "0";
+    
     width: 24px;
     height: 24px;
     background: #FF1616;

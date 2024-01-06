@@ -61,6 +61,8 @@ router.post('/books/bookInfo/:id',cartController.addToCart); //post cart
 router.get('/userviewcart', cartController.viewcart);  /// view cart
 router.get('/updateTotalSum', cartController.cartSummary); 
 
+router.get('/check',cartController.checkCart)
+
 
 router.get('/removecart/:id', cartController.removeCart); 
 

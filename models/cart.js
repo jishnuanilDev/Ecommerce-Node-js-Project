@@ -18,7 +18,7 @@ const cartSchema = new mongoose.Schema({
         quantity:{
             type:Number, 
             default:1,
-            min:1
+            min:0
         }
     }],
 })
@@ -28,25 +28,25 @@ const Cart = mongoose.model('cart',cartSchema)
 
 const clearCart = async (userId) => {
     try {
-      // Find the user's cart and update it to remove all items
+   
       const updatedCart = await Cart.findOneAndUpdate(
         { userId },
         { $set: { items: [] } },
-        { new: true } // Return the updated cart
+        { new: true } 
       );
   
       if (!updatedCart) {
-        // Handle the case where the user's cart is not found
+      
         console.error('User cart not found for userId:', userId);
-        return null; // or throw an error, redirect, etc.
+        return null; 
       }
   
-      // Optionally, you can log or return the updated cart
+     
       console.log('User cart cleared for userId:', userId);
       return updatedCart;
     } catch (error) {
       console.error('Error clearing user cart:', error);
-      throw error; // Handle the error as needed
+      throw error;
     }
   };
   module.exports = {

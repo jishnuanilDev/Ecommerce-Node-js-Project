@@ -40,10 +40,10 @@
 			<div class="contact1-pic js-tilt" data-tilt>
 							
 <span class="text-secondary">Current Book Image: </span>
-<img src="<%= item.Image[0].slice('./public'.length) %>" alt="IMG">
+<img id="imgView" src="<%= item.Image[0].slice('./public'.length) %>" alt="IMG">
 			</div>
 
-			<form enctype="multipart/form-data" class="contact1-form validate-form" action="/admin/bookedit/<%= item._id %>" method="post" onsubmit="return validateDate()">
+			<form enctype="multipart/form-data" class="contact1-form validate-form" action="/admin/admin/bookedit/<%= item._id %>" method="post" onsubmit="return validateDate()">
 				<span class="contact1-form-title">
 				Edit Book Details
 				</span>
@@ -95,7 +95,7 @@
 				
 				</div>
                 <div  class="wrap-input1 validate-input  " data-validate = "Image is required">
-					<input  type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="">
+					<input  type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="" onchange="viewImage(event)">
                      <p style="font-size: 13px;"><%= item.Image[0].slice('./public'.length) %></p>
 					<span class="shadow-input1"></span>
                   
@@ -199,7 +199,13 @@
 		</div>
 	</div>
 
-    
+    <script>
+
+		function viewImage(event){
+	document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+	
+		}
+	</script>
 
 
 	<script>

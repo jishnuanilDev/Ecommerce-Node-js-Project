@@ -117,21 +117,24 @@
                             timeZone: 'UTC' }) %>
                         </span>
                         <span class="order-number">Order Id: <%= order._id %></span>
-                        <% if(order.status==='Cancelled'){ %>
+                        <% if(order.status==='Cancelled' || order.status==='Delivered' ){ %>
                           <span class="order-status text-danger">Status:<%= order.status%></span> <br>
                        <% }else{%>
                         <span class="order-status text-success">Status:<%= order.status%></span> <br>
                       <% } %>
                        
-                        <form action="/orders/cancel-order/<%= order.id %>" method="post">
-                       
-                          <button type="submit" class="genric-btn danger radius">Cancel Order</button>
+                        <form action="/user/orders/cancel-order/<%= order.id %>" method="post">
+                          <% if(order.status==='Cancelled'){ %>
+                 <img style="width: 50px;" src="/assets/img/icon/cancelled.png" alt="">
+                          <% }else{%>
+                            <button type="submit" class="genric-btn danger radius">Cancel Order</button>
+                            <% } %>
                         </form>
                       </div>
                       <% order.items.forEach(item=> { %>
                         <div class="product-details">
                           <div>
-                            <img style="width: 50px;" src="<%= item.productId.Image[0].slice('./public/'.length) %>"
+                            <img style="width: 50px;" src="<%= item.productId.Image[0].slice('./public'.length) %>"
                             alt="img">
                             <span class="product-name ml-2">
                               <%= item.productId.bookname %>
@@ -145,9 +148,13 @@
                         <% }); %>
 
 
-
+                        <% if(order.status!=='Cancelled'){ %>
                           <div style="font-size: small;" class="text-center text-muted ">Refund policy expire in 10 days
                           </div>
+                          <% }else{%>
+                            <div style="font-size: small;" class="text-center text-muted ">
+                            </div>
+                            <% } %>
                           <div class="total-amount">Total Amount:₹<%= order. totalAmount%>
                           </div>
 

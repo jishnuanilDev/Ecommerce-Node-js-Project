@@ -16,7 +16,7 @@ cartController.quantityUpdate = async (req, res) => {
 
     
         const { bookId, quantity } = req.params;
-    
+  
         // Find the cart item by bookId
         const cartItem = await Cart.findOneAndUpdate(
           { 'items.productId': bookId },
@@ -167,6 +167,25 @@ cartController.addToCart = async (req, res) => {
 // };
 
 
+cartController.checkCart = async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        const cart = await Cart.findOne({ userId }).populate('items.productId');
+
+        for (const item of cart.items) {
+            console.log("ite")
+            if (item.quantity == 0) {
+                return res.json({ status: true });
+            }
+        }
+
+        // If no item with quantity 0 is found, send status false
+        res.json({ status: false });
+    } catch (error) {
+        console.error('Error checking cart:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 
 cartController.viewcart = async (req, res) => {
@@ -248,34 +267,34 @@ cartController.removeCart = async (req, res) => {
 
 
 
-cartController.updateQuantity = async (req, res) => {
-    console.log('Update quantity request received');
-    const userId = req.session.userId;
-    const productId = req.params.productId;
-    const newQuantity = req.body.quantity;
+// cartController.quantityUpdate = async (req, res) => {
+//     console.log('Update quantity request received');
+//     const userId = req.session.userId;
+//     const productId = req.params.productId;
+//     const newQuantity = req.body.quantity;
 
-    // Add validation for userId and newQuantity
-    if (!userId || isNaN(newQuantity)) {
-        return res.status(400).json({ message: 'Invalid request' });
-    }
+//     // Add validation for userId and newQuantity
+//     if (!userId || isNaN(newQuantity)) {
+//         return res.status(400).json({ message: 'Invalid request' });
+//     }
 
-    try {
-        const updatedCart = await Cart.findOneAndUpdate(
-            { userId, 'items.productId': productId },
-            { $set: { 'items.$.quantity': newQuantity } },
-            { new: true }
-        );
+//     try {
+//         const updatedCart = await Cart.findOneAndUpdate(
+//             { userId, 'items.productId': productId },
+//             { $set: { 'items.$.quantity': newQuantity } },
+//             { new: true }
+//         );
 
-        if (updatedCart) {
-            res.status(200).json({ message: 'Quantity updated successfully' });
-        } else {
-            res.status(404).json({ message: 'Product not found in the cart' });
-        }
-    } catch (error) {
-        console.error('Error updating quantity:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-};
+//         if (updatedCart) {
+//             res.status(200).json({ message: 'Quantity updated successfully' });
+//         } else {
+//             res.status(404).json({ message: 'Product not found in the cart' });
+//         }
+//     } catch (error) {
+//         console.error('Error updating quantity:', error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// };
 
 
 // cartController.viewcart = async (req, res) => {
@@ -318,23 +337,5 @@ cartController.updateQuantity = async (req, res) => {
 
 
 
-cartController.updateQuantity = async (req, res) => {
-    try {
-        const productId = req.params.productId;
-        const newQuantity = parseInt(req.params.newQuantity);
-
-        // Assuming you have a Cart model with a method to update quantity
-        const updatedCart = await Cart.updateQuantity(req.session.userId, productId, newQuantity);
-
-        // Send the updated cart details back to the client
-        res.json({
-            success: true,
-            cart: updatedCart,
-        });
-    } catch (error) {
-        console.error('Error updating quantity:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-}
 
 module.exports = cartController;

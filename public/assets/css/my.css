@@ -1,0 +1,30 @@
+.custom-card {
+    transition: transform 0.3s ease;
+  }
+
+  .custom-card:hover {
+    transform: scale(1.1);
+  }
+
+    .custom-bookname {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      /* Adjust the color as needed */
+    }
+
+    .custom-author {
+      font-weight: 400;
+      font-size: 16px;
+      font-style: italic;
+      color: #333;
+      /* Adjust the color as needed */
+    }
+
+    .custom-price {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: bolder;
+      font-size: 18px;
+      color: #320606;
+      /* Adjust the color as needed */
+    }

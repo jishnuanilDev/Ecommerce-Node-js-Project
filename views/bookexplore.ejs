@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/css/slick.css">
 <link rel="stylesheet" href="/assets/css/nice-select.css">
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/my.css">
 </head>
 <body>
 
@@ -58,7 +59,7 @@
         </div>
         <div class="col-xl-12">
             <select name="select2" onchange="filterGenre(this)">
-                <option value="All" selected disabled hidden>All</option>
+                <option value="All" selected>All</option>
                 <% genres.forEach(genre => { %>
                     <option value="<%= genre.genrename %>"><%= genre.genrename %></option>
                 <% }) %>
@@ -152,7 +153,7 @@
  
 <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-6">
 <div class="properties pb-30">
-<div class="properties-card">
+<div class="properties-card custom-card">
 <div class="properties-img">
 <a href="/user/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
 </div>
