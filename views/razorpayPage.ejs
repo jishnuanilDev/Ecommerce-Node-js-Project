@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>razorPay</h1>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script> 
+
+
+  
+      const orderId = "<%= orderId %>";
+      const orderAmount = "<%= orderAmount %>";
+
+      const orderItems = "<%= Orders %>"
+      console.log("orderr ID:", orderId);
+      console.log("order Amount:", orderAmount);
+      function initiateRazorpayPayment(orderId) {
+        const options = {
+          key: "rzp_test_lyhW5HCWaB5v8H",
+          amount: orderAmount,
+          currency: "INR",
+          name: "Biblio boutique",
+          description: "Payment for Order",
+          order_id: orderId,
+          handler: function (response) {
+            console.log("Payment response:", response);
+
+            if (response.razorpay_payment_id) {
+
+              console.log("Payment successful:", response);
+            
+              handleRazorpaySuccess();
+              
+           
+            } else {
+              console.log("Payment failed:", response);
+            }
+          },
+
+          prefill: {
+            name: "<%= user.firstname %>",
+            email: "<%= user.email %>",
+            contact: "<%= user.phone %>",
+          },
+          theme: {
+            color: "#F37254",
+          },
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      }
+
+      initiateRazorpayPayment(orderId);
+
+      const handleRazorpaySuccess = () => {
+
+ 
+
+        console.log("Before defining orderDetails");
+
+const orderDetails = {
+  items:orderItems,
+  totalAmount: orderAmount,
+};
+
+console.log("After defining orderDetails");
+
+
+
+fetch("/user/orderConfirm", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    orderId: orderId,
+   orderDetails: orderDetails
+  }),
+})
+  .then((response) => {
+    console.log("Fetch successful. Received response:", response);
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Data received:", data);
+  
+  })
+  .catch((error) => {
+    console.error("Error during fetch:", error);
+  });
+
+console.log("After fetch");
+
+window.location.href = '/user/orderPlaced';
+
+};
+
+
+
+    </script>
+
+    
+  </body>
+</html>

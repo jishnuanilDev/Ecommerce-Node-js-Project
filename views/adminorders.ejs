@@ -333,7 +333,7 @@
                                             <td><%= order.status%></td>
                                             <td><%= order.orderDate.toLocaleString('en-US', {
                                                 timeZone: 'UTC' }) %></td>
-                                            <td>Cash on delivery</td>
+                                            <td><%= order.paymentMethod%></td>
                                             <td><%= order.totalAmount%></td>
                                             <td>
                                                 <form id="updateOrderStatusForm" action="/admin/updateOrderStatus/<%= order._id%>" method="post">
@@ -344,6 +344,7 @@
                                                       <option  value="Shipped">Shipped</option>
                                                       <option value="Delivered">Delivered</option>
                                                       <option value="Cancelled">Cancelled</option>
+                                                      <option value="Returned">Returned</option>
                                                      
                                                     </select>
                                                     <button class="btn btn-primary btn-sm" type="submit">Update</button>

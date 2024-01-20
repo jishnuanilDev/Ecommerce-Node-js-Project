@@ -8,13 +8,28 @@ router.get('/', adminLoginController.showAdminLoginInfo); //get admin login page
 
 router.post('/adminlogin', adminLoginController.PostAdminLoginInfo); //post admin login page
 
-router.get('/adminpanel', adminHomeController.adminPageInfo); //get admin login page
+router.get('/adminpanel', adminHomeController.adminPageInfo); //get admin login page  
+
+router.get('/userorders/graph',adminHomeController.orderGraph);
+
+router.get('/userorders/graphyear',adminHomeController.orderGraphYear);
+
+router.get('/userorders/graphmonth',adminHomeController.orderGraphMonth);
+
+router.get('/userorders/most-recent-date',adminHomeController.recentDate);
 
 router.get('/adminorders', adminHomeController.adminOrdersInfo);  // admin orders
 
 router.post('/updateOrderStatus/:id',adminHomeController.updateOrderStatus);
 
 router.get('/adminusers',  adminHomeController.adminUsersInfo)  // admin users info
+
+router.get('/adminoffermodule',  adminHomeController.adminOfferModule)
+
+
+router.get('/add-offers',  adminHomeController.addOfferModule)
+
+router.post('/add-offers',  adminHomeController.addOfferModulePost)
 
 
 
@@ -24,6 +39,14 @@ router.get('/adminusers/unblock/:id', adminHomeController.unBlockUser); // unblo
 
 
 router.get('/adminbooks', adminHomeController.booksInfo); // admin books/genres management
+
+router.get('/admincoupons', adminHomeController.couponsList); // admin books/genres management 
+
+router.get('/add-coupons', adminHomeController.getAddCoupon); 
+
+router.post('/add-coupons', adminHomeController.getPostcoupon);  
+
+router.get('/delete-coupon/:id', adminHomeController.deleteCoupon); 
 
 router.get('/admin/productunlist/:id', adminHomeController.productUnlist); // admin product/books unlisting
 

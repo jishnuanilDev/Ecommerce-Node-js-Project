@@ -3,6 +3,8 @@ const User = require('../models/userschema');
 const productSchema = require('../models/productschema');  
 const genreSchema = require('../models/genreschema');
 const orderSchema = require('../models/order');
+const couponSchema = require('../models/coupon');
+const offerSchema = require('../models/offers');
 const fileUpload = require('express-fileupload');
 const router = express.Router();
 let userlogin
@@ -15,9 +17,11 @@ let adminHomeController = {};
 
 
 
-adminHomeController.adminPageInfo = (req, res) => {  // adminpanel
+adminHomeController.adminPageInfo = async (req, res) => {  // adminpanel
     try {
         if (req.session.adminlogin) {
+
+            const orders = await orderSchema.find()
             res.render('adminpanel');
         } else {
             res.redirect('/admin');
@@ -404,7 +408,7 @@ adminHomeController.postUpdateInfo = async (req, res) => {
             const { bookname, genrename, language, author, aboutauthor, publisher, binding, ISBN, publicationdate, pages, bookoverview, price, quantity, status } = req.body;
             const bookId = req.params.id;
 
-            console.log(genrename)
+          
 
             const existingbook = await productSchema.findOne({
                 bookname,
@@ -417,10 +421,10 @@ adminHomeController.postUpdateInfo = async (req, res) => {
                 return res.render('bookedit', { error: 'Book with the same name already exists', item: "", genres });
             }
 
+  
 
 
-
-            let imagePath; // Initialize imagePath variable
+            let imagePath; 
 
             if (req.files && req.files.Image) {
                 const Image = req.files.Image;
@@ -455,7 +459,7 @@ adminHomeController.postUpdateInfo = async (req, res) => {
             res.redirect('/admin/adminbooks');
         }
         else {
-            res.redirect('/admin')
+            res.redirect('/admin');
         }
 
 
@@ -552,7 +556,7 @@ adminHomeController.postEditGenre = async (req, res) => {
                 genrename
 
             });
-
+ 
             res.redirect('/admin/admingenres');
         } else {
             res.redirect('/admin');
@@ -728,14 +732,95 @@ adminHomeController.deleteBook = async (req, res) => {
 }
 
 
+adminHomeController.couponsList = async (req,res)=>{
+  
+    try{
+        if(req.session.adminlogin){
+            console.log("Working")
+            const coupons = await couponSchema.find({})
+         
+            res.render('admincoupons',{coupons})
+        }else{
+            res.redirect('/admin')
+        }
+    }catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+
+
+adminHomeController.getAddCoupon = async(req,res)=>{
+    try{
+        if(req.session.adminlogin){
+
+            const coupons = await couponSchema.find({})
+            res.render('addcoupon')
+        }else{
+            res.redirect('/admin')
+        }
+    }catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+
+adminHomeController.getPostcoupon = async (req, res) => {
+    try {
+        if (req.session.adminlogin) {
+            const { couponType, DiscountValue, minimumPurchaseAmount, Expiry, couponCode } = req.body;
+
+            
+            const newCoupon = new couponSchema({
+                couponType,
+                DiscountValue,
+                minimumPurchaseAmount,
+                Expiry,
+                couponCode
+            });
+console.log(newCoupon);
+            await newCoupon.save();
+            res.redirect('/admin/admincoupons');
+        }
+    } catch (err) {
+        console.error("Error during update:", err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+
+
+
+adminHomeController.deleteCoupon = async (req, res) => {
+    try {
+
+        if (req.session.adminlogin) {
+            const couponId = req.params.id
+
+            await  couponSchema.findByIdAndDelete(couponId);
+
+            res.redirect('/admin/admincoupons')
+            // res.render('admingenres', { genres});
+
+        } else {
+            res.redirect('/admin')
+        }
+
+
+    } catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send('Internal Server Error');
+    }
+}
 
 adminHomeController.logoutAdmin = (req, res) => {
 
+ req.session.adminlogin = false;
 
-    req.session.adminlogin = false;
-
-
-    res.redirect('/admin');
+ res.redirect('/admin');
 
 };
 
@@ -743,8 +828,194 @@ adminHomeController.logoutAdmin = (req, res) => {
 
 
 
+adminHomeController.adminOfferModule = async (req,res)=>{
+    try{
+
+        if(req.session.adminlogin){
+res.render('adminoffermodule')
+
+        }else{
+            res.redirect('/admin')
+        }
+    } catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send('Internal Server Error');
+    }
+}
 
 
+adminHomeController.addOfferModule = async (req,res)=>{
+    try{
+        if(req.session.adminlogin){
+            res.render('addoffers')
+        }else{
+            res.redirect('/admin')
+        }
+    }catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+
+
+adminHomeController.addOfferModulePost = async (req,res)=>{
+    try{
+        console.log('offer post reached')
+        if(req.session.admilogin){
+
+
+            console.log('req.body:', req.body);
+
+const {offerName,discountOn,discountValue,startDate,endDate,selectedGenre,selectedBook } = req.body;
+
+const selectBased = selectedBook || selectedGenre;
+
+console.log('selecteBased:',offerName);
+
+
+
+            res.redirect('/add-offers')
+        }else{
+            res.redirect('/admin')
+        }
+    }catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+
+
+adminHomeController.orderGraph = async (req, res) => {
+    try {
+      
+        const selectedDate = req.query.date; 
+
+     
+     
+        const result = await orderSchema.aggregate([
+            {
+                $match: {
+                    orderDate: {
+                        $gte: new Date(selectedDate),
+                        $lt: new Date(selectedDate + "T23:59:59")
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: "$orderDate",
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        console.log('result graph:',result)
+        res.json(result);
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
+
+adminHomeController.orderGraphYear = async (req, res) => {
+    try {
+      
+      
+        const orders = await orderSchema.find({}).sort({orderdate:1}).exec()
+       
+    
+        const result = orders.reduce((acc, order) => {
+            const year = order.orderDate.getFullYear();
+        
+         
+            if (!acc[year]) {
+                acc[year] = 1;
+            } else {
+                acc[year] += 1; 
+            }
+        
+            return acc;
+        }, {});
+
+        console.log('result graph:',result)
+        res.json(result);
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
+adminHomeController.orderGraphMonth = async (req, res) => {
+    try {
+      
+      const year = req.query.year;
+      console.log('year:',year);
+
+      const startDate = new Date(`${year}-01-01T00:00:00.000Z`);
+      const endDate = new Date(`${year}-12-31T23:59:59.999Z`);
+
+        const orders = await orderSchema.find({ orderDate:{
+            $gte: startDate,
+            $lt: endDate
+        }
+        }).sort({orderdate:1}).exec()
+       
+        console.log('orders:',orders);
+    
+        const result = orders.reduce((acc, order) => {
+            const month = order.orderDate.getUTCMonth() + 1;
+        
+         
+            if (!acc[month]) {
+                acc[month] = 1;
+            } else {
+                acc[month] += 1; 
+            }
+        
+            return acc;
+        }, {});
+
+        console.log('result graph of month:',result)
+        res.json(result);
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
+
+
+adminHomeController.recentDate =  async (req, res) => {
+    try {
+        const RecentOrder = await orderSchema.findOne().sort({ orderDate: -1 }).limit(1);
+    
+        if (RecentOrder) {
+          
+            const recentDate = RecentOrder.orderDate.toISOString().split('T')[0];
+    
+        
+            RecentOrder.date = recentDate;
+    
+            console.log('recent date:', RecentOrder.date);
+    
+            res.json(recentDate);
+        } else {
+            res.json(null); 
+        }
+    } catch (error) {
+        console.error('Error fetching most recent date:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 
 module.exports = adminHomeController;

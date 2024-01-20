@@ -1,0 +1,457 @@
+<%- include('adminHeader.ejs')%>
+
+            
+
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Dashboard</h1>
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                          
+                                            <i class="fa-solid fa-boxes-stacked fa-5x" ></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><%=orderCount%></div>
+                                            <div>Total Orders</div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            
+                                            <i class="fa-solid fa-truck fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><%=deliveredOrder%></div>
+                                            <div>Total Delivered Orders</div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa-solid fa-ticket fa-5x"></i>                                        
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><%=activeCoupon%></div>
+                                            <div>Active coupon</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-tag  fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><%=activeOffer%></div>
+                                            <div>Active offers</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Sales Graph
+                                </div>
+                                <div class="panel-body">
+                                    <canvas id="orderGraph" width="100%" height="50"></canvas>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.col-lg-8 -->
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> order Graph
+                                </div>
+                                <div class="panel-body">
+                                    <canvas id="categoryDoughnutChart"></canvas>
+                                </div>
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="error" id="error-message" style="color: red;"></div>
+
+                            <label for="sales-report-filter">Select Time Interval:</label>
+                            <select id="sales-report-filter" onchange="handleTimeIntervalChange()">
+                             <option value="daily">Daily</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                            <input type="date" name="sales-report-date" id="sales-report-date">
+                            <select id="sales-report-month" style="display: none;">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value='3'>March</option>
+                                <option value='4'>April</option>
+                                <option value='5'>May</option>
+                                <option value='6'>June</option>
+                                <option value='7'>July</option>
+                                <option value='8'>August</option>
+                                <option value='9'>September</option>
+                                <option value='10'>October</option>
+                                <option value='11'>November</option>
+                                <option value='12'>December</option>
+                            </select>
+                            <select id="sales-report-year" style="display: none;">
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>
+                            <a href="javascript:void(0)" onclick="downloadReport('pdf')" class="btn">Download as PDF</a>
+                            <a href="javascript:void(0)" onclick="downloadReport('excel')" class="btn">Download as Excel</a>
+
+                        </div>
+                    </div>
+                    
+                    
+                            <!-- /.panel -->
+                           <!-- Add this dropdown above the existing revenueChart canvas -->
+                           <label for="filter">Select Time Interval:</label>
+                           <select id="filter" onchange="updateChart()">
+                            <option value="daily">Daily</option>
+                               <option value="weekly">Weekly</option>
+                               <option value="monthly">Monthly</option>
+                               <option value="yearly">Yearly</option>
+                           </select>
+                           
+                           <!-- Add a canvas for the additional revenue chart -->
+                           <canvas id="additionalRevenueChart" width="100%" height="50"></canvas>
+                   
+                            <!-- /.panel -->
+                            
+                        <!-- /.col-lg-8 -->
+                        
+                            <!-- /.panel -->
+                            <div class="panel panel-default">
+                                
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->
+                            
+                               
+                                <!-- /.panel-footer -->
+                           
+                            <!-- /.panel .chat-panel -->
+                        </div>
+                        <!-- /.col-lg-4 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <%- include("adminFooter.ejs")%>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+               async function updateOrderGraph() {
+    try {
+        const response = await fetch('/order-graph-data');
+        const orderData = await response.json();
+
+        // Sort the data based on the _id field
+        orderData.sort((a, b) => a._id.localeCompare(b._id));
+
+        // Convert date strings to formatted date labels
+        const formattedLabels = orderData.map(item => dayjs(item._id).format('YYYY-MM-DD'));
+
+        // Check if the orderGraph variable exists and has the clear method
+        if (orderGraph && typeof orderGraph.clear === 'function') {
+            orderGraph.clear(); // Use clear for Chart.js 3.x and later
+        }
+
+        // Update the order graph with the new data
+        updateOrderGraphWithData(formattedLabels, orderData);
+    } catch (error) {
+        console.error("Error fetching order graph data:", error);
+    }
+}
+    
+
+// Function to initialize or update the order graph with data
+function updateOrderGraphWithData(labels, orderData) {
+    const ctx = document.getElementById('orderGraph').getContext('2d');
+    orderGraph = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Order Count',
+                data: orderData.map(item => item.orderCount),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false // Set to false for a line chart
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Initial chart and order graph update when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+
+    updateOrderGraph();
+});
+
+
+                //doughnut
+    // Fetch data from the server
+    fetch('/admin/getOrderDataByCategory')
+        .then(response => response.json())
+        .then(data => {
+            // Extract labels and data for Chart.js
+            const labels = data.map(entry => entry.categoryName);
+            const datasetData = data.map(entry => entry.orderCount);
+
+            // Create doughnut chart
+            const ctx = document.getElementById('categoryDoughnutChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: datasetData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            // Add more colors as needed
+                        ],
+                    }],
+                },
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    let myChart; // Reference to the chart instance
+
+// Function to update the chart based on the selected filter
+// Function to update the chart based on the selected filter
+async function updateChart() {
+    const filter = document.getElementById('filter').value;
+
+    try {
+        const response = await fetch(`/admin/additional-revenue-chart?filter=${filter}`);
+        const data = await response.json();
+
+        // Sort the data based on the date or week number
+        data.sort((a, b) => {
+            const dateA = filter === 'daily' ? new Date(a._id) : a._id;
+            const dateB = filter === 'daily' ? new Date(b._id) : b._id;
+            return dateA - dateB;
+        });
+        
+
+        // Convert date or week numbers to formatted date strings
+        const formattedLabels = data.map(item => formatLabel(item._id, filter));
+
+        // Destroy the existing chart before creating a new one
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        // Update the chart with the new data
+        updateChartWithData(formattedLabels, data);
+    } catch (error) {
+        console.error("Error fetching additional revenue data:", error);
+    }
+}
+
+// Function to format the labels based on the selected filter
+function formatLabel(value, filter) {
+    if (filter === 'daily') {
+        return dayjs(value).format('YYYY-MM-DD');
+    }else if (filter === 'weekly') {
+        return `Week ${value}`;
+    } else if (filter === 'monthly') {
+        return formatMonthDate(value);
+    } else if (filter === 'yearly') {
+        return value.toString();
+    }
+
+    return '';
+}
+
+// Function to format ISO week date without using date-fns
+function formatISOWeekDate() {
+    const currentDate = new Date();
+
+    // Get the ISO week number
+    const weekNumber = getISOWeekNumber(currentDate);
+
+    // Format the ISOWeekDate as "YYYY-MM-DD"
+    const localDate = currentDate.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata' });
+    return `(W${weekNumber})`;
+}
+
+// Function to get ISO week number
+function getISOWeekNumber(date) {
+    const dayOfWeek = date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayOfWeek);
+    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    const weekNumber = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+    return weekNumber;
+}
+
+// Function to format month date without using date-fns
+function formatMonthDate(month) {
+    // Assuming month is a number between 1 and 12
+    return new Date(2000, month - 1, 1).toLocaleDateString('en-US', { month: 'long' });
+}
+
+// Function to initialize or update the chart with data
+function updateChartWithData(labels, data) {
+    // Assuming you are using Chart.js, replace the following lines with your chart initialization and update logic
+    const ctx = document.getElementById('additionalRevenueChart').getContext('2d');
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Additional Revenue',
+                data: data.map(item => item.totalRevenue), // Adjust this based on your data structure
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', updateChart);
+
+
+function handleTimeIntervalChange() {
+var filter = document.getElementById('sales-report-filter').value
+
+if(filter=='daily'){
+    document.getElementById('sales-report-date').style.display = 'inline-block';
+    document.getElementById('sales-report-month').style.display = 'none';
+        document.getElementById('sales-report-year').style.display = 'none';
+
+}else if(filter=='monthly'){
+    document.getElementById('sales-report-date').style.display = 'none';
+    document.getElementById('sales-report-month').style.display = 'inline-block';
+        document.getElementById('sales-report-year').style.display = 'inline-block';
+
+}else if(filter=='yearly'){
+    document.getElementById('sales-report-date').style.display = 'none';
+    document.getElementById('sales-report-month').style.display = 'none';
+        document.getElementById('sales-report-year').style.display = 'inline-block';
+
+}
+}
+
+function downloadReport(format) {
+    var filter = document.getElementById('sales-report-filter').value;
+    var selectedValue = '';
+
+    if (filter === 'daily') {
+        selectedValue = document.getElementById('sales-report-date').value;
+    } else if (filter === 'monthly') {
+        var selectedYear = document.getElementById('sales-report-year').value;
+        var selectedMonth = document.getElementById('sales-report-month').value;
+        selectedValue = `${selectedYear}-${selectedMonth}`;
+    } else if (filter === 'yearly') {
+        selectedValue = document.getElementById('sales-report-year').value;
+    }
+
+    var downloadUrl = `/sales-report/download/${filter}/${selectedValue}/${format}`;
+
+    fetch(downloadUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Report not available: ${response.statusText}`);
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            if (format === 'pdf') {
+                // Handle PDF download
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'sales-report.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } else if (format === 'excel') {
+                // Handle Excel download
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var data = new Uint8Array(e.target.result);
+                    var workbook = XLSX.read(data, { type: 'array' });
+                    XLSX.writeFile(workbook, 'sales-report.xlsx');
+                };
+                reader.readAsArrayBuffer(blob);
+            }
+        })
+        .catch(error => {
+            // Display the error message
+            console.error("Error downloading file:", error);
+            document.getElementById('error-message').innerText = `Error: ${error.message}`;
+            setTimeout(() => {
+                document.getElementById('error-message').innerText = '';
+            }, 3000);
+        });
+}
+
+</script>

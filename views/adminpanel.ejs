@@ -20,6 +20,13 @@
     <!-- Custom styles for this template-->
     <link href="/assetsss/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        /* Initially hide the element */
+        .hidden {
+          display: none;
+        }
+      </style>
+
 </head>
 
 <body id="page-top">
@@ -88,27 +95,39 @@
                     </div>
             
                 </div>
+                <a class="nav-link collapsed" href="/admin/admincoupons" data-toggle="" data-target=""
+                aria-expanded="" aria-controls="">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Coupons</span>
+            </a>
+
+            <a class="nav-link collapsed" href="/admin/adminoffermodule" data-toggle="" data-target=""
+            aria-expanded="" aria-controls="">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Offer module</span>
+        </a>
+                
             </li> 
 
       
         </ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
+
+     
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
+        
             <div id="content">
 
-                <!-- Topbar -->
+          
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
+                  
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
+          
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -309,7 +328,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Admin Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
@@ -381,6 +400,7 @@
                                 </div>
                             </div>
                         </div>
+                        
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -400,49 +420,84 @@
                             </div>
                         </div>
                     </div>
+                    
+
+                    
 
                     <!-- Content Row -->
 
                     <div class="row">
+                        
 
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
+                                
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Order chart</h6>
+                                    <h5 id="sample"></h5>
                                     <div class="dropdown no-arrow">
+                                        <span class="text-primary">Select time range</span>  
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
+                                      
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                               
+                                    <div class="dropdown-header">Time range</div> 
+                                    <a class="dropdown-item" href="#" onclick=" showYearlyChart(),toggleVisibility('','monthlyContainer')">Yearly</a>
+                                            <a class="dropdown-item" href="#" onclick="toggleVisibility('monthlyContainer','dateContainer'),showMonthlyChart()">monthly</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a id="dateLink" class="dropdown-item" href="#" onclick="toggleVisibility('dateContainer','monthlyContainer'),showDateChart()">Select a date</a>
+
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <!-- Card Body -->
+                                
                                 <div class="card-body">
+                                   
+                                    <div id="monthlyContainer" class="hidden">
+                                 
+                                        <select name="" id="monthYear">
+                                        
+                                           <option  value="2020">2020</option>
+                                           <option value="2021">2021</option>
+                                           <option value="2022">2022</option>
+                                           <option value="2023">2023</option>
+                                           <option value="2024">2024</option>
+                                        </select>
+                                         </div>
+                
+                                         
+                                    
+                                       <div id="dateContainer" class="hidden">
+                                    
+                                           <input type="date" id="datePicker">
+                                         </div>
+                                   
+
+                                     
+
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <canvas id="orderChart"></canvas> 
+                                    
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <!-- <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
+                              
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Top purchases</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -454,18 +509,20 @@
                                             <a class="dropdown-item" href="#">Action</a>
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                          <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
+
+                        
+                              
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="myPieChart" width="400" height="400"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fas fa-circle text-primary"></i> Fiction 
                                         </span>
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-success"></i> Social
@@ -476,8 +533,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        
                     </div>
+
+
+                
 
                     <!-- Content Row -->
                     
@@ -486,7 +547,7 @@
                 <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Main Content --> 
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -516,7 +577,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"> 
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -528,6 +589,36 @@
             </div>
         </div>
     </div>
+
+    <!-- HTML: Add this to your page -->
+
+
+<!-- JavaScript: Add this to a script tag or external script file -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="/assetsss/js/chart.js"></script>
+
+<script>
+function toggleVisibility(showContainerId, hideContainerId) {
+  var showContainer = document.getElementById(showContainerId);
+  var hideContainer = document.getElementById(hideContainerId);
+  
+  if (showContainer) {
+    showContainer.classList.remove('hidden');
+  }
+
+  if (hideContainer) {
+    hideContainer.classList.add('hidden');
+  }
+}
+
+
+  </script>
+
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="/assetsss/vendor/jquery/jquery.min.js"></script>

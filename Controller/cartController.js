@@ -1,7 +1,9 @@
 const express = require('express');
+const easyinvoice = require('easyinvoice');
 const router = express.Router();
 const User = require('../models/userschema');
 const productSchema = require('../models/productschema');
+const couponSchema = require('../models/coupon');
 const genreSchema = require('../models/genreschema');
 const { Cart, clearCart } = require('../models/cart');
 let userlogin;
@@ -210,7 +212,18 @@ cartController.viewcart = async (req, res) => {
     }
 };
 
-
+cartController.coupons = async (req,res)=>{
+    try{
+        if(req.session.userlogin){
+            const coupons = await couponSchema.find({})
+            
+            res.json(coupons);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 cartController.removeCart = async (req, res) => {
     try {
@@ -327,6 +340,7 @@ cartController.removeCart = async (req, res) => {
 //         res.status(500).send("Internal Server Error");
 //     }
 // };
+
 
 
 

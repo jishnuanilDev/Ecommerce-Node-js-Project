@@ -4,6 +4,7 @@ const productSchema = require('../models/productschema');
 const genreSchema = require('../models/genreschema');
 const { Cart, clearCart } = require('../models/cart');
 const orderSchema = require('../models/order');
+const Wallet = require('../models/wallet');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -41,6 +42,22 @@ userHomeController.showHomeInfo = async (req, res) => {
     return res.status(500).send('Internal Server Error');
   }
 };
+
+
+userHomeController.walletUser= async (req,res)=>{
+  try{
+    const userId = req.session.userId;
+    if(req.session.userlogin){
+      const userWallet = await Wallet.findOne({ userId });
+      res.json(userWallet);
+    }
+  }catch (err) {
+    console.error("Error:", err);
+    return res.status(500).send('Internal Server Error');
+  }
+}
+
+
 
 
 
@@ -142,6 +159,47 @@ userHomeController.userProfile = async (req, res) => {
   console.error("Error:", err);
   return res.status(500).send('Internal Server Error');
 }
+};
+
+
+userHomeController.userWalletPage = async (req,res)=>{
+  try{
+    const userId = req.session.userId
+    if(req.session.userlogin){
+
+      const userWallet = await Wallet.findOne({ userId });
+      res.render('userwallet',{userWallet })
+    }else{
+      res.redirect('/')
+    }
+  }catch (err) {
+    console.error("Error:", err);
+    return res.status(500).send('Internal Server Error');
+  }
+}
+
+
+
+userHomeController.userWalletUpdate = async (req, res) => {
+  try {
+    const { newBalance } = req.body;
+    const userId = req.session.userId;
+
+    if (req.session.userlogin) {
+      const userWallet = await Wallet.findOneAndUpdate(
+        { userId },
+        { $set: { balance: newBalance } },
+        { new: true }
+      );
+
+      return res.json({ message: 'Wallet updated successfully', userWallet });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.error('Error:', err);
+    return res.status(500).send('Internal Server Error');
+  }
 };
 
 
@@ -515,34 +573,45 @@ userHomeController.userOrderCancel = async (req, res) => {
       const userId = req.session.userId;
       const orderId = req.params.id;
 
-      // Find the order and check if it belongs to the user
       const order = await orderSchema.findOne({ userId, _id: orderId });
 
       if (!order) {
         return res.status(404).json({ error: 'Order not found' });
       }
 
-      // Check if the order can be canceled based on your business logic
       if (order.status !== 'Cancelled') {
-        // Update order status to "canceled"
+        const orderAmount = order.totalAmount;
+
+        console.log('User ID:', userId);
+
+     
+        const userWallet = await Wallet.findOne({ userId });
+
+        if (!userWallet) {
+        
+          const newWallet = new Wallet({ userId });
+          await newWallet.save();
+        } else {
+   
+          await userWallet.returnAmountToWallet(orderAmount);
+        }
+
         order.status = 'Cancelled';
         await order.save();
 
-       res.redirect('/user/user-myOrders')
-
-  
+        res.redirect('/user/user-myOrders');
+      } else {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
     } else {
-      return res.status(401).json({ error: 'Unauthorized' });
+      res.redirect('/user');
     }
-  }else{
-    res.redirect('/user')
-  }
- } catch (error) {
+  } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
+};
 
-}
 
 
 

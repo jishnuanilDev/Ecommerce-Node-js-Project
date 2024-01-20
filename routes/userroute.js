@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express()
 const router = express.Router();
 const Model = require('../models/userschema');
 const loginController = require('../Controller/logincontroller');
@@ -9,6 +10,8 @@ const paymentController = require('../Controller/paymentController');
 const exploreBookController = require('../Controller/explorebookcontroller');
 const checkBlocked = require('../middleware/userBlocked');
 const  validateFields  = require('../middleware/ValidateFields');
+
+
 
 // const imageValidate = require('../middleware/imagevalidation.js');
 
@@ -25,7 +28,8 @@ router.get('/userForgotPassword', loginController.userForgotPasswordEmail);
 
 router.post('/userForgotPassword',loginController.userForgotPasswordEmailpost); 
 
-router.post('',loginController.userForgotPasswordEmailpost); 
+router.get('/coupons', cartController.coupons);  
+
 
 router.get('/signup', signUpController.showSignupInfo);  //get signup
 router.get('/register', signUpController.register);  //get signup only
@@ -67,7 +71,16 @@ router.get('/check',cartController.checkCart)
 router.get('/removecart/:id', cartController.removeCart); 
 
 router.get('/userPayment', paymentController.userPayment);  /// view cart
-router.post('/confirmCheckoutCOD',paymentController.confirmCheckoutCOD)
+router.post('/confirmCheckoutCOD',paymentController.confirmCheckoutCOD)  
+
+router.post('/orderConfirm',paymentController.orderConfirm)  
+
+router.get('/orderplaced',paymentController.orderPlaced)
+
+router.get('/userinvoice',paymentController.userInvoice) 
+
+
+
 
 // router.post('/cart-update-quantity/:productId', cartController.updateQuantity);
 router.put('/updateQuantity/:bookId/:quantity', cartController.quantityUpdate);
@@ -87,7 +100,9 @@ router.post('/useraddress', userHomeController.userAddressPost); //post address
 
 router.get('/useraddaddress',  userHomeController.userAddAddress);
 
+router.get('/userWallet',  userHomeController.userWalletPage);
 
+router.post('/updateWallet', userHomeController.userWalletUpdate);
 router.post('/useraddress-delete',  userHomeController.userAddressDelete); //user address
 
 router.get('/useraddress-edit',    userHomeController.userAddressEdit); //user address

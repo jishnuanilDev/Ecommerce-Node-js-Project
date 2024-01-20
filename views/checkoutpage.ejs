@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="/assets/css/slick.css">
 <link rel="stylesheet" href="/assets/css/nice-select.css">
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/my.css">
 </head>
 <body>
     <header>
@@ -105,14 +106,14 @@
     
                         <ul id="navigation">
                        
-                          <li><a href="index.html">Home</a></li>
-                          <li><a href="categories.html">Categories</a></li>
-                          <li><a href="about.html">About</a></li>
+                          <li><a href="/user/userhomepage">Home</a></li>
+                          <li><a href="/user/userhomepage-books">Categories</a></li>
+                          <li><a href="">About</a></li>
                     
                          
                           </li>
-                          <li><a href="blog.html">Blog</a></li>
-                          <li><a href="contact.html">Contact</a></li>
+                          <li><a href="">Blog</a></li>
+                          <li><a href="">Contact</a></li>
                         </ul>
                       </nav>
                     </div>
@@ -148,18 +149,20 @@
 <section class="checkout_area section-padding">
 <div class="container">
 
+  <div id="couponError" style="color: red;"></div>
 
-        <div class="cupon_area">
+  <div id="couponApplied" style="color: green;"></div>
+        <div class="cupon_area" id="couponArea" >
             <div class="check_title">
               <h2> Have a coupon?
-                <a href="#" id="couponLink">Click here to enter your code</a>
+                <a  href="#" id="couponLink">Click here to enter your code</a>
               </h2>
             </div>
-        <form>
+        <form >
                 <div id="couponForm" style="display: none;">
-                    <input type="text" name="first_name" placeholder="Enter coupon code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter coupon Code'" required class="single-input border" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <input id="couponInput" type="text" name="first_name" placeholder="Enter coupon code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter coupon Code'" required class="single-input border" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
 
-              <button  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" class="genric-btn danger radius">Add coupon</button>
+              <button onclick="applyCoupon(event)"  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" class="genric-btn danger radius">Add coupon</button>
                 </div>
         </form>
           </div>
@@ -206,7 +209,20 @@
 
 </div>
 
+
+
+
 <div class="col-lg-4">
+
+  <div class="wallet-container">
+    <h4 class="text-center">Your Wallet</h4>
+    <div class="balance">
+        <p>Balance:</p>
+        <span id="walletBalance"><%= userWallet.balance%></span>
+    </div>
+    <!-- <button id="addFundsBtn">Add Funds</button> -->
+    <button id="makePaymentBtn" onclick=" makeWalletPayment()">Make Payment</button>
+  </div>
 <div class="order_box">
 <h2>Your Order</h2>
 <ul class="list">
@@ -243,7 +259,7 @@
 </a>
 </li>
 <li>
-<a style="font-weight: 600; color: crimson;" href="#">Total<span style="font-weight:600;">₹ <%= sum+50 %></span>
+<a style="font-weight: 600; color: crimson;" href="#">Total<span id="totalAmount" style="font-weight:600;"> <%= sum+51 %></span>
 </a>
 </li>
 </ul>
@@ -252,7 +268,7 @@
 <form method="post" action="/user/confirmCheckoutCOD">
   <div class="payment_item active">
     <div class="radion_btn">
-      <input type="radio" id="f-option5" name="paymentMethod"  value="onlinePayment" />
+      <input type="radio" id="f-option5" name="paymentMethod" value="onlinePayment" />
       <label for="f-option5">Online payment</label>
       <img src="/assets/img/gallery/card.jpg" alt />
       <div class="check"></div>
@@ -267,22 +283,42 @@
       <img src="/assets/img/gallery/card.jpg" alt />
       <div class="check"></div>
     </div>
-    <!-- Add information for the other payment method -->
-  </div>
 
+    <p id="payment-info-cod">You have chosen Cash on Delivery. Please have the exact amount ready in cash when our delivery person arrives. Payment will be collected at the time of delivery.</p>
+  <!-- Add a button to trigger the display of available coupons -->
+<!-- Add a button to trigger the display of available coupons -->
+<button class="genric-btn danger-border radius" onclick="showCoupons(event)">View Coupons</button>
 
-    <p id="payment-info">You have chosen Cash on Delivery. Please have the exact amount ready in cash when our delivery person arrives. Payment will be collected at the time of delivery.</p>
+<!-- Modal for displaying coupons -->
+<div id="couponModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Available Coupons</h2>
+    <ul>
+    <% coupons.forEach(coupon=>{ %>
+       
+ 
+      <li><u><%= coupon.couponCode%></u> - Copy the code And GET discounts on your order</li>
+      <!-- Add more coupons as needed -->
+      <% }) %>
+    </ul>
   </div>
-<div class="creat_account checkout-cap">
-<input type="checkbox" id="f-option8" name="selector" />
-<label for="f-option8">I’ve read and accept the <a href="#">terms & conditions*</a> </label>
 </div>
 
+
     
-    <input type="hidden" id="selectedAddressIndex" name="selectedAddressIndex" value="">
-    
-    <button class="btn w-100" type="submit" onclick="continueToCheckout()">Continue to Checkout</button>
-  </form>
+  </div>
+
+  <div class="creat_account checkout-cap">
+    <input type="checkbox" id="f-option8" name="selector" />
+    <label for="f-option8">I’ve read and accept the <a href="#">terms & conditions*</a></label>
+  </div>
+
+  <input type="hidden" id="selectedAddressIndex" name="selectedAddressIndex" value="">
+  
+  <button class="btn w-100" type="submit" onclick="continueToCheckout()">Continue to Checkout</button>
+</form>
+
 
 </div>
 </div>
@@ -387,87 +423,132 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 
 <script>
- 
-  function continueToCheckout() {
-      event.preventDefault();
 
-      var cashOnDeliverySelected = document.getElementById('f-option6').checked;
-      var OnlineSelected = document.getElementById('f-option5').checked;
-      if (cashOnDeliverySelected || OnlineSelected ) {
-          // Continue to checkout logic here
-          // Add more logic here to proceed to the checkout page
-      } else {
-          alert("Please select Your payment method.");
-          return; // Prevent further execution
-      }
 
-      // Get the selected address index
-      var selectedAddressIndex = document.querySelector('input[name="selectedAddress"]:checked');
-    
-      if (selectedAddressIndex) {
-          // Set the value of the hidden input with the selected address index 
-          document.getElementById('selectedAddressIndex').value = selectedAddressIndex.value;
-          // Submit the form to proceed to the checkout page
-          document.forms[document.forms.length - 1].submit();
-      } else {
-          alert("Please select an address before continuing to checkout.");
-      }
-  }
-</script>
+async function applyCoupon(event) {
+
+  event.preventDefault();
+
+  const inputCouponCode = document.getElementById('couponInput').value.trim().toUpperCase();;
+
+  try {
+    const response = await fetch('/user/coupons'); 
+    const coupons = await response.json();
+
+    const validCoupon = coupons.find(coupon => coupon.couponCode === inputCouponCode );
 
 
 
- 
-<script>
-    // Get the link and the form container
-    var couponLink = document.getElementById("couponLink");
-    var couponForm = document.getElementById("couponForm");
-  
-    // Add an event listener for the link click
-    couponLink.addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent the default link behavior
-  
-      // Toggle the visibility of the form container
-      couponForm.style.display = couponForm.style.display === "none" ? "block" : "none";
-    });
-  </script>
-
-<script>
-    // Get the payment info element
-    var paymentInfo = document.getElementById("payment-info");
-  
-    // Add an event listener for radio button changes
-    document.querySelectorAll('input[name="payment-method"]').forEach(function(radio) {
-      radio.addEventListener("change", function() {
-        // Update the payment info based on the selected payment method
-        if (radio.id === "razorPay") {
-          paymentInfo.textContent = "";
-        } else if (radio.id === "credit-debit") {
-          paymentInfo.textContent = "";
-        }
-        // Add more conditions for additional payment methods as needed
-      });
-    });
-  </script>
-  
+    if (validCoupon) {
 
 
-  <script>
-    function validateForm() {
-        // Check if the terms and conditions checkbox is checked
-        var termsCheckbox = document.getElementById('f-option8');
-        if (!termsCheckbox.checked) {
-            alert('Please accept the terms and conditions.');
-            return false; // Prevent form submission
-        }
+      document.getElementById('couponArea').style.display = 'none';
+      document.getElementById('couponApplied').innerText = `Coupon applied: ${validCoupon.DiscountValue}% off (${inputCouponCode})`;
 
-        // Additional validation logic can be added here if needed
 
-        return true; // Allow form submission
+      const totalAmountElement = document.getElementById('totalAmount');
+      let totalAmount = parseFloat(totalAmountElement.textContent);
+
+      totalAmount *= (1 - validCoupon.DiscountValue / 100); 
+      totalAmountElement.textContent = totalAmount.toFixed(2);
+    } else {
+      document.getElementById('couponError').textContent = 'Invalid coupon code';
     }
+  } catch (error) {
+    console.error('Error fetching coupons:', error);
+  }
+}
+
+
+
 </script>
 
 
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    const makePaymentBtn = document.getElementById('makePaymentBtn');
+    const walletBalanceElement = document.getElementById('walletBalance');
+
+ 
+    checkWalletBalance();
+
+    function checkWalletBalance() {
+        const walletBalance = parseFloat(walletBalanceElement.textContent);
+console.log(walletBalance)
+        if (walletBalance === 0) {
+            makePaymentBtn.style.display = 'none';
+        } else {
+            makePaymentBtn.style.display = 'block'; // Or any other display value based on your styling
+        }
+    }
+
+    // Add your other functions or event listeners here
+    // ...
+
+});
+
+
+
+
+function makeWalletPayment() {
+    const makePaymentBtn = document.getElementById('makePaymentBtn');
+    const totalAmountElement = document.getElementById('totalAmount');
+    const walletBalanceElement = document.getElementById('walletBalance');
+
+    const totalAmount = parseFloat(totalAmountElement.textContent);
+    const walletBalance = parseFloat(walletBalanceElement.textContent);
+
+    const remainingAmount = calculateRemainingAmount(walletBalance, totalAmount);
+
+    updateWalletInDatabase(remainingAmount);
+
+    console.log('Remaining Amount:', remainingAmount);
+    alert('Proceed to Checkout successful!');
+}
+
+
+
+function calculateRemainingAmount(walletBalance, totalAmount) {
+
+    const remainingAmount = Math.max(0, totalAmount - walletBalance);
+
+
+    const walletBalanceElement = document.getElementById('walletBalance');
+    walletBalanceElement.textContent = `₹${Math.max(0, walletBalance - (totalAmount - remainingAmount)).toFixed(2)}`;
+
+   
+    const totalAmountElement = document.getElementById('totalAmount');
+    totalAmountElement.textContent = `₹${remainingAmount.toFixed(2)} (Wallet Applied)`;
+
+    return remainingAmount;
+}
+
+
+
+function updateWalletInDatabase(newBalance) {
+
+    fetch('/user/updateWallet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newBalance }),
+    })
+    .then(response => response.json())
+    .then(data => console.log('Wallet updated in the database:', data))
+    .catch(error => console.error('Error updating wallet:', error));
+}
+
+
+</script>
+
+
+
+
+
+<script src="/assets/js/my.js"></script>
 
 <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>

@@ -117,19 +117,29 @@
                             timeZone: 'UTC' }) %>
                         </span>
                         <span class="order-number">Order Id: <%= order._id %></span>
-                        <% if(order.status==='Cancelled' || order.status==='Delivered' ){ %>
+                        <% if(order.status==='Cancelled' ){ %>
                           <span class="order-status text-danger">Status:<%= order.status%></span> <br>
                        <% }else{%>
                         <span class="order-status text-success">Status:<%= order.status%></span> <br>
                       <% } %>
                        
-                        <form action="/user/orders/cancel-order/<%= order.id %>" method="post">
-                          <% if(order.status==='Cancelled'){ %>
-                 <img style="width: 50px;" src="/assets/img/icon/cancelled.png" alt="">
-                          <% }else{%>
+                      <form action="<%= order.status === 'Delivered' ? '/user/orders/return-order/' : '/user/orders/cancel-order/' %><%= order.id %>" method="post">
+                        <% if(order.status === 'Cancelled'){ %>
+                            <img style="width: 50px;" src="/assets/img/icon/cancelled.png" alt="">
+                        <% } else if(order.status === 'Delivered'){ %>
+                            <button type="submit" class="genric-btn danger radius">Return Order</button>
+                      
+                    
+                         
+                        <% }else if(order.status === 'Returned') { %>
+                       <p class="text-success">Order Returned</p>
+                        <% }else { %>
                             <button type="submit" class="genric-btn danger radius">Cancel Order</button>
-                            <% } %>
-                        </form>
+                        <% } %>
+                    </form>
+                    
+
+                     
                       </div>
                       <% order.items.forEach(item=> { %>
                         <div class="product-details">
@@ -146,14 +156,25 @@
                           <hr>
                         </div>
                         <% }); %>
+                        <% if(order.status==='Delivered'){ %>
+                          <div class="d-flex justify-content-end">
+                            <button class="genric-btn primary radius" onclick="invoiceData('<%= order.id %>')">Download Invoice</button>
 
-
+                        </div>
+                        
+                        <% } %>
                         <% if(order.status!=='Cancelled'){ %>
                           <div style="font-size: small;" class="text-center text-muted ">Refund policy expire in 10 days
                           </div>
+
+                        
+
+                      
+                            
                           <% }else{%>
                             <div style="font-size: small;" class="text-center text-muted ">
                             </div>
+                         
                             <% } %>
                           <div class="total-amount">Total Amount:₹<%= order. totalAmount%>
                           </div>
@@ -223,6 +244,16 @@
         </div>
       </div>
     </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/easyinvoice/dist/easyinvoice.min.js"></script>
+
+
+    <script src="/assetsss/js/invoice.js"></script>
+
+    
+
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="/newAssetUser/vendor/jquery/jquery.min.js"></script>

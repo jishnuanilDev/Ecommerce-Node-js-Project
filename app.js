@@ -34,7 +34,7 @@ app.use('/assetsproductform',express.static(path.join(__dirname,'public/assetspr
 app.use(express.static('public'))
 
 mongoose.connect('mongodb://0.0.0.0:27017/User')
-.then(()=>{
+.then(()=>{  
     console.log("Database connected");
 }).catch((err)=>{
     console.error('Error connecting to the database:', err);
