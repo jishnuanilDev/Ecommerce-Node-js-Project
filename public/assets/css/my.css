@@ -104,7 +104,7 @@ h1 {
   color: #4CAF50;
 }
 
-button {
+/* button {
   display: block;
   width: 100%;
   padding: 10px;
@@ -123,7 +123,7 @@ button:hover {
 
 button:active {
   background-color: #3c8e41;
-}
+} */
 
 
 

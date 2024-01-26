@@ -31,10 +31,7 @@ const couponSchema = new mongoose.Schema({
         type:Boolean,
         default:true
     },
-    isExpired:{
-        type:Boolean,
-        default:false
-    }
+    
 })
 
 const coupon = mongoose.model('coupon', couponSchema);

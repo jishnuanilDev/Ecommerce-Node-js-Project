@@ -4,6 +4,7 @@ const productSchema = require('../models/productschema');
 const genreSchema = require('../models/genreschema');
 const { Cart, clearCart } = require('../models/cart');
 const orderSchema = require('../models/order');
+const Wishlist = require('../models/wishlist');
 const Wallet = require('../models/wallet');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
@@ -68,7 +69,7 @@ userHomeController.userExplorebooks = async(req,res)=>{
     if(req.session.userlogin){
 
 
-      const page = parseInt(req.query.page) || 1; // Get the requested page number or default to 1
+      const page = parseInt(req.query.page) || 1; 
     const pageSize = 12; // Number of books per page
     
     const skip = (page - 1) * pageSize;
@@ -116,18 +117,24 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
 
       const bookpage = await productSchema.findById(bookId);
       const cart = await Cart.findOne({ userId });
+      const wishlist = await Wishlist.findOne({ userId });
 
       const isInCart = cart && cart.items && cart.items.some(item => item.productId._id.equals(bookpage._id));
+   
 
-      if (isInCart) {
+      if (isInCart  ) {
         console.log("This book is in the cart");
         const inCart = true
-        res.render('bookinfo', { bookpage, cart, userId, inCart })
+        res.render('bookinfo', { bookpage, cart, userId, inCart,})
       } else {
         console.log("This book is not in the cart");
         const inCart = false
-        res.render('bookinfo', { bookpage, cart, userId, inCart })
+        res.render('bookinfo', { bookpage, cart, userId, inCart})
       }
+
+   
+
+
 
     } else {
       res.redirect('/user')
@@ -427,6 +434,7 @@ userHomeController.userAddressEdit = async (req, res) => {
 
 
 
+
 userHomeController.userAddressEditPost = async (req, res) => {
   if (req.session.userlogin) {
     try {
@@ -614,6 +622,53 @@ userHomeController.userOrderCancel = async (req, res) => {
 
 
 
+userHomeController.userOrderReturn = async (req, res) => {
+  try {
+    if (req.session.userlogin) {
+      const userId = req.session.userId;
+      const orderId = req.params.id;
+
+      const order = await orderSchema.findOne({ userId, _id: orderId });
+
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      if (order.status !== 'Returned') {
+        const orderAmount = order.totalAmount;
+
+        console.log('User ID:', userId);
+
+     
+        const userWallet = await Wallet.findOne({ userId });
+
+        if (!userWallet) {
+        
+          const newWallet = new Wallet({ userId });
+          await newWallet.save();
+        } else {
+   
+          await userWallet.returnAmountToWallet(orderAmount);
+        }
+
+        order.status = 'Returned';
+        await order.save();
+
+        res.redirect('/user/user-myOrders');
+      } else {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+    } else {
+      res.redirect('/user');
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
 
 
 userHomeController.userSearch = async (req, res) => {
@@ -646,8 +701,6 @@ userHomeController.userSearch = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
   }
 }
-
-
 
 
 

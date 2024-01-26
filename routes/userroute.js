@@ -50,27 +50,36 @@ router.get('/userhomepage', checkBlocked, userHomeController.showHomeInfo); //us
 
 router.get('/userhomepage-books', userHomeController.userExplorebooks); //userhomepage access
 
-router.get('/filter-genre/:genrename', exploreBookController.userFilterGenre); //userhomepage access
+router.get('/filter-genre', exploreBookController.userFilterGenre); //userhomepage access
 
 router.get('/filter-book/:publisher',exploreBookController.userFilterBook); //userhomepage access
 
 router.get('/userSearch', userHomeController.userSearch); 
 
 
-router.get('/books/bookInfo/:id', checkBlocked, userHomeController.bookPageInfo); // get bookdetails info
+router.get('/books/bookInfo/:id', checkBlocked, userHomeController.bookPageInfo);
 
 
-router.post('/books/bookInfo/:id',cartController.addToCart); //post cart 
+router.post('/books/bookInfo/:id',cartController.addToCart); 
 
-router.get('/userviewcart', cartController.viewcart);  /// view cart
+router.get('/userviewcart', cartController.viewcart);  
+
 router.get('/updateTotalSum', cartController.cartSummary); 
 
-router.get('/check',cartController.checkCart)
+router.get('/check',cartController.checkCart);
 
+
+router.get('/userviewwishlist', cartController.viewwishlist);
+
+router.post('/books/addwishlist', cartController.addToWishlist);
+
+
+router.get('/removewishlist/:id', cartController.removeWishlist); 
 
 router.get('/removecart/:id', cartController.removeCart); 
 
 router.get('/userPayment', paymentController.userPayment);  /// view cart
+
 router.post('/confirmCheckoutCOD',paymentController.confirmCheckoutCOD)  
 
 router.post('/orderConfirm',paymentController.orderConfirm)  
@@ -84,8 +93,12 @@ router.get('/userinvoice',paymentController.userInvoice)
 
 // router.post('/cart-update-quantity/:productId', cartController.updateQuantity);
 router.put('/updateQuantity/:bookId/:quantity', cartController.quantityUpdate);
+
 router.get('/user-myOrders', userHomeController.userorders);
-router.post('/orders/cancel-order/:id', userHomeController.userOrderCancel);
+
+router.post('/orders/cancel-order/:id', userHomeController.userOrderCancel); 
+
+router.post('/orders/return-order/:id', userHomeController.userOrderReturn);
 
 
 

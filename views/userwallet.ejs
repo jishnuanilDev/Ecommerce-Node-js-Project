@@ -116,7 +116,7 @@
     <h5 class="text-center mt-4">Transaction History</h5>
     <ul id="transactionHistory" class="list-group">
         <% userWallet.transactionHistory.forEach(transaction=>{ %>
-<li style="font-weight: 700;" class="list-group-item"><%= transaction.transaction%> <span class="text-success "><%= transaction.amount%></span></li>
+<li style="font-weight: 700;" class="list-group-item"><%= transaction.transaction%> <span class="text-success "><%= transaction.amount%></span><p> for your cancelled order</p></li>
        <% }) %>
 
     </ul>

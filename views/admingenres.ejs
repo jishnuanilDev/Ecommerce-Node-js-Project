@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/assetsss/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body id="page-top">
@@ -28,67 +28,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/adminpanel">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Admin Jishnu </div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-
-
-            <li i class="nav-item">
-                <a class="nav-link collapsed" href="/admin/adminorders" data-toggle="" data-target="" aria-expanded=""
-                    aria-controls="">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Orders</span>
-                </a>
-
-                <a class="nav-link collapsed" href="/admin/adminusers" data-toggle="" data-target="" aria-expanded=""
-                    aria-controls="">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Users</span>
-                </a>
-
-
-                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Books</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="/admin/adminbooks">Book Management</a>
-                        <a class="collapse-item" href="#">Genre Management</a>
-
-                    </div>
-                </div>
-
-                <a class="nav-link collapsed" href="/admin/admincoupons" data-toggle="" data-target=""
-                aria-expanded="" aria-controls="">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>coupons</span>
-            </a>
-            </li>
-
-
-        </ul>
+        <%- include('./partials/adminSidebar') %>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -345,12 +285,13 @@
                                                         <!-- <a href="#">Unlist</a> -->
                                                         <a class="text-primary" href="/admin/admin/genreedit/<%= genre._id %>"> Edit</a>
                                                         <% if(genre.isListed){ %>
-                                                            <a class="text-warning" href="/admin/admin/genreunlist/<%= genre._id %> "> |   Unlist </a>
+                                                            <a onclick="confirmDelete()" class="text-warning" href="/admin/admin/genreunlist/<%= genre._id %> "> |   Unlist </a>
                                                        <% }else{%>
-                                                        <a class="text-warning" href="/admin/admin/genrelist/<%= genre._id %> "> |   List </a>
+                                                        <a   class="text-warning" href="/admin/admin/genrelist/<%= genre._id %> "> |   List </a>
                                                         <%} %>
-                                                       
-                                                        <!-- <a class="text-danger" href="/admin/genredelete/<%= genre._id %> "> |   Delete</a> -->
+<!--                                                        
+                                                        <a id="deleteAnchor" onclick="confirmDelete()" class="text-danger" href="/admin/genredelete/<%= genre._id %>"> | Delete</a> -->
+
                                                         
 
                                           
@@ -413,7 +354,18 @@
             </div>
         </div>
     </div>
+<script>
+function confirmDelete() {
+  const result = confirm("Are you sure you want unlist Genre?");
+  
+  if (!result) {
+    
+    event.preventDefault();
 
+}
+}
+
+</script>
     <!-- Bootstrap core JavaScript-->
     <script src="/assetsss/vendor/jquery/jquery.min.js"></script>
     <script src="/assetsss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

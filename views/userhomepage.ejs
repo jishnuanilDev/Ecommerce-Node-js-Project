@@ -75,7 +75,7 @@
           <div class="col-xl-7 col-lg-8">
             <div class="section-tittle text-center mb-55">
               <h2>Explore The Books Here</h2>
-              <a id="download" class="text-success" href="#" download="sample.txt">Click here to download the invoice</a>
+        
 
 
               <!-- <div class="rating">
@@ -101,7 +101,8 @@
                 <div class="card-body">
                   <p class="card-text custom-bookname"><%= item.bookname %></p>
                   <p class="card-text custom-author"><%= item.author %></p>
-                  <p class="card-text custom-price text-danger">₹<%= item.price %></p>
+                  <p class="card-text custom-price text-danger">₹<%= item.
+                    discountPrice %></p>
                 </div>
               </div>
             <% } else { %>
@@ -152,7 +153,8 @@
                             <p>By <%= item.author %>
                             </p>
                             <div class="price">
-                              <span class="text-danger">₹<%= item.price %></span>
+                              <span class="text-danger">₹<%= item.
+                                discountPrice %></span>
                             </div>
                             <div class="review">
                               <div class="rating">
@@ -238,7 +240,8 @@
                     <p class="card-text custom-author">
                       <%= item.author %>
                     </p>
-                    <p class="card-text custom-price">₹<%= item.price %>
+                    <p class="card-text custom-price">₹<%= item.
+                      discountPrice %>
                     </p>
                   </div>
                 </div>

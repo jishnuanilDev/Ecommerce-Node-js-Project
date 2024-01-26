@@ -15,6 +15,9 @@ let productSchema = mongoose.Schema({
     Image:[{
         type:String
     }],
+    img:[{
+        type:String
+    }],
     author:String,
     aboutauthor:String,
     publisher:String,
@@ -26,7 +29,7 @@ let productSchema = mongoose.Schema({
     publicationdate:Date,
     pages:Number,
     bookoverview:String,
-    price:Number,
+    originalPrice:Number,
     quantity:{
         type:Number,
         min:0
@@ -35,8 +38,12 @@ let productSchema = mongoose.Schema({
     isListed:{
         type:Boolean,
         default:true
-    }
+    }, discountPrice: {
+        type: Number,
+        default: 0
+      }
 })
+
 // productSchema.index({ genrename: 1 }, { unique: true });
 const product = mongoose.model('products',productSchema);
  

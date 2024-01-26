@@ -18,23 +18,57 @@ let exploreBookController = {};
 
 
 
+// exploreBookController.userFilterGenre = async (req, res) => {
+//     try {
+//         if (req.session.userlogin) {
+//             const genrename = req.query.data;
+//             console.log(genrename);
+
+//             const books = await productSchema.find({ genrename: genrename });
+//             const genres = await genreSchema.find({});
+
+//             if (!books || books.length === 0) {
+//                 return res.render('bookexplore', { books: [], genres, message: 'No Results Found', totalPages: '', currentPage: "" });
+//             }
+
+//             return res.render('bookexplore', { books, genres, message: "", totalPages: '', currentPage: "" });
+//         } else {
+//             return res.redirect('/user');
+//         }
+//     } catch (err) {
+//         console.error('Error:', err);
+//         // Send an error response only if no response has been sent before
+//         if (!res.headersSent) {
+//             return res.status(500).send('Internal Server Error');
+//         }
+//     }
+// }
+
+
 exploreBookController.userFilterGenre = async (req, res) => {
     try {
         if (req.session.userlogin) {
-            const genrename = req.params.genrename.toLowerCase(); // Convert to lowercase for case-insensitive matching
-            console.log(genrename);
 
-            const books = await productSchema.find({ genrename: genrename });
-            const genres = await genreSchema.find({});
+        
+                const genrename = req.query.data;
+                
+                console.log('CheckBoxFetch:',genrename);
+    
+                const books = await productSchema.find({ genrename: genrename });
+                console.log('books ind:',books)
+                const genres = await genreSchema.find({});
+                if (!books || books.length === 0) {
+                    return res.json('No Results Found')
+                }
 
-            if (!books || books.length === 0) {
-                return res.render('bookexplore', { books: [], genres, message: 'No Results Found', totalPages: '', currentPage: "" });
-            }
 
-            return res.render('bookexplore', { books, genres, message: "", totalPages: '', currentPage: "" });
+                res.json({books});
+        
+         
+           
         } else {
-            return res.redirect('/user');
-        }
+                return res.redirect('/user');
+            }
     } catch (err) {
         console.error('Error:', err);
         // Send an error response only if no response has been sent before

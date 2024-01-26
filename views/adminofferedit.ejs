@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Contact V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/assetsproductform/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/css/main.css">
+    <!--===============================================================================================-->
+</head>
+
+<body>
+
+    <div class="contact1">
+
+        <div class="container-contact1">
+            <div class="contact1-pic js-tilt" data-tilt>
+                <img src="/assetsproductform/images/book1.png" alt="IMG">
+            </div>
+
+            <form class="contact1-form validate-form" action="/admin/offer-edit/<%= offer.id%>" method="post">
+                <span class="contact1-form-title">
+Enter Offer Details
+                </span>
+
+                <div class="wrap-input1 validate-input" data-validate="">
+                    <input class="input1" type="text" name="offerName" placeholder="Offer name" value="<%= offer.offerName%>"
+                        required>
+
+                    <span class="shadow-input1"></span>
+                    <p class="text-danger"><%= error%></p>
+                </div>
+
+
+
+                <div class="wrap-input1 validate-input" data-validate="">
+
+        
+                    <select class="input1" name="discountOn" id="discountFor" required>
+                   
+
+                     
+                   
+                        <option  value="Genres">Genres</option>
+                        <option  value="Books">Books</option>
+              
+
+
+
+                    </select>
+                </div>
+
+                <div class="wrap-input1 validate-input" data-validate="">
+                    <input class="input1" type="number" name="discountValue" placeholder="Discount value in(%)" value="<%= offer.discountValue%>"
+                        required>
+
+                    <span class="shadow-input1"></span>
+                </div>
+                
+             
+
+                <div class="wrap-input1 validate-input" data-validate="">
+                    <p>Start Date</p>
+                    <input class="input1" type="date" name="startDate" value="<%= offer.startDate.toISOString().split('T')[0] %>"
+                        placeholder="Start date" required>
+
+                    <span class="shadow-input1"></span>
+                </div>
+
+                
+                <div class="wrap-input1 validate-input" data-validate="">
+                    <p>Expiry Date</p>
+                    <input class="input1" type="date" name="endDate" placeholder="End date" value="<%= offer.endDate.toISOString().split('T')[0] %>" required>
+
+                    <span class="shadow-input1"></span>
+                    </div>
+
+                    
+
+                    <div style="display: none;" class="wrap-input1 validate-input" data-validate="" id="shownGenre">
+                        <div class="wrap-input1 validate-input" data-validate="">
+                            <input readonly id="add-genre" class="input1" value="<%= offer.selectedField%>" required>
+                            <span class="shadow-input1"></span>
+                        </div>
+                    
+                        <select id="select-genre" class="input1" name="selectedGenre" required>
+                            <option disabled selected value="">Select Genres</option>
+                            <% genres.forEach(genre => { %>
+                                <option value="<%= genre.genrename%>"><%= genre.genrename%></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    
+                    <div style="display: none;" class="wrap-input1 validate-input" data-validate="" id="shownBook">
+                        <div class="wrap-input1 validate-input" data-validate="">
+                            <input readonly id="add-book" class="input1" value="<%= offer.selectedField%>" required>
+                            <span class="shadow-input1"></span>
+                        </div>
+                        <select id="select-book" class="input1" name="selectedBook" required>
+                            <option disabled selected value="">Select Books</option>
+                            <% books.forEach(book => { %>
+                                <option value="<%= book.bookname%>"><%= book.bookname%></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    
+
+
+
+                <div class="container-contact1-form-btn">
+                    <button class="contact1-form-btn">
+                        <span>
+                            Submit
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const discountFor = document.getElementById('discountFor');
+    const shownGenre = document.getElementById('shownGenre')
+    const shownBook= document.getElementById('shownBook')
+
+    discountFor.addEventListener('change',()=>{
+        console.log('clicked change')
+  if(discountFor.value==='Genres'){
+  
+    shownGenre.style.display = 'block'  
+    shownBook.style.display = 'none'
+  }else{
+    shownBook.style.display = 'block'
+    shownGenre.style.display = 'none'
+  }
+    })
+  
+});
+
+
+const addGenre = document.getElementById('add-genre');
+const selectGenre = document.getElementById('select-genre');
+
+selectGenre.addEventListener('change',()=>{
+    addGenre.value = selectGenre.value;
+})
+
+
+
+const addBook = document.getElementById('add-book');
+const selectBook = document.getElementById('select-book');
+
+selectBook.addEventListener('change',()=>{
+    addBook.value = selectBook.value;
+})
+
+    
+</script>
+
+
+    <!--===============================================================================================-->
+    <script src="/assetsproductform/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assetsproductform/vendor/bootstrap/js/popper.js"></script>
+    <script src="/assetsproductform/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assetsproductform/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assetsproductform/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+
+    <!--===============================================================================================-->
+    <script src="/assetsproductform/js/main.js"></script>
+
+</body>
+
+</html>

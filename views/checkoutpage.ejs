@@ -237,7 +237,8 @@
       <a href="#">
         <%= book.productId.bookname %>
         <span class="middle">x<%= book.quantity %></span>
-        <span class="last">₹ <%= book.productId.price * book.quantity %></span>
+        <span class="last">₹ <%= book.productId.
+          discountPrice * book.quantity %></span>
       </a>
     </li>
   <% }) %>
@@ -247,7 +248,8 @@
   <li>
     <% let sum = 0 %>
     <% cart.items.forEach(book => { %>
-      <% sum += book.productId.price * book.quantity %>
+      <% sum += book.productId.
+      discountPrice * book.quantity %>
     <% }) %>
     <a href="#">Subtotal <span>₹ <%= sum %></span></a>
   </li>
@@ -421,6 +423,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <div id="back-top">
 <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
 </div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
 

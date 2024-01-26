@@ -19,6 +19,12 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/assetsproductform/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assetsproductform/css/main.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+	integrity="sha512-Bb9X+gF8z4I5SxwBIxCv/6VcPiQ/FvFxFvfJQQ6pY3c2ZuVqgS6NXqXDtUgJvnM10s2hoNN+NnsrHswX0DqJFg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	
 <!--===============================================================================================-->
 </head>
 <body>
@@ -30,20 +36,41 @@
     margin: 0;
 }
 	</style>
+
+<style>
+ 
+    .a {
+      font-size: 50px;
+
+      display: inline-block; 
+      line-height: 1;
+      text-decoration: none; 
+    }
+
+	.container-contact1 {
+      text-align: left;
+    }
+  </style>
 	
 
 	<div class="contact1">
-        
+	
+ 
 		<div class="container-contact1">
+			<a class="a" style="font-size: 50px;" href="/admin/adminbooks">&#8592;</a>
+			
 			<div class="contact1-pic js-tilt" data-tilt>
 				<img src="/assetsproductform/images/book1.png" alt="IMG">
 			</div>
 
+
 			<form enctype="multipart/form-data" class="contact1-form validate-form" action="/admin/add-products" method="post" onsubmit="return validateDate()">
+				
 				<span class="contact1-form-title">
 				Add Books
 				</span>
-
+				
+				
 				<div class="wrap-input1 validate-input" data-validate = "Book Name is required">
 					<input class="input1" type="text" name="bookname" placeholder="Book Name" required pattern="^[A-Za-z0-9\s]+$" title="Enter letters and spaces only">
 					<span class="shadow-input1"></span>
@@ -89,12 +116,14 @@
 					<span class="shadow-input1"></span>
 				
 				</div>
+				<p class="text-primary">Thumbnail Image</p>
                 <div  class="wrap-input1 validate-input  " data-validate = "Image is required">
-					<input type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" required>
+					<input type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" multiple>
 					<span class="shadow-input1"></span>
 				
                   
 				</div>
+				
 
 
                 <div class="wrap-input1 validate-input" data-validate = "Author is required" >
@@ -165,7 +194,7 @@
 				</div> 
 
                 <div class="wrap-input1 validate-input" data-validate = "Price is required">
-					<input class="input1" name="price" placeholder="price" required type="number" pattern="">
+					<input class="input1" name="originalPrice" placeholder="price" required type="number" pattern="">
 					<span class="shadow-input1"></span>
 				</div>
 

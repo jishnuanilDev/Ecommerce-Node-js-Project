@@ -28,7 +28,17 @@ paymentController.userPayment = async (req, res) => {
       const user = await User.findById(userId);
       const addresses = user.address;
 
-      const userWallet = await Wallet.findOne({ userId });
+      let userWallet = await Wallet.findOne({ userId });
+
+      if (!userWallet) {
+        userWallet = new Wallet({
+          userId,
+          balance: 0, 
+          transactionHistory: [],
+        });
+  
+        await userWallet.save();
+      }
       const coupons = await couponSchema.find({});
       const cart = await Cart.findOne({ userId }).populate("items.productId");
 
@@ -52,6 +62,8 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
       const user = await User.findById(userId);
 
       if (paymentSelect === "onlinePayment") {
+
+        console.log('hey online payment got here ');
         // let totalAmount = 0;
         // const orderItems = cart.items.map(item => {
         //   totalAmount += item.productId.price+50 * item.quantity;
@@ -61,7 +73,7 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
         let totalAmount = 51;
 
         const orderItems = cart.items.forEach((book) => {
-          totalAmount += book.productId.price * book.quantity;
+          totalAmount += book.productId.discountPrice * book.quantity;
         });
 
         const Orders = cart.items.map((book) => ({
@@ -80,12 +92,12 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
 
         const orderId = orderResponse.id;
         const orderAmount = orderResponse.amount; 
-
-        res.render("razorpayPage", { orderId, orderAmount, user, Orders });
+ 
+        res.render('razorpayPage' ,{ orderId, orderAmount, user, Orders });
       } else {
         let totalAmount = 51;
         const orderItems = cart.items.forEach((book) => {
-          totalAmount += book.productId.price * book.quantity;
+          totalAmount += book.productId.discountPrice * book.quantity;
         });
 
 
@@ -178,18 +190,18 @@ paymentController.orderConfirm = async (req, res) => {
 
 paymentController.orderPlaced = async (req, res) => {
   try {
+if(req.session.userlogin){
+  const userId = req.session.userId;
+  const order = await orderSchema
+    .findOne({ userId: userId})
+    res.render("orderplaced");
 
+
+}else{
+  res.redirect('/user')
+}
   
-    const userId = req.session.userId;
-    const order = await orderSchema
-      .findOne({ userId: userId, status: "Order Placed" })
-     
-
-    if (order) {
-      res.render("orderplaced");
-    } else {
-      res.send("not placed");
-    }
+    
   } catch (error) {
     console.error("Error marking order as paid:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -242,7 +254,7 @@ paymentController.userInvoice =  async (req,res)=>{
           return {
             productname: product.bookname,
             quantity: item.quantity,
-            price: product.price
+            price: product.discountPrice
          
           };
       

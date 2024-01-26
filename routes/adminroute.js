@@ -4,6 +4,8 @@ const Model = require('../models/userschema');
 const adminLoginController = require('../Controller/adminlogincontroller');
 const adminHomeController = require('../Controller/adminhomecontroller');
 
+
+
 router.get('/', adminLoginController.showAdminLoginInfo); //get admin login page
 
 router.post('/adminlogin', adminLoginController.PostAdminLoginInfo); //post admin login page
@@ -18,18 +20,34 @@ router.get('/userorders/graphmonth',adminHomeController.orderGraphMonth);
 
 router.get('/userorders/most-recent-date',adminHomeController.recentDate);
 
+
+router.get('/sales/download-pdf', adminHomeController.salesReportPdf) 
+
+router.get('/sales/download-excel', adminHomeController.salesReportExcel)
+
+
 router.get('/adminorders', adminHomeController.adminOrdersInfo);  // admin orders
 
 router.post('/updateOrderStatus/:id',adminHomeController.updateOrderStatus);
 
 router.get('/adminusers',  adminHomeController.adminUsersInfo)  // admin users info
 
-router.get('/adminoffermodule',  adminHomeController.adminOfferModule)
+router.get('/adminoffermodule',  adminHomeController.adminOfferModule);
 
 
-router.get('/add-offers',  adminHomeController.addOfferModule)
+router.get('/addoffers',  adminHomeController.addOfferModule);  
 
-router.post('/add-offers',  adminHomeController.addOfferModulePost)
+router.post('/addoffers',  adminHomeController.addOfferModulePost) ;
+
+router.get('/offer-edit/:id', adminHomeController.addOfferModuleEdit) ;
+
+router.post('/offer-edit/:id',adminHomeController.addOfferModulePostEdit);  
+
+
+
+router.get('/offer-deactivate/:id',adminHomeController.OfferDeactivate);  
+
+router.get('/offer-activate/:id', adminHomeController.OfferActivate);
 
 
 
@@ -80,6 +98,7 @@ router.post('/admin/genreedit/:id', adminHomeController.postEditGenre)
 router.get('/admin/genredelete/:id', adminHomeController.deleteGenre)
 
 router.get('/admin/bookdelete/:id', adminHomeController.deleteBook)
+
 
 router.get('/adminLogout', adminHomeController.logoutAdmin);
 

@@ -28,67 +28,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/adminpanel">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Admin Jishnu  </div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            
-            <li i class="nav-item">
-              <a class="nav-link collapsed" href="/admin/adminorders" data-toggle="" data-target=""
-                    aria-expanded="" aria-controls="">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Orders</span>
-                </a>
-
-                <a class="nav-link collapsed" href="/admin/adminusers" data-toggle="" data-target=""
-                aria-expanded="" aria-controls="">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Users</span>
-            </a>
-              
-
-                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Books</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                      
-                        <a class="collapse-item" href="/admin/adminbooks">Book Management</a>
-                        <a class="collapse-item" href="/admin/admingenres">Genre Management</a>
-                    
-                    </div>
-                </div>
-
-                <a class="nav-link collapsed" href="/admin/admincoupons" data-toggle="" data-target=""
-                aria-expanded="" aria-controls="">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>coupons</span>
-            </a>
-            </li> 
-
-      
-        </ul>
+        <%- include('./partials/adminSidebar') %>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -354,14 +294,15 @@
                                             <td><%= book.bookname %></td>
                                             <td><%= book.genrename %></td>
                                             <td><%= book.quantity %></td>
-                                            <td><%= book.price %></td>
+                                            <td><%= book.
+                                                discountPrice %></td>
                                             <td><%= book.status %></td>
                                             <td> <%= book.isListed ? 'Listed': 'Unlisted' %></td>
                                             <td>
                                               <a class="text-primary" href="/admin/admin/bookedit/<%= book._id %> ">Edit</a>
                                               <a class="text-success" href="/admin/admin/bookview/<%= book.id %>">| View more</a>
                                               <% if(book.isListed===true) { %>
-                                                <a class="text-warning" href="/admin/admin/productunlist/<%= book.id %>">| Unlist</a>
+                                                <a onclick="confirmDelete()" class="text-warning" href="/admin/admin/productunlist/<%= book.id %>">| Unlist</a>
                                              <% }else{ %>
                                                 <a class="text-warning" href="/admin/admin/productlist/<%= book.id %>">| List</a>
                                              <% } %>
@@ -459,7 +400,7 @@
     <script>
         
 function confirmDelete() {
-    const result = confirm("Are you sure you want to delete?");
+    const result = confirm("Are you sure you want to unlist Books?");
     if (!result) {
         // The user clicked "Cancel," so prevent the form from submitting
         event.preventDefault();

@@ -122,6 +122,7 @@
                        <% }else{%>
                         <span class="order-status text-success">Status:<%= order.status%></span> <br>
                       <% } %>
+                      <span class="order-status text-primary">Payment:<%= order.paymentMethod%></span> <br>
                        
                       <form action="<%= order.status === 'Delivered' ? '/user/orders/return-order/' : '/user/orders/cancel-order/' %><%= order.id %>" method="post">
                         <% if(order.status === 'Cancelled'){ %>

@@ -78,7 +78,7 @@ async function invoiceData(orderId) {
             "date": invoiceData.orderDate
             // Invoice due date
          
-        },
+        }, 
         // The products you would like to see on your invoice
         // Total values are being calculated automatically
         "products": invoiceData.productDetails.map(ele => ({

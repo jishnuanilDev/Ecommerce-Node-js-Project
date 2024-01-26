@@ -3,110 +3,96 @@
 
 <head>
     <title>Contact V1</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/assetsproductform/images/icons/favicon.ico" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/bootstrap/css/bootstrap.min.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/assetsproductform/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/animate/animate.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/css-hamburgers/hamburgers.min.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/vendor/select2/select2.min.css" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/css/util.css">
-    <link rel="stylesheet" type="text/css" href="/assetsproductform/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="/assetsproductform/css/main.css" />
     <!--===============================================================================================-->
 </head>
 
 <body>
-
     <div class="contact1">
-
+    
         <div class="container-contact1">
+            <a class="a" style="font-size: 50px;" href="/admin/admincoupons">&#8592;</a>
             <div class="contact1-pic js-tilt" data-tilt>
-                <img src="/assetsproductform/images/book1.png" alt="IMG">
+                <img src="/assetsproductform/images/book1.png" alt="IMG" />
             </div>
-
-            <form class="contact1-form validate-form" action="/admin/add-offers" method="post">
-                <span class="contact1-form-title">
-Enter Offer Details
-                </span>
+            
+            <form class="contact1-form validate-form" action="/admin/addoffers" method="post">
+                <span class="contact1-form-title"> Enter Offer Details </span>
 
                 <div class="wrap-input1 validate-input" data-validate="">
-                    <input class="input1" type="text" name="offerName" placeholder="Offer name"
-                        required>
+                    <input class="input1" type="text" name="offerName" placeholder="Offer name" required />
 
                     <span class="shadow-input1"></span>
                 </div>
 
-
-
                 <div class="wrap-input1 validate-input" data-validate="">
-
-        
                     <select class="input1" name="discountOn" id="discountFor" required>
                         <option value="First Order" selected disabled>Discount On</option>
 
-                        <option  value="Genre">Genre</option>
-                        <option  value="Book">Book</option>
-              
-
-
-
+                        <option value="Genres">Genres</option>
+                        <option value="Books">Books</option>
                     </select>
                 </div>
 
                 <div class="wrap-input1 validate-input" data-validate="">
                     <input class="input1" type="number" name="discountValue" placeholder="Discount value in(%)"
-                        required>
+                        required />
 
                     <span class="shadow-input1"></span>
                 </div>
 
                 <div class="wrap-input1 validate-input" data-validate="">
                     <p>Start Date</p>
-                    <input class="input1" type="date" name="startDate"
-                        placeholder="Start date" required>
+                    <input class="input1" type="date" name="startDate" placeholder="Start date" required />
 
                     <span class="shadow-input1"></span>
                 </div>
 
-                
                 <div class="wrap-input1 validate-input" data-validate="">
                     <p>Expiry Date</p>
-                    <input class="input1" type="date" name="endDate" placeholder="End date" required>
+                    <input class="input1" type="date" name="endDate" placeholder="End date" required />
 
                     <span class="shadow-input1"></span>
-                    </div>
+                </div>
 
-                    
+                <div style="display: none" class="wrap-input1 validate-input" data-validate="" id="shownGenre">
+                    <select class="input1" name="selectedGenre" required>
+                        <option selected disabled>Select Genre</option>
+                        <% genres.forEach(genre=>{ %>
+                            <option value="<%= genre.genrename%>">
+                                <%= genre.genrename%>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
 
-                        <div style="display: none;" class="wrap-input1 validate-input" data-validate="" id="shownGenre">
-
-                  
-                            <select class="input1" name=" selectedGenre" required>
-                                <option value="Minimum Purchase" selected disabled>Select Genre</option>
-                              <option value="Minimum Purchase">Genre</option>
-                             </select>
-                        </div>
-
-
-
-                        <div style="display: none;" class="wrap-input1 validate-input" data-validate="" id="shownBook">
-
-                  
-                            <select class="input1" name=" selectedBook" required>
-                                <option value="Minimum Purchase" selected disabled>Select Book</option>
-                              <option value="Minimum Purchase">Book</option>
-                             </select>
-                        </div>
-
-
+                <div style="display: none" class="wrap-input1 validate-input" data-validate="" id="shownBook">
+                    <select class="input1" name="selectedBook" required>
+                        <option selected disabled>Select Book</option>
+                        <% books.forEach(book=>{ %>
+                            <option value="<%= book.bookname%>">
+                                <%= book.bookname%>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
 
                 <div class="container-contact1-form-btn">
                     <button class="contact1-form-btn">
@@ -120,33 +106,24 @@ Enter Offer Details
         </div>
     </div>
 
-<script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const discountFor = document.getElementById("discountFor");
+            const shownGenre = document.getElementById("shownGenre");
+            const shownBook = document.getElementById("shownBook");
 
-
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const discountFor = document.getElementById('discountFor');
-    const shownGenre = document.getElementById('shownGenre')
-    const shownBook= document.getElementById('shownBook')
-
-    discountFor.addEventListener('change',()=>{
-        console.log('clicked change')
-  if(discountFor.value==='Genre'){
-  
-    shownGenre.style.display = 'block'  
-    shownBook.style.display = 'none'
-  }else{
-    shownBook.style.display = 'block'
-    shownGenre.style.display = 'none'
-  }
-    })
-  
-});
-
-    
-</script>
-
+            discountFor.addEventListener("change", () => {
+                console.log("clicked change");
+                if (discountFor.value === "Genres") {
+                    shownGenre.style.display = "block";
+                    shownBook.style.display = "none";
+                } else {
+                    shownBook.style.display = "block";
+                    shownGenre.style.display = "none";
+                }
+            });
+        });
+    </script>
 
     <!--===============================================================================================-->
     <script src="/assetsproductform/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -158,24 +135,25 @@ document.addEventListener('DOMContentLoaded', () => {
     <!--===============================================================================================-->
     <script src="/assetsproductform/vendor/tilt/tilt.jquery.min.js"></script>
     <script>
-        $('.js-tilt').tilt({
-            scale: 1.1
-        })
+        $(".js-tilt").tilt({
+            scale: 1.1,
+        });
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
 
-        gtag('config', 'UA-23581568-13');
+        gtag("config", "UA-23581568-13");
     </script>
 
     <!--===============================================================================================-->
     <script src="/assetsproductform/js/main.js"></script>
-
 </body>
 
 </html>

@@ -148,7 +148,7 @@
     <main>
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+                <a href="/user/userhomepage" class="stext-109 cl8 hov-cl1 trans-04">
                     Home
                     <i class="">→</i>
                 </a>
@@ -187,14 +187,16 @@
                                                     <td class="column-2">
                                                         <%= book.productId.bookname %>
                                                     </td>
-                                                    <td class="column-3">₹ <%= book.productId.price %></td>
+                                                    <td class="column-3">₹ <%= book.productId.
+                                                        discountPrice %></td>
                                                     <td class="column-4">
                                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m quantity-decrement"
                                                                 data-book-id="<%=book.productId._id%>">-</div>
                                                             <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1"
                                                                 value="<%= book.quantity %>" data-book-id="<%=book.productId._id%>"
-                                                                data-price="<%= book.productId.price %>" data-total-quantity="<%= book.productId.quantity %>"
+                                                                data-price="<%= book.productId.
+                                                                discountPrice %>" data-total-quantity="<%= book.productId.quantity %>"
                                                                 max="<%= book.productId.quantity %>">
                                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m quantity-increment"
                                                                 data-book-id="<%=book.productId._id%>" data-max-quantity="<%= book.productId.quantity %>">+
@@ -203,7 +205,8 @@
                                                     </td>
                                                     <td class="column-5 mr-3">
                                                         <span id="total-price-<%= book.productId._id %>">
-                                                            <%= book.productId.price * book.quantity %>
+                                                            <%= book.productId.
+                                                            discountPrice * book.quantity %>
                                                         </span>
                                                     </td>
                                                     <td class="column-6">
@@ -265,7 +268,7 @@
                       
                     </div>
                     <% }else { %>
-                        <a id="downloadInvoice" class="text-success" href="/user/invoiceDownload">Download Invoice</a>
+               
                         <h3 class="text-center text-muted">Your Cart is empty</h3>
                         <% } %>
             </div>

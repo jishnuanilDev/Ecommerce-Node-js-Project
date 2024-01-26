@@ -95,7 +95,7 @@
 				
 				</div>
                 <div  class="wrap-input1 validate-input  " data-validate = "Image is required">
-					<input  type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="" onchange="viewImage(event)">
+					<input  type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="" onchange="viewImage(event)" multiple>
                      <p style="font-size: 13px;"><%= item.Image[0].slice('./public'.length) %></p>
 					<span class="shadow-input1"></span>
                   
@@ -165,7 +165,7 @@
 				</div> 
 
                 <div class="wrap-input1 validate-input" data-validate = "Price is required">
-					<input class="input1" name="price" placeholder="price" required type="number" value="<%= item.price%>">
+					<input class="input1" name="originalPrice" placeholder="price" required type="number" value="<%= item.originalPrice%>">
 					<span class="shadow-input1"></span>
 				</div>
 
