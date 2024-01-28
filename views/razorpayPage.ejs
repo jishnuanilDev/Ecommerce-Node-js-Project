@@ -52,8 +52,10 @@
             color: "#F37254",
           },
         };
-
-        const rzp = new Razorpay(options);
+        const key_id = '1234567';
+        const rzp = new Razorpay(options,{
+          key_id: key_id
+        });
         rzp.open();
       }
 
