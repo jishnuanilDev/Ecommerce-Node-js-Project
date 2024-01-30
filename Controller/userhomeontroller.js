@@ -40,7 +40,7 @@ userHomeController.showHomeInfo = async (req, res) => {
 
   } catch (err) {
     console.error("Error:", err);
-   return res.render('serverError')
+   return res.render('serverError',{error:''})
   }
 };
 
@@ -54,7 +54,7 @@ userHomeController.walletUser= async (req,res)=>{
     }
   }catch (err) {
     console.error("Error:", err);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 }
 
@@ -99,7 +99,7 @@ res.render('bookexplore',{books,genres,message:'',totalPages,currentPage: page})
     }
   }catch (err) {
     console.error("Error:", err);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 }
 
@@ -143,7 +143,7 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
     }
     } catch (err) {
       console.error("server error", err);
-      return res.render('serverError')
+      return res.render('serverError',{error:''})
     }
 
 
@@ -166,7 +166,7 @@ userHomeController.userProfile = async (req, res) => {
   }
 }  catch (err) {
   console.error("Error:", err);
-  return res.render('serverError')
+  return res.render('serverError',{error:''})
 }
 };
 
@@ -188,7 +188,7 @@ userHomeController.userWalletPage = async (req,res)=>{
     }
   }catch (err) {
     console.error("Error:", err);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 }
 
@@ -212,7 +212,7 @@ userHomeController.userWalletUpdate = async (req, res) => {
     }
   } catch (err) {
     console.error('Error:', err);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 };
 
@@ -236,7 +236,7 @@ userHomeController.userProfileEdit = async (req, res) => {
     }
   } catch (err) {
     console.error("Error:", err);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 }
 
@@ -275,7 +275,7 @@ userHomeController.userAddress = async (req, res) => {
     }
     } catch (err) {
       console.error("Error fetching user address:", err);
-      return res.render('serverError')
+      return res.render('serverError',{error:''})
     }
   
 };
@@ -300,7 +300,7 @@ userHomeController.userAddAddress = (req, res) => {
     }
   } catch (err) {
     console.error("Error fetching user address:", err);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 
 }
@@ -366,7 +366,7 @@ userHomeController.userAddressPost = async (req, res) => {
     }
     } catch (err) {
       console.error("Error saving user address:", err);
-      return res.render('serverError')
+      return res.render('serverError',{error:''})
     }
 
 
@@ -400,7 +400,7 @@ userHomeController.userAddressDelete = async (req, res) => {
     }
     } catch (error) {
       console.error(error);
-      return res.render('serverError')
+      return res.render('serverError',{error:''})
     }
   
 
@@ -433,7 +433,7 @@ userHomeController.userAddressEdit = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 }
 
@@ -487,7 +487,7 @@ userHomeController.userAddressEditPost = async (req, res) => {
       res.redirect('/user/useraddress');
     } catch (err) {
       console.error("Error saving user address:", err);
-      return res.render('serverError')
+      return res.render('serverError',{error:''})
     }
   } else {
     res.redirect('/user')
@@ -537,7 +537,7 @@ userHomeController.userPasswordChange = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 };
 
@@ -573,7 +573,7 @@ userHomeController.userorders = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 };
 
@@ -633,7 +633,7 @@ userHomeController.userOrderCancel = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 };
 
@@ -680,7 +680,7 @@ userHomeController.userOrderReturn = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.render('serverError')
+    return res.render('serverError',{error:''})
   }
 };
 
@@ -715,7 +715,7 @@ userHomeController.userSearch = async (req, res) => {
 
   } catch (error) {
       console.error("Error searching for users:", error);
-      return res.render('serverError')
+      return res.render('serverError',{error:''})
   }
 }
 
