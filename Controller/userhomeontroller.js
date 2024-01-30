@@ -40,7 +40,7 @@ userHomeController.showHomeInfo = async (req, res) => {
 
   } catch (err) {
     console.error("Error:", err);
-    return res.status(500).send('Internal Server Error');
+   return res.render('serverError')
   }
 };
 
@@ -54,7 +54,7 @@ userHomeController.walletUser= async (req,res)=>{
     }
   }catch (err) {
     console.error("Error:", err);
-    return res.status(500).send('Internal Server Error');
+    return res.render('serverError')
   }
 }
 
@@ -99,7 +99,7 @@ res.render('bookexplore',{books,genres,message:'',totalPages,currentPage: page})
     }
   }catch (err) {
     console.error("Error:", err);
-    return res.status(500).send('Internal Server Error');
+    return res.render('serverError')
   }
 }
 
@@ -112,6 +112,8 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
     try {
 
       if (req.session.userlogin) {
+
+        console.log(req.params.id);
       const bookId = req.params.id;
       const userId = req.session.userId;
 
@@ -122,10 +124,10 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
       const isInCart = cart && cart.items && cart.items.some(item => item.productId._id.equals(bookpage._id));
    
 
-      if (isInCart  ) {
+      if (isInCart) {
         console.log("This book is in the cart");
         const inCart = true
-        res.render('bookinfo', { bookpage, cart, userId, inCart,})
+        res.render('bookinfo', { bookpage, cart, userId, inCart})
       } else {
         console.log("This book is not in the cart");
         const inCart = false
@@ -140,8 +142,8 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
       res.redirect('/user')
     }
     } catch (err) {
-      console.error(":", err);
-      res.status(500).send('Internal Server Error');
+      console.error("server error", err);
+      return res.render('serverError')
     }
 
 
@@ -164,7 +166,7 @@ userHomeController.userProfile = async (req, res) => {
   }
 }  catch (err) {
   console.error("Error:", err);
-  return res.status(500).send('Internal Server Error');
+  return res.render('serverError')
 }
 };
 
@@ -174,14 +176,19 @@ userHomeController.userWalletPage = async (req,res)=>{
     const userId = req.session.userId
     if(req.session.userlogin){
 
+
+
       const userWallet = await Wallet.findOne({ userId });
-      res.render('userwallet',{userWallet })
+
+      console.log('forfindingUserwallet:',userWallet.orders)
+     
+      res.render('userwallet',{userWallet})
     }else{
       res.redirect('/')
     }
   }catch (err) {
     console.error("Error:", err);
-    return res.status(500).send('Internal Server Error');
+    return res.render('serverError')
   }
 }
 
@@ -205,7 +212,7 @@ userHomeController.userWalletUpdate = async (req, res) => {
     }
   } catch (err) {
     console.error('Error:', err);
-    return res.status(500).send('Internal Server Error');
+    return res.render('serverError')
   }
 };
 
@@ -229,7 +236,7 @@ userHomeController.userProfileEdit = async (req, res) => {
     }
   } catch (err) {
     console.error("Error:", err);
-    return res.status(500).send('Internal Server Error');
+    return res.render('serverError')
   }
 }
 
@@ -268,7 +275,7 @@ userHomeController.userAddress = async (req, res) => {
     }
     } catch (err) {
       console.error("Error fetching user address:", err);
-      res.status(500).send('Internal Server Error');
+      return res.render('serverError')
     }
   
 };
@@ -293,7 +300,7 @@ userHomeController.userAddAddress = (req, res) => {
     }
   } catch (err) {
     console.error("Error fetching user address:", err);
-    res.status(500).send('Internal Server Error');
+    return res.render('serverError')
   }
 
 }
@@ -359,7 +366,7 @@ userHomeController.userAddressPost = async (req, res) => {
     }
     } catch (err) {
       console.error("Error saving user address:", err);
-      res.status(500).send('Internal Server Error');
+      return res.render('serverError')
     }
 
 
@@ -393,7 +400,7 @@ userHomeController.userAddressDelete = async (req, res) => {
     }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.render('serverError')
     }
   
 
@@ -426,7 +433,7 @@ userHomeController.userAddressEdit = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return res.render('serverError')
   }
 }
 
@@ -480,7 +487,7 @@ userHomeController.userAddressEditPost = async (req, res) => {
       res.redirect('/user/useraddress');
     } catch (err) {
       console.error("Error saving user address:", err);
-      res.status(500).send('Internal Server Error');
+      return res.render('serverError')
     }
   } else {
     res.redirect('/user')
@@ -530,7 +537,7 @@ userHomeController.userPasswordChange = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.render('serverError')
   }
 };
 
@@ -566,7 +573,7 @@ userHomeController.userorders = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.render('serverError')
   }
 };
 
@@ -582,6 +589,12 @@ userHomeController.userOrderCancel = async (req, res) => {
       const orderId = req.params.id;
 
       const order = await orderSchema.findOne({ userId, _id: orderId });
+      const orderDetails = {
+        orderId: order._id,
+        totalAmount: order.totalAmount,
+        orderDate: order.createdAt,
+ 
+    };
 
       if (!order) {
         return res.status(404).json({ error: 'Order not found' });
@@ -597,10 +610,14 @@ userHomeController.userOrderCancel = async (req, res) => {
 
         if (!userWallet) {
         
-          const newWallet = new Wallet({ userId });
+          const newWallet = new Wallet({ userId});
+          
           await newWallet.save();
+          newWallet.orders.push(orderDetails);
+          await  newWallet.returnAmountToWallet(orderAmount);
         } else {
-   
+      
+          userWallet.orders.push(orderDetails);
           await userWallet.returnAmountToWallet(orderAmount);
         }
 
@@ -616,7 +633,7 @@ userHomeController.userOrderCancel = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.render('serverError')
   }
 };
 
@@ -663,7 +680,7 @@ userHomeController.userOrderReturn = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.render('serverError')
   }
 };
 
@@ -698,7 +715,7 @@ userHomeController.userSearch = async (req, res) => {
 
   } catch (error) {
       console.error("Error searching for users:", error);
-      res.status(500).json({ error: "Internal server error" });
+      return res.render('serverError')
   }
 }
 

@@ -13,13 +13,29 @@ const walletSchema = new mongoose.Schema({
     {
       transaction: {
         type: String,
-        enum: ['Money Added', 'Money Deducted'],
+        enum: ['Credited', 'Debited'],
       },
       amount: {
         type: Number,
       },
     },
   ],
+  orders: [
+    {
+        orderId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'orders',
+        },
+        totalAmount: {
+            type: Number,
+        },
+        orderDate: {
+            type: Date,
+            default: Date.now,
+        },
+        // You can add more fields as per your requirement
+    },
+],
 });
 
 walletSchema.methods.returnAmountToWallet = function (amount) {
@@ -33,12 +49,12 @@ walletSchema.methods.returnAmountToWallet = function (amount) {
 
 
   this.transactionHistory.push({
-    transaction: 'Money Added',
+    transaction: 'Credited',
     amount: amount,
   });
 
 
-  return this.save();
+  return this.save();0.
 };
 
 const Wallet = mongoose.model('Wallet', walletSchema);

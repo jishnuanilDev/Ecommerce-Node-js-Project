@@ -47,7 +47,7 @@ req.session.useremail = email;
       res.render('signuppage',{error:'User already exists'});
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the number of salt rounds
+    const hashedPassword = await process.env.bcrypt 
 
     const OTP = generateOTP(6);
     const subject = 'Your OTP for verification';

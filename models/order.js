@@ -8,9 +8,11 @@ const orderSchema = new mongoose.Schema({
         ref:"User"
     },
   address:{
-    mobile:Number,
-    houseName: String,
-    street:String,
+    name:String,
+    phone:Number,
+    email:String,
+    streetaddress: String,
+    landmark:String,
     city: String,
     pincode: String,
     state: String

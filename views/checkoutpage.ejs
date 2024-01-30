@@ -432,7 +432,7 @@ async function applyCoupon(event) {
 
   event.preventDefault();
 
-  const inputCouponCode = document.getElementById('couponInput').value.trim().toUpperCase();;
+  const inputCouponCode = document.getElementById('couponInput').value.trim().toUpperCase();
 
   try {
     const response = await fetch('/user/coupons'); 

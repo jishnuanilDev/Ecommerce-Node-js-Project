@@ -220,10 +220,16 @@ cartController.viewwishlist= async (req, res) => {
 
             const wishlist = await Wishlist.findOne({ userId }).populate('items.productId');
             
-      
+       
+
             // cart.items.forEach(cartItem => {
             //     console.log('productId:',cartItem.productId);
             // });
+
+            
+
+   
+
 
             res.render('wishlist', { wishlist , userId });
         } else {
@@ -245,7 +251,7 @@ cartController.addToWishlist = async (req, res) => {
             const bookId = req.body.bookId;
             console.log(bookId);
             const isWishlisted = await Wishlist.findOne({userId:userId, "items.productId": bookId });
-            console.log("Is wishlisted",isWishlisted)
+       
             if(!isWishlisted){
                 const wishlist = await Wishlist.findOneAndUpdate(
                     { userId },
@@ -294,5 +300,51 @@ cartController.removeWishlist = async (req, res) => {
     }
 };
 
+
+cartController.moveToCart = async (req, res) => {
+    try {
+        if (req.session.userlogin) {
+            const userId = req.session.userId;
+            const bookId = req.body.bookId;
+
+            console.log('getMovecartBookId here:',bookId)
+
+            const existingCart = await Cart.findOne({ userId });
+
+            const book = await productSchema.findById(bookId);
+
+            if (!existingCart) {
+       
+                const newCart = new Cart({
+                    userId: userId,
+                    items: [{ productId: bookId, quantity: 1 }]
+                });
+
+                await newCart.save();
+            } else {
+               
+                const existingCartItem = existingCart.items.find(item => item.productId.equals(bookId));
+
+                if (existingCartItem) {
+          
+                    existingCartItem.quantity += 1;
+                } else {
+        
+                    existingCart.items.push({ productId: bookId, quantity: 1 });
+                }
+
+              
+                await existingCart.save();
+            }
+
+            res.redirect('/user/userviewwishlist');
+        } else {
+            res.redirect('/user');
+        }
+    } catch (err) {
+        console.error("Error during addToCart:", err);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 module.exports = cartController;

@@ -112,4 +112,39 @@ exploreBookController.userFilterBook = async (req, res) => {
 
 
 
+exploreBookController.userSortPrice = async (req, res) => {
+    try {
+        if (req.session.userlogin) {
+
+        
+                const sortValue = req.query.data;
+                
+                console.log('priceRnageFetch:',sortValue);
+    
+                const books = await productSchema.find({discountPrice: { $gt: sortValue } });
+
+                console.log('books ind:',books)
+                const genres = await genreSchema.find({});
+                if (!books || books.length === 0) {
+                    return res.json('No Results Found')
+                }
+
+
+                res.json({books});
+        
+         
+           
+        } else {
+                return res.redirect('/user');
+            }
+    } catch (err) {
+        console.error('Error:', err);
+        // Send an error response only if no response has been sent before
+        if (!res.headersSent) {
+            return res.status(500).send('Internal Server Error');
+        }
+    }
+}
+
+
 module.exports = exploreBookController;

@@ -18,7 +18,6 @@ const loginController = {};
 
 
 
-
 loginController.showLoginInfo = (req, res) => { /// login get
 
     if (req.session.userlogin) {
@@ -26,6 +25,7 @@ loginController.showLoginInfo = (req, res) => { /// login get
     } else {
 
         res.render('loginpage', { errorMessage: '', logout: '', blocked: '' ,reset:''});
+      
     }
 };
 
@@ -71,8 +71,9 @@ loginController.forLoginInfo = async (req, res) => {
         req.session.userId = user._id;
         res.redirect('/user/userhomepage');
     } catch (err) {
-        console.error('Error during login:', err);
-        res.status(500).send('Internal Server Error');
+        console.error('Error during user login:', err);
+        // res.status(500).send('Internal Server Error');
+        res.render('serverError')
     }
 };
 
@@ -82,8 +83,8 @@ loginController.userForgotPasswordEmail = (req, res) => {
     try {
         res.render('forgotPassword', { userError: '' });
     } catch (err) {
-        console.error('Error during login:', err);
-        res.status(500).send('Internal Server Error');
+        console.error('Error rendering forgotpass page:', err);
+        res.render('serverError')
     }
 
 };
@@ -120,8 +121,8 @@ loginController.userForgotPasswordEmailpost = async (req, res) => {
     } catch (error) {
         // Handle any errors that occurred during the database query
         console.error('Error finding user by email:', error);
-        // Respond with an appropriate error response
-        res.status(500).json({ error: 'Internal Server Error' });
+       
+        res.render('serverError')
     }
 
 };
@@ -153,8 +154,9 @@ loginController.ForgorPasswordOTPverify = async (req, res) => {
 
 
     } catch (err) {
-        res.status(500).send('Internal Server Error 2');
-        console.error("Error during update:", err);
+       
+        console.error("Error verify otp:", err);
+        res.render('serverError')
     }
 }
 
@@ -197,7 +199,7 @@ loginController.userPasswordReset = async (req, res) => {
         res.render('loginpage',{reset:'Password Reseted',blocked:"",logout:'',errorMessage:''}); // Render a success page or redirect
     } catch (err) {
         console.error('Error during password reset:', err);
-        res.status(500).send('Internal Server Error');
+        res.render('serverError')
     }
 };
 

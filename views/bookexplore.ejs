@@ -84,30 +84,21 @@
 
 
 
-
-                  <!-- <div class="select-Categories pt-100 pb-60">
+                   <div class="select-Categories pt-100 pb-60">
                     <div class="small-tittle mb-20">
-                      <h4>Filter by Publisher</h4>
+                      <h4>Filter by Price</h4>
                     </div>
                     <div class="col-xl-12" id="publisher-checkboxes">
 
                       <div>
-                        <input  type="checkbox" name="genre" value="All" id="allCheckbox" checked>
-                        <label for="allCheckbox">All</label>
+                        <label for="priceRange">Price Range:</label>
+                       <input oninput="updatePriceRange(this.value)" type="range" id="priceRange" name="priceRange" min="500" max="4000" step="300" value="500">
+                       <span id="priceOutput">₹500</span>
                       </div>
 
 
-                      <% books.forEach(book=> { %>
-                        <div>
-                          <input type="checkbox" name="publisher" value="<%= book.publisher %>"
-                            id="<%= book.publisher %>Checkbox">
-                          <label for="<%= book.publisher %>Checkbox">
-                            <%= book.publisher  %>
-                          </label>
-                        </div>
-                        <% }) %>
                     </div>
-                  </div> -->
+                  </div> 
 
 
                   <!-- <div class="select-Categories">
@@ -378,16 +369,37 @@
 
 
     <script>
-      function updatePriceRange(value) {
+    async  function updatePriceRange(value) {
    
           document.getElementById('priceOutput').innerHTML = '₹' + value;
 
-      }
+
+    console.log('Selected price range:', value);
+try{
+
+
+const response  = await fetch(`/user/sort-price/?data=${value}`);
+console.log('dataFetch:',response);
+const products = await response.json();
+
+updateProductsContainer( products );
+
+
+
+}catch(err){
+console.error('Error filtering datas',err);
+}
+
+}
+
+
+      
   </script>
 
 
 
 <script>
+
   async function genreSelectFilter(event) {
 
       if (event.target.checked) {
@@ -420,7 +432,7 @@
     const productsContainer = document.getElementById('productsContainer');
     console.log('Products Container:', productsContainer);
     if (products.books) {
-       
+      productsContainer.innerHTML = ""
         products.books.forEach(product => {
 
             const productElement = document.createElement('div');
@@ -453,6 +465,7 @@
                     </div>
                 </div>
             `;
+           
             productsContainer.appendChild(productElement);
         });
     } else {
@@ -503,6 +516,12 @@ document.getElementById('PaginationArea').style.display = 'none';
 
         }
       }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
     </script>
     <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>

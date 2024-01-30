@@ -33,7 +33,7 @@ app.use('/assetsss',express.static(path.join(__dirname,'public/assetsss')))
 app.use('/assetsproductform',express.static(path.join(__dirname,'public/assetsproductform')))
 app.use(express.static('public'))
 
-mongoose.connect('mongodb://0.0.0.0:27017/User')
+mongoose.connect(process.env.M0NGOURL)
 .then(()=>{  
     console.log("Database connected");
 }).catch((err)=>{

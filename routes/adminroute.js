@@ -95,9 +95,9 @@ router.get('/admin/genreedit/:id', adminHomeController.editGenre)
 
 router.post('/admin/genreedit/:id', adminHomeController.postEditGenre)
 
-router.get('/admin/genredelete/:id', adminHomeController.deleteGenre)
+router.get('/genredelete/:id', adminHomeController.deleteGenre)
 
-router.get('/admin/bookdelete/:id', adminHomeController.deleteBook)
+router.get('/bookdelete/:id', adminHomeController.deleteBook)
 
 
 router.get('/adminLogout', adminHomeController.logoutAdmin);

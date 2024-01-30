@@ -7,13 +7,13 @@
 
 // module.exports = generateOTP;
 
-
+require('dotenv').config();
 function generateNumericOTP(length) {
     let otp = '';
-    const digits = '0123456789';
+    const digits = process.env.otpDigits;
   
     for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * digits.length);
+      const randomIndex = process.env.randomIndex
       otp += digits.charAt(randomIndex);
     }
   

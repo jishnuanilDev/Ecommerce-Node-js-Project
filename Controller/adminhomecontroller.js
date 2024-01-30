@@ -31,7 +31,7 @@ adminHomeController.adminPageInfo = async (req, res) => {
     }
   } catch (error) {
     console.error("Error toggling user block status:", error);
-    res.status(500).send("Internal Server Error");
+    res.render('serverError')
   }
 };
 
@@ -49,7 +49,7 @@ adminHomeController.adminOrdersInfo = async (req, res) => {
     }
   } catch (error) {
     console.error("Error toggling user block status:", error);
-    res.status(500).send("Internal Server Error");
+    res.render('serverError')
   }
 };
 
@@ -76,7 +76,7 @@ adminHomeController.updateOrderStatus = async (req, res) => {
     }
   } catch (error) {
     console.error("Error updating order status:", error);
-    res.status(500).send("Internal Server Error");
+    res.render('serverError')
   }
 };
 
@@ -92,7 +92,7 @@ adminHomeController.adminUsersInfo = async (req, res) => {
     }
   } catch (error) {
     console.error("Error toggling user block status:", error);
-    res.status(500).send("Internal Server Error");
+    res.render('serverError')
   }
 };
 
@@ -114,7 +114,7 @@ adminHomeController.blockUser = async (req, res) => {
     }
   } catch (error) {
     console.error("Error toggling user block status:", error);
-    res.status(500).send("Internal Server Error");
+    res.render('serverError')
   }
 };
 
@@ -137,7 +137,7 @@ adminHomeController.unBlockUser = async (req, res) => {
     }
   } catch (error) {
     console.error("Error toggling user block status:", error);
-    res.status(500).send("Internal Server Error");
+    res.render('serverError')
   }
 };
 
@@ -160,7 +160,7 @@ adminHomeController.booksInfo = async (req, res) => {
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        res.status(500).render("error", { error: "Internal server error" });
+        res.render('serverError')
       });
   } else {
     res.redirect("/admin");
@@ -184,7 +184,7 @@ adminHomeController.genresInfo = (req, res) => {
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        res.status(500).render("error", { error: "Internal server error" });
+        res.render('serverError')
       });
   } else {
     res.redirect("/admin");
@@ -205,7 +205,7 @@ adminHomeController.addProduct = (req, res) => {
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        res.status(500).render("error", { error: "Internal server error" });
+        res.render('serverError')
       });
   } else {
     res.redirect("/admin");
@@ -250,29 +250,40 @@ adminHomeController.postProduct = async (req, res) => {
           errorIN: "",
         });
       }
-
-      let imagePath;
+      let imagePaths = [];
+  
 
       try {
           const images = req.files.Image;
-          console.log('multiple Images:',images)
+          console.log('multiple Images:', images);
       
           if (!images) {
               return res.status(400).json({ error: "No images provided" });
           }
       
-          for (const image of images) {
-              imagePath = "./public/product-Images/" + Date.now() + "_" + image.name;
-      
+          if (!Array.isArray(images)) {
+           
+              let imagePath = "./public/product-Images/" + Date.now() + "_" + images.name;
+              console.log('imagename:', images.name);
+              await images.mv(imagePath);
+              imagePaths.push(imagePath); 
+          } else {
+          
+            for (const image of images) {
+              let imagePath = "./public/product-Images/" + Date.now() + "_" + image.name;
+              console.log('imagename:', image.name);
               await image.mv(imagePath);
-     
+              imagePaths.push(imagePath); // Push each image path into the array
+          }
           }
       
-       
+      
       } catch (error) {
           console.error(error);
-          return res.status(500).json({ error: "Failed to upload image" });
+       
+          res.render('serverError',{ error: "Failed to upload image" })
       }
+      
 
  
       const newProduct = new productSchema({
@@ -290,7 +301,7 @@ adminHomeController.postProduct = async (req, res) => {
         originalPrice,
         quantity,
         status,
-        Image: imagePath,
+        Image: imagePaths,
       });
 
       newProduct.save().then(() => {
@@ -298,7 +309,7 @@ adminHomeController.postProduct = async (req, res) => {
       });
     } catch (err) {
       console.error("Error saving book:", err);
-      res.status(500).send("Internal server error");
+      res.render('serverError')
     }
   } else {
     res.redirect("/admin");
@@ -351,7 +362,7 @@ adminHomeController.postGenre = async (req, res) => {
       res.redirect("/admin/admingenres");
     } catch (err) {
       console.error("Error saving genre:", err);
-      res.status(500).send("Internal Server Error");
+      res.render('serverError')
     }
   } else {
     res.redirect("/admin");
@@ -375,7 +386,7 @@ adminHomeController.editBookInfo = async (req, res) => {
       res.render("bookedit", { item, error: "", genres });
     } catch (error) {
       console.error("Error fetching book details:", error);
-      res.status(500).send("Internal Server Error");
+      res.render('serverError')
     }
   } else {
     res.redirect("/admin");
@@ -418,27 +429,40 @@ adminHomeController.postUpdateInfo = async (req, res) => {
         });
       }
 
-      let imagePath;
+      let imagePaths =[];
 
       if (req.files && req.files.Image) {
 
-      try {
+        try {
           const images = req.files.Image;
-          console.log('multiple Images:',images)
+          console.log('multiple Images:', images);
       
-          for (const image of images) {
-              imagePath = "./public/product-Images/" + Date.now() + "_" + image.name;
-      
-              await image.mv(imagePath);
-     
+          if (!images) {
+              return res.status(400).json({ error: "No images provided" });
           }
       
-       
+          if (!Array.isArray(images)) {
+           
+              let imagePath = "./public/product-Images/" + Date.now() + "_" + images.name;
+              console.log('imagename:', images.name);
+              await images.mv(imagePath);
+              imagePaths.push(imagePath); 
+          } else {
+          
+            for (const image of images) {
+              let imagePath = "./public/product-Images/" + Date.now() + "_" + image.name;
+              console.log('imagename:', image.name);
+              await image.mv(imagePath);
+              imagePaths.push(imagePath); // Push each image path into the array
+          }
+          }
+      
+      
       } catch (error) {
           console.error(error);
-          return res.status(500).json({ error: "Failed to upload image" });
+     
+          res.render('serverError',{ error: "Failed to upload image" })
       }
-
  
       }
 
@@ -457,7 +481,7 @@ adminHomeController.postUpdateInfo = async (req, res) => {
         originalPrice,
         quantity,
         status,
-        Image: imagePath,
+        Image: imagePaths,
       });
 
       res.redirect("/admin/adminbooks");
@@ -671,6 +695,8 @@ adminHomeController.deleteBook = async (req, res) => {
   try {
     if (req.session.adminlogin) {
       const bookId = req.params.id;
+
+      console.log('book for delete ');
 
       await productSchema.findByIdAndDelete(bookId);
 

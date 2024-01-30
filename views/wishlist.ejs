@@ -49,11 +49,11 @@
   <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
   <link rel="stylesheet" href="/assets/css/themify-icons.css">
   <link rel="stylesheet" href="/assets/css/slick.css">
-  <link rel="stylesheet" href="/assets/css/nice-select.css">
+  <link rel="stylesheet" href="/assets/css/nice-select.css"> 
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/my.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-6pY+3lvPRusGDY0KCl4F6A5CBrn9CtpxwQxBsK53xy0zK9P6gP2za0MqBEpbJsk+Og+HA5Ig/KGTV56d1o4FeQ==" crossorigin="anonymous" />
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" type="text/css" href="/cartasset/css/util.css">
     <link rel="stylesheet" type="text/css" href="/cartasset/css/main.css">
@@ -195,7 +195,17 @@
                                                             <span class="text-danger">Out-of-stock</span>
                                                         <% } %>
                                                     </td>
-                                                    <td class="column-5">
+
+                                                   <a href=""></a>
+                                                 
+                                                    <td class="column-2">
+                                                    
+                                                     
+                                                        <a class="genric-btn danger-border small" id="moveToCartBtn" data-product-id="<%= book.productId.id%>" href="#">Move to cart</a>
+
+                                                     
+                                                               </td>
+                                                    <td class="column-6">
                                              <a href="/user/removewishlist/<%= book.id%>"> <img style="width: 25px;" src="/cartasset/images/icons/delete.png" alt="icon"></a>
                                                     </td>
                                                  
@@ -347,108 +357,55 @@
 
 
 
-
-
-
-
-
-
-
-
-    <script>
-
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const moveToCartBtn = document.getElementById('moveToCartBtn');
+    if (moveToCartBtn) {
+        console.log("Button found!");
         
-          
-        document.addEventListener('DOMContentLoaded', function () {
+        moveToCartBtn.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            console.log("Button clicked!");
+            const productId = this.getAttribute('data-product-id');
+            console.log('bookIIIII',productId);
+            moveToCart(productId)
+        })
+    } else {
+        console.log("Button not found!");
+    }
+})
+</script>
+
+
+<script>
+   async function moveToCart(bookId) {
+   console.log('bookidMovecart:',bookId)
+
+   try{
+    const response = await  fetch('/user/books/moveToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ bookId:bookId}),
+        })
+   }catch(err){
+    console.error('Movetocart fetch error ',err)
+   }
+   
+       
       
-
-            check()
-            function check(){
-                fetch(`/user/check`, {
-                  
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Quantity updated successfully:', data);
-                    })
-                    .catch(error => console.error('Error updating quantity:', error));
-            
-            }
-           
-          
-            updateTotalSum()
-            const quantityButtons = document.querySelectorAll('.quantity-decrement, .quantity-increment');
-    
-            quantityButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const input = this.parentElement.querySelector('.num-product');
-                    const bookId = input.dataset.bookId;
-                    const price = parseFloat(input.dataset.price);
-                    const maxQuantity = parseInt(input.getAttribute('max'))
-    
-                    let currentValue = parseInt(input.value -1) || 0;
-                    const direction = this.classList.contains('quantity-increment') ? 1 : -1;
-                    const newValue = Math.min(Math.max(1, currentValue + direction), maxQuantity);
-    
-                    // Update UI
-                    input.value = newValue;
-                    updateTotalPrice(bookId, price, newValue);
-    
-                    // Update quantity in cart data
-                    updateCartQuantity(bookId, newValue);
-                    // Note: You can add your own logic here to update the cart data on the server
-    
-                    // Update total sum dynamically without Ajax
-                    updateTotalSum();
-                });
-            });
-    
-            function updateTotalPrice(bookId, price, quantity) {
-             
-
-                const totalPriceElement = document.getElementById(`total-price-${bookId}`);
-    
-                if (totalPriceElement) {
-                    const newTotalPrice = price * quantity;
-                    totalPriceElement.textContent = `₹ ${newTotalPrice.toFixed(2)}`;
-                }
-            }
-
-
-            function updateCartQuantity(bookId, quantity) {
-                
-             
-
-                fetch(`/user/updateQuantity/${bookId}/${quantity}`, {
-                    method: 'PUT', 
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Quantity updated successfully:', data);
-                    })
-                    .catch(error => console.error('Error updating quantity:', error));
-            }
-    
-            function updateTotalSum() {
-              
-
-                // Calculate total sum without making an Ajax request
-                const totalSumElement = document.getElementById('total-sum-result');
-                const totalPriceElements = document.querySelectorAll('[id^="total-price-"]');
-    
-                let totalSum = 0;
-    
-                totalPriceElements.forEach(element => {
-                    totalSum += parseFloat(element.textContent.replace('₹', ''));
-                });
-    
-                if (totalSumElement) {
-                    totalSumElement.textContent = `₹ ${totalSum.toFixed(2)}`;
-                 
-                } 
-            }
-        });
+    }
     </script>
+
+
+
+
+
+
+
+
+
     
 
 

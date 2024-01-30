@@ -11,7 +11,41 @@
 
   <title> userhome</title>
 
+<style>
+.address-box {
+  
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    transition: max-height 0.3s ease-out;
+    max-height: 0;
+}
 
+.address-box h3 {
+    margin-top: 0;
+}
+
+.address-box p {
+    margin: 5px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.address-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-details div {
+    flex: 1;
+    margin-right: 20px; /* Adjust spacing between address sections */
+}
+
+
+</style>
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
@@ -123,22 +157,46 @@
                         <span class="order-status text-success">Status:<%= order.status%></span> <br>
                       <% } %>
                       <span class="order-status text-primary">Payment:<%= order.paymentMethod%></span> <br>
-                       
+
                       <form action="<%= order.status === 'Delivered' ? '/user/orders/return-order/' : '/user/orders/cancel-order/' %><%= order.id %>" method="post">
                         <% if(order.status === 'Cancelled'){ %>
                             <img style="width: 50px;" src="/assets/img/icon/cancelled.png" alt="">
                         <% } else if(order.status === 'Delivered'){ %>
                             <button type="submit" class="genric-btn danger radius">Return Order</button>
-                      
+                     
                     
                          
                         <% }else if(order.status === 'Returned') { %>
                        <p class="text-success">Order Returned</p>
                         <% }else { %>
-                            <button type="submit" class="genric-btn danger radius">Cancel Order</button>
+                            <button data-toggle="modal" data-target="#cancelModal"  id="cancelButton" type="submit" class="genric-btn danger radius">Cancel Order</button>
+                            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="cancelModalLabel">Cancel Order</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <form >
+                                              <div class="form-group">
+                                                  <label for="reason">Reason for Canceling:</label>
+                                                  <input class="form-control" type="text" id="reason" name="reason" rows="4" required>
+                                              
+                                              </div>
+                                              <button type="submit" class="btn btn-danger">Submit</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                         <% } %>
+                      
                     </form>
                     
+
 
                      
                       </div>
@@ -152,10 +210,39 @@
                             </span>
                            
                             <br>
+                                   
+                    
                           </div>
 
+                
                           <hr>
                         </div>
+                   
+                   
+                      <hr>
+                     <span style="font-weight: 500;">  Order Address :</span>
+                          <div class="address-details">
+                              <div>
+                                  <p><strong>Name:</strong> jishnu Anil</p>
+                                  <p><strong>Phone:</strong> 48454848</p>
+                                  <p><strong>Street Address:</strong> Thevassery(H), Kurumassery P.O, Ernakulam (Dist)</p>
+                              </div>
+
+                              <div>
+                                <p><strong>Email:</strong> user@gmail.com</p>
+                                <p><strong>Landmark:</strong> Near market</p>
+                                 
+                                <p><strong>City:</strong> Kochi</p>
+                              
+                              </div>
+                              <div>
+                                <p><strong>Pincode:</strong> 683579</p>
+                              </div>
+                          </div>
+              
+                    
+                      
+                      
                         <% }); %>
                         <% if(order.status==='Delivered'){ %>
                           <div class="d-flex justify-content-end">
@@ -180,20 +267,21 @@
                           <div class="total-amount">Total Amount:₹<%= order. totalAmount%>
                           </div>
 
-                    </div>
+                      
+                        
 
+                    </div>
+                
+                 
 
                     <% }); %>
                       <% } else { %>
                          <h4 class="text-center text-muted">You have no Orders</h4>
                         <% } %>
+                  
                   </div>
+                  
             </div>
-
-
-
-
-
 
 
 
@@ -246,7 +334,10 @@
       </div>
     </div>
 
-    
+ <!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/easyinvoice/dist/easyinvoice.min.js"></script>
 
 
@@ -294,6 +385,21 @@
     <script src="/sidebar/js/popper.js"></script>
     <script src="/sidebar/js/bootstrap.min.js"></script>
     <script src="/sidebar/js/main.js"></script>
+    <!-- <script>
+
+const toggleButton = document.getElementById('toggleAddress');
+const addressBox = document.getElementById('addressBox');
+
+toggleButton.addEventListener('click', function() {
+    addressBox.classList.toggle('hidden');
+    if (addressBox.classList.contains('hidden')) {
+        toggleButton.textContent = 'View more details';
+    } else {
+        toggleButton.textContent = 'Show less';
+    }
+});
+
+    </script> -->
 
 </body>
 

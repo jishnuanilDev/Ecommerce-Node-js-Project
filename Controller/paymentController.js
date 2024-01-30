@@ -57,6 +57,7 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
     if (req.session.userlogin) {
       const userId = req.session.userId;
       const selectedAddressIndex = req.body.selectedAddressIndex;
+      console.log('addressIndex:',selectedAddressIndex)
       const paymentSelect = req.body.paymentMethod;
       const cart = await Cart.findOne({ userId }).populate("items.productId");
       const user = await User.findById(userId);
@@ -106,11 +107,22 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
           quantity: book.quantity,
         }));
 
-
+const userAddress = user.address[selectedAddressIndex];
+console.log('getttted address of user:', userAddress);
         const order = new orderSchema({
           userId,
           items: Orders,
           totalAmount,
+          address:{
+            name:userAddress.name,
+            phone:userAddress.phone,
+            email:userAddress.email,
+            streetaddress: userAddress.streetaddress,
+            landmark:userAddress.landmark,
+            city: userAddress.city,
+            pincode: userAddress.zipcode,
+            state: userAddress.state
+          }
         });
         order.paymentMethod = 'Cash On Delivery'
         order.status = 'Order Placed'

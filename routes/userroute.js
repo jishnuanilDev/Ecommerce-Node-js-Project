@@ -13,10 +13,9 @@ const  validateFields  = require('../middleware/ValidateFields');
 
 
 
-// const imageValidate = require('../middleware/imagevalidation.js');
 
 
-// router.get('/',index.showIndex); // userhome page without login
+
 
 router.get('/', checkBlocked, loginController.showLoginInfo);  // get user loginpage
 
@@ -50,7 +49,12 @@ router.get('/userhomepage', checkBlocked, userHomeController.showHomeInfo); //us
 
 router.get('/userhomepage-books', userHomeController.userExplorebooks); //userhomepage access
 
-router.get('/filter-genre', exploreBookController.userFilterGenre); //userhomepage access
+router.get('/filter-genre', exploreBookController.userFilterGenre); //userhomepage access 
+
+router.get('/sort-price',exploreBookController.userSortPrice);
+
+
+
 
 router.get('/filter-book/:publisher',exploreBookController.userFilterBook); //userhomepage access
 
@@ -73,6 +77,7 @@ router.get('/userviewwishlist', cartController.viewwishlist);
 
 router.post('/books/addwishlist', cartController.addToWishlist);
 
+router.post('/books/moveToCart',cartController.moveToCart)
 
 router.get('/removewishlist/:id', cartController.removeWishlist); 
 

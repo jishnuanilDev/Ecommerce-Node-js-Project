@@ -116,7 +116,12 @@
     <h5 class="text-center mt-4">Transaction History</h5>
     <ul id="transactionHistory" class="list-group">
         <% userWallet.transactionHistory.forEach(transaction=>{ %>
-<li style="font-weight: 700;" class="list-group-item"><%= transaction.transaction%> <span class="text-success "><%= transaction.amount%></span><p> for your cancelled order</p></li>
+<li style="font-weight: 700;" class="list-group-item"><%= transaction.transaction%> <span class="text-success ">₹ <%=  transaction.amount  %></span> <span> to your wallet</span> 
+  <span class="text-danger">Order cancelled</span> <% userWallet.orders.forEach(order=>{ %>
+    <span> orderId:<%= order.orderId%></span> <p style="font-weight: 400;" class="text-warning"> Order amount: <%= order.totalAmount%></p> <p style="font-weight: 600;" class="fs-3 text-primary"> Credited Date<%= order.orderDate.toLocaleString()%></p>
+    <% }) %>
+</li>
+
        <% }) %>
 
     </ul>

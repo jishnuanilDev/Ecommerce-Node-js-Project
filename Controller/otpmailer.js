@@ -4,14 +4,14 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'jishnuanil255@gmail.com',
-    pass: 'rfqg bmfs ztce jkwv',
+    user: process.env.usermail,
+    pass: process.env.usermailpass,
   },
 });
 
-function sendEmail(Email, subject, text) {
+function sendEmail(Email, subject, text) {rs
   const mailOptions = {
-    from: 'jishnuanil255@gmail.com',
+    from: 'biblioboutique.jisonline.site',
     to: Email,
     subject: subject,
     text: text,

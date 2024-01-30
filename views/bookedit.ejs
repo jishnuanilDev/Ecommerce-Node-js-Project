@@ -40,7 +40,12 @@
 			<div class="contact1-pic js-tilt" data-tilt>
 							
 <span class="text-secondary">Current Book Image: </span>
+<%   if(item.Image[0]){ %>
 <img id="imgView" src="<%= item.Image[0].slice('./public'.length) %>" alt="IMG">
+<%   }else{ %>
+	<td><img style="width: 50px;" src="" alt="img"></td>
+	<%  } %>
+
 			</div>
 
 			<form enctype="multipart/form-data" class="contact1-form validate-form" action="/admin/admin/bookedit/<%= item._id %>" method="post" onsubmit="return validateDate()">
@@ -96,7 +101,12 @@
 				</div>
                 <div  class="wrap-input1 validate-input  " data-validate = "Image is required">
 					<input  type="file" class="input1" name="Image" id="imageUpload" placeholder="Image" accept="image/*" value="" onchange="viewImage(event)" multiple>
-                     <p style="font-size: 13px;"><%= item.Image[0].slice('./public'.length) %></p>
+					<% if(item.Image[0]){ %>
+						<p style="font-size: 13px;"><%= item.Image[0].slice('./public'.length) %></p>
+						<%}else{ %>
+
+							<%} %>
+                   
 					<span class="shadow-input1"></span>
                   
 				</div>

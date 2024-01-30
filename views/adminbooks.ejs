@@ -283,14 +283,18 @@
                                         </tr>
                                     </thead>
                                 
-                                    <tbody>
+                                    <tbody> 
                                         <% books.forEach((book) => { %>
                                           <tr> 
-                            <% book.Image.forEach((image)=>{ %>
+                            
 
-                           
-                                            <td><img style="width: 50px;" src="<%= image.slice('./public'.length) %>" alt="img"></td>
-                                            <% }) %>
+                                            <%   if(book.Image[0]){ %>
+                            <td><img style="width: 50px;" src="<%= book.Image[0].slice('./public'.length) %>" alt="img"></td>
+                            <%   }else{ %>
+                            <td><img style="width: 50px;" src="" alt="img"></td>
+                            <%  } %>
+                                          
+                                         
                                             <td><%= book.bookname %></td>
                                             <td><%= book.genrename %></td>
                                             <td><%= book.quantity %></td>
@@ -307,7 +311,7 @@
                                                 <a class="text-warning" href="/admin/admin/productlist/<%= book.id %>">| List</a>
                                              <% } %>
                                              
-                                              <!-- <a class="text-danger" onclick="confirmDelete();" href="/admin/bookdelete/<%= book.id %>">| Delete</a> -->
+                                              <a class="text-danger" onclick="confirmDelete();" href="/admin/bookdelete/<%= book.id %>">| Delete</a>
                                             </td>
                                           </tr>
                                         <% }) %>

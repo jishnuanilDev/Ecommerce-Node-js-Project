@@ -1,4 +1,5 @@
 const Model = require('../models/userschema');
+require('dotenv').config();
 let userlogin
 let adminlogin
 
@@ -18,8 +19,8 @@ res.render('adminlogpage',{errorMessage:''});
 
 adminLogincontroller.PostAdminLoginInfo = (req,res)=>{
     const credentials = {
-        username:'jis',
-        password:'jis@1'
+        username:process.env.adminuser,
+        password:process.env.adminpass
     }
     
     const {username,password} = req.body;
