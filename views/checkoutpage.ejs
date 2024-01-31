@@ -223,9 +223,9 @@
     <!-- <button id="addFundsBtn">Add Funds</button> -->
 
 
-  <a  onclick="makeWalletPay()" class="genric-btn primary radius" id="makePaymentBtn">Make Payment</a>
+  <a  onclick="confirmProceed(),makeWalletPay() " class="genric-btn primary radius" id="makePaymentBtn">Make Payment</a>
 
-
+  
   </div>
 <div class="order_box">
 <h2>Your Order</h2>
@@ -548,6 +548,16 @@ function updateWalletInDatabase(newBalance) {
     .catch(error => console.error('Error updating wallet:', error));
 }
 
+
+
+function confirmProceed() {
+    const result = confirm("Are you sure you want to proceed");
+    if (!result) {
+        // The user clicked "Cancel," so prevent the form from submitting
+        event.preventDefault();
+    }
+    // If the user clicked "OK," the form will be submitted as usual
+}
 
 </script>
 

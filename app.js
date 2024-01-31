@@ -61,7 +61,10 @@ app.use(
 app.use('/', userroute);
 app.use('/admin', adminroute);
 
+app.use((req, res, next) => {
+  res.render('clientError')
 
+});
 
 
 const port=process.env.PORT || 3000;

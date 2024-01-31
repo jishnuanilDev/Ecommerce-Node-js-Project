@@ -228,8 +228,16 @@ function continueToCheckout() {
         document.getElementById('selectedAddressIndex').value = selectedAddressIndex.value;
         document.forms[document.forms.length - 1].submit();
         try{
-
-          const response = await fetch(`/walletCheckout?AdressIndex=${selectedAddressIndex}`)
+           selectedAddressIndex =  document.getElementById('selectedAddressIndex').value
+          const response = await fetch(`/walletCheckout?AdressIndex=${selectedAddressIndex}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+         
+            }),
+          })
         
           const data = await response.json();
           window.location.href = '/orderPlaced';

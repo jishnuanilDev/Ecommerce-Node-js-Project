@@ -730,9 +730,9 @@ userHomeController.userSearch = async (req, res) => {
 userHomeController.logoutUser = (req, res) => {
 
   req.session.userlogin = false;
-
+  res.redirect('/')
   // Redirect to the home page or any other appropriate page
-  res.render('loginpage', { errorMessage: '', logout: 'Logout Successfully', blocked: '' ,reset:""});
+  // res.render('loginpage', { errorMessage: '', logout: 'Logout Successfully', blocked: '' ,reset:""});
 
 };
 

@@ -107,7 +107,7 @@ router.post('/orders/return-order/:id', userHomeController.userOrderReturn);
 
 
 
-router.get('/userLogout', userHomeController.logoutUser); //logoutUser
+router.post('/userLogout', userHomeController.logoutUser); //logoutUser
 router.get('/userprofile', userHomeController.userProfile); //user profile
 router.post('/userprofile', userHomeController.userProfileEdit); //user profile
 

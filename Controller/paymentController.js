@@ -12,6 +12,8 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const { log } = require("console");
 const { userorders } = require("./userhomeontroller");
+const { ObjectId } = require('mongodb');
+
 let userlogin;
 let adminlogin;
 const razorpay = new Razorpay({
@@ -95,7 +97,7 @@ paymentController.confirmCheckoutCOD = async (req, res) => {
         const orderAmount = orderResponse.amount; 
  
         res.render('razorpayPage' ,{ orderId, orderAmount, user, Orders });
-      } else {
+      } else if(paymentSelect === "cashOnDelivery"){
         let totalAmount = 51;
         const orderItems = cart.items.forEach((book) => {
           totalAmount += book.productId.discountPrice * book.quantity;
@@ -144,6 +146,8 @@ console.log('getttted address of user:', userAddress);
         await cartModule.clearCart(userId);
 
         res.render("orderplaced");
+      }else{
+        return;
       }
     } else {
       res.redirect("/");
@@ -310,10 +314,12 @@ paymentController.userInvoice =  async (req,res)=>{
 paymentController.walletCheckout = async (req, res) => {
   try {
     if (req.session.userlogin) {
-      const userId = req.session.userId;
-      const selectedAddressIndex = req.params.selectedAddressIndex;
+      let userId = req.session.userId;
+      userId =new ObjectId(userId)
+      console.log("USER : ",userId)
+      const selectedAddressIndex = req.query.AdressIndex;
+      console.log("working2");
       console.log('walletAddressIndex:',selectedAddressIndex);
-      console.log('addressIndex:',selectedAddressIndex)
   
       const cart = await Cart.findOne({ userId }).populate("items.productId");
       const user = await User.findById(userId);
@@ -345,14 +351,16 @@ console.log('getttted address of user:', userAddress);
             city: userAddress.city,
             pincode: userAddress.zipcode,
             state: userAddress.state
-          }
+          },
+          paymentMethod :'Wallet Payment',
+          status:'Order Placed',
+          shippingFee:51
+
         });
-        order.paymentMethod = 'Wallet Payment'
-        order.status = 'Order Placed'
-        order.shippingFee = 51;
+   
         await order.save();
 
-        const wallet = await Wallet.findById(userId);
+        const wallet = await Wallet.findOne({userId:userId});
         console.log('find wallet:',wallet)
         console.log('walletBal:',wallet.balance);
         const walletError = 'You have insufficient funds.';
