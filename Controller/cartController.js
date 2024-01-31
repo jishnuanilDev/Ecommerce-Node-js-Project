@@ -3,10 +3,12 @@ const easyinvoice = require('easyinvoice');
 const router = express.Router();
 const User = require('../models/userschema');
 const productSchema = require('../models/productschema');
-const Wishlist = require('../models/wishlist');
+
 const couponSchema = require('../models/coupon');
 const genreSchema = require('../models/genreschema');
 const { Cart, clearCart } = require('../models/cart');
+const { Wishlist, clearWishlist } = require("../models/wishlist");
+const wishlistModule = require("../models/cart");
 let userlogin;
 let adminlogin;
 
@@ -313,6 +315,10 @@ cartController.moveToCart = async (req, res) => {
 
             const book = await productSchema.findById(bookId);
 
+            
+    
+         
+
             if (!existingCart) {
        
                 const newCart = new Cart({
@@ -321,6 +327,9 @@ cartController.moveToCart = async (req, res) => {
                 });
 
                 await newCart.save();
+                const wishlist = await Wishlist.findByIdAndDelete({userId});
+                // await wishlistModule.clearWishlist(userId);
+
             } else {
                
                 const existingCartItem = existingCart.items.find(item => item.productId.equals(bookId));
@@ -335,6 +344,8 @@ cartController.moveToCart = async (req, res) => {
 
               
                 await existingCart.save();
+                const wishlist = await Wishlist.findByIdAndDelete({userId});
+            //     await wishlistModule.clearWishlist(userId);
             }
 
             res.redirect('/user/userviewwishlist');

@@ -19,5 +19,35 @@ const wishlistSchema = new mongoose.Schema({
 });
 
 const Wishlist = mongoose.model("wishlist", wishlistSchema);
+const  clearWishlist = async (userId) => {
+  try {
+ 
+    const updatedWishlist = await Wishlist.findOneAndUpdate(
+      { userId },
+      { $set: { items: [] } },
+      { new: true } 
+    );
 
-module.exports = Wishlist
+    if (!updatedWishlist) {
+    
+      console.error('User wioshlist not found for userId:', userId);
+      return null; 
+    }
+
+   
+    console.log('User Wishlist cleared for userId:', userId);
+    return updatedWishlist;
+  } catch (error) {
+    console.error('Error clearing user Wishlist:', error);
+    throw error;
+  }
+};
+
+
+
+
+
+module.exports = {
+  Wishlist,
+  clearWishlist
+};

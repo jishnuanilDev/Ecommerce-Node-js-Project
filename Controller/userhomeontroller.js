@@ -4,13 +4,15 @@ const productSchema = require('../models/productschema');
 const genreSchema = require('../models/genreschema');
 const { Cart, clearCart } = require('../models/cart');
 const orderSchema = require('../models/order');
-const Wishlist = require('../models/wishlist');
+// const Wishlist = require('../models/wishlist');
 const Wallet = require('../models/wallet');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const Country = require('country-state-city').Country
 const State = require('country-state-city').State
+const { Wishlist, clearWishlist } = require("../models/wishlist");
+const wishlistModule = require("../models/cart");
 let userlogin
 let adminlogin
 let userHomeController = {};

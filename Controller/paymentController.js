@@ -171,14 +171,22 @@ paymentController.orderConfirm = async (req, res) => {
       productId: book.productId._id,
       quantity: book.quantity,
     }));
-
-
     const order = new orderSchema({
-      userId: userId,
+      userId,
       items: Orders,
-      totalAmount:  req.body.orderDetails.totalAmount/100,
- 
+      totalAmount: req.body.orderDetails.totalAmount/100,
+      address:{
+        name:userAddress.name,
+        phone:userAddress.phone,
+        email:userAddress.email,
+        streetaddress: userAddress.streetaddress,
+        landmark:userAddress.landmark,
+        city: userAddress.city,
+        pincode: userAddress.zipcode,
+        state: userAddress.state
+      }
     });
+
 
     console.log('orderrrrrr',req.body.orderDetails.totalAmount)
 
