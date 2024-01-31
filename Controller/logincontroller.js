@@ -21,7 +21,7 @@ const loginController = {};
 loginController.showLoginInfo = (req, res) => { /// login get
 
     if (req.session.userlogin) {
-        res.redirect('/user/userhomepage')
+        res.redirect('/userhomepage')
     } else {
 
         res.render('loginpage', { errorMessage: '', logout: '', blocked: '' ,reset:''});
@@ -34,7 +34,7 @@ loginController.showLoginInfo = (req, res) => { /// login get
 
 
 loginController.signin = (req, res) => {
-    res.redirect('/user');
+    res.redirect('/');
 };
 
 
@@ -69,7 +69,7 @@ loginController.forLoginInfo = async (req, res) => {
 
         req.session.userlogin = true;
         req.session.userId = user._id;
-        res.redirect('/user/userhomepage');
+        res.redirect('/userhomepage');
     } catch (err) {
         console.error('Error during user login:', err);
         // res.status(500).send('Internal Server Error');

@@ -76,7 +76,7 @@ console.log("After defining orderDetails");
 
 
 
-fetch("/user/orderConfirm", {
+fetch("/orderConfirm", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -100,7 +100,7 @@ fetch("/user/orderConfirm", {
 
 console.log("After fetch");
 
-window.location.href = '/user/orderPlaced';
+window.location.href = '/orderPlaced';
 
 };
 

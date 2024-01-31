@@ -95,7 +95,7 @@
           <% books.forEach((item) => { %>
             <% if (item.isListed) { %>
               <div class="card text-center mb-5 ml-2 custom-card" style="width: 13rem;">
-                <a href="/user/books/bookInfo/<%= item.id %>">
+                <a href="/books/bookInfo/<%= item.id %>">
                   <img class="card-img-top" src="<%= item.Image[0].slice('./public'.length) %>" alt="Card image cap">
                 </a>
                 <div class="card-body">
@@ -132,7 +132,7 @@
                 <div class="col-xl-12">
                   <div class="section-tittle d-flex justify-content-between align-items-center mb-40">
                     <h2 class="mb-0">Featured This Week</h2>
-                    <a href="/user/userhomepage-books" class="browse-btn">View All</a>
+                    <a href="/userhomepage-books" class="browse-btn">View All</a>
                   </div>
                 </div>
               </div>
@@ -231,7 +231,7 @@
               <% if (item.isListed) { %>
 
                 <div class="card text-center mb-5 ml-2 custom-card" style="width: 13rem;">
-                  <a href="/user/books/bookInfo/<%= item.id%>"> <img class="card-img-top"
+                  <a href="/books/bookInfo/<%= item.id%>"> <img class="card-img-top"
                       src="<%= item.Image[0].slice('./public'.length) %>" alt="Card image cap"></a>
                   <div class="card-body">
                     <p class="card-text  custom-bookname">

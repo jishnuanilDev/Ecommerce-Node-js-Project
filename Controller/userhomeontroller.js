@@ -37,7 +37,7 @@ userHomeController.showHomeInfo = async (req, res) => {
       res.render("userhomepage", { books,});
     } else {
 
-      res.redirect('/user');
+      res.redirect('/');
     }
 
   } catch (err) {
@@ -97,7 +97,7 @@ userHomeController.userExplorebooks = async(req,res)=>{
 res.render('bookexplore',{books,genres,message:'',totalPages,currentPage: page});
 
     }else{
-      res.redirect('/user')
+      res.redirect('/')
     }
   }catch (err) {
     console.error("Error:", err);
@@ -141,7 +141,7 @@ userHomeController.bookPageInfo = async (req, res) => {   /// Userhome bookpage 
 
 
     } else {
-      res.redirect('/user')
+      res.redirect('/')
     }
     } catch (err) {
       console.error("server error", err);
@@ -164,7 +164,7 @@ userHomeController.userProfile = async (req, res) => {
 
     res.render('userprofile', { user });
   } else {
-    res.redirect('/user');
+    res.redirect('/');
   }
 }  catch (err) {
   console.error("Error:", err);
@@ -232,9 +232,9 @@ userHomeController.userProfileEdit = async (req, res) => {
         res.send('user not found');
       }
       await User.findByIdAndUpdate(userId, { firstname: firstname, lastname: lastname, email: email })
-      res.redirect('/user/userprofile')
+      res.redirect('/userprofile')
     } else {
-      res.redirect('/user')
+      res.redirect('/')
     }
   } catch (err) {
     console.error("Error:", err);
@@ -250,7 +250,7 @@ userHomeController.userPasswordSection = (req, res) => {  /// UserpasswordPage
   if (req.session.userlogin) {
     res.render('userchangepassword', { Perror: '', Perror2: '', Perror3: '' })
   } else {
-    res.redirect('/user');
+    res.redirect('/');
   }
 
 }
@@ -273,7 +273,7 @@ userHomeController.userAddress = async (req, res) => {
 
       res.render('useraddress', { addresses });
     } else {
-      res.redirect('/user');
+      res.redirect('/');
     }
     } catch (err) {
       console.error("Error fetching user address:", err);
@@ -298,7 +298,7 @@ userHomeController.userAddAddress = (req, res) => {
 
       res.render('addaddress', { States });
     } else {
-      res.redirect('/user');
+      res.redirect('/');
     }
   } catch (err) {
     console.error("Error fetching user address:", err);
@@ -361,10 +361,10 @@ userHomeController.userAddressPost = async (req, res) => {
 
 
 
-      res.redirect('/user/useraddress');
+      res.redirect('/useraddress');
 
     } else {
-      res.redirect('/user')
+      res.redirect('/')
     }
     } catch (err) {
       console.error("Error saving user address:", err);
@@ -396,9 +396,9 @@ userHomeController.userAddressDelete = async (req, res) => {
       if (!updatedUser) {
         return res.status(404).json({ error: 'Address not found' });
       }
-      res.redirect('/user/useraddress')
+      res.redirect('/useraddress')
     } else {
-      res.redirect('/user');
+      res.redirect('/');
     }
     } catch (error) {
       console.error(error);
@@ -486,13 +486,13 @@ userHomeController.userAddressEditPost = async (req, res) => {
       }
 
 
-      res.redirect('/user/useraddress');
+      res.redirect('/useraddress');
     } catch (err) {
       console.error("Error saving user address:", err);
       return res.render('serverError',{error:''})
     }
   } else {
-    res.redirect('/user')
+    res.redirect('/')
   }
 
 
@@ -533,9 +533,9 @@ userHomeController.userPasswordChange = async (req, res) => {
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       await User.findByIdAndUpdate(userId, { password: hashedPassword });
 
-      return res.redirect('/user/userhomepage');
+      return res.redirect('/userhomepage');
     } else {
-      return res.redirect('/user');
+      return res.redirect('/');
     }
   } catch (error) {
     console.error(error);
@@ -566,11 +566,12 @@ userHomeController.userorders = async (req, res) => {
       //     console.log('Book Name:', item.productId.bookname); // Accessing the bookname property of the product
       //   });
       // })
+      orders.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
 
       res.render('userorders', { orders }); // Pass orders as an object to the view
 
     } else {
-      res.redirect('/user');
+      res.redirect('/');
     }
 
   } catch (error) {
@@ -626,12 +627,12 @@ userHomeController.userOrderCancel = async (req, res) => {
         order.status = 'Cancelled';
         await order.save();
 
-        res.redirect('/user/user-myOrders');
+        res.redirect('/user-myOrders');
       } else {
         return res.status(401).json({ error: 'Unauthorized' });
       }
     } else {
-      res.redirect('/user');
+      res.redirect('/');
     }
   } catch (error) {
     console.error(error);
@@ -673,12 +674,12 @@ userHomeController.userOrderReturn = async (req, res) => {
         order.status = 'Returned';
         await order.save();
 
-        res.redirect('/user/user-myOrders');
+        res.redirect('/user-myOrders');
       } else {
         return res.status(401).json({ error: 'Unauthorized' });
       }
     } else {
-      res.redirect('/user');
+      res.redirect('/');
     }
   } catch (error) {
     console.error(error);
@@ -711,7 +712,7 @@ userHomeController.userSearch = async (req, res) => {
           }
 
       } else {
-          res.redirect('/user')
+          res.redirect('/')
       }
 
 

@@ -36,7 +36,7 @@ cartController.quantityUpdate = async (req, res) => {
         // Send a success response
         res.json({ success: true, message: 'Quantity updated successfully', updatedCartItem: cartItem });
     }else{
-        res.redirect('/user')
+        res.redirect('/')
     }
       } catch (error) {
         console.error('Error updating quantity:', error);
@@ -118,9 +118,9 @@ cartController.addToCart = async (req, res) => {
                 await existingCart.save();
             }
 
-            res.redirect(`/user/books/bookInfo/${bookId}`);
+            res.redirect(`/books/bookInfo/${bookId}`);
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (err) {
         console.error("Error during addToCart:", err);
@@ -168,7 +168,7 @@ cartController.viewcart = async (req, res) => {
 
             res.render('usercart', { cart, userId });
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
@@ -202,9 +202,9 @@ cartController.removeCart = async (req, res) => {
                 { new: true }
             );
 
-            res.redirect('/user/userviewcart');
+            res.redirect('/userviewcart');
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
@@ -235,7 +235,7 @@ cartController.viewwishlist= async (req, res) => {
 
             res.render('wishlist', { wishlist , userId });
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
@@ -265,7 +265,7 @@ cartController.addToWishlist = async (req, res) => {
         res.json({status:true})
            
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
         
     } catch (err) {
@@ -292,9 +292,9 @@ cartController.removeWishlist = async (req, res) => {
                 { new: true }
             );
 
-            res.redirect('/user/userviewwishlist');
+            res.redirect('/userviewwishlist');
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
@@ -348,9 +348,9 @@ cartController.moveToCart = async (req, res) => {
             //     await wishlistModule.clearWishlist(userId);
             }
 
-            res.redirect('/user/userviewwishlist');
+            res.redirect('/userviewwishlist');
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (err) {
         console.error("Error during addToCart:", err);

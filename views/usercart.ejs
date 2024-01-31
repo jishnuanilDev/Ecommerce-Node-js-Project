@@ -148,7 +148,7 @@
     <main>
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="/user/userhomepage" class="stext-109 cl8 hov-cl1 trans-04">
+                <a href="/userhomepage" class="stext-109 cl8 hov-cl1 trans-04">
                     Home
                     <i class="">→</i>
                 </a>
@@ -217,7 +217,7 @@
                                                         <% } %>
                                                     </td>
                                                     <td class="column-2">
-                                             <a href="/user/removecart/<%= book.id%>"> <img style="width: 25px;" src="/cartasset/images/icons/delete.png" alt=""></a>
+                                             <a href="/removecart/<%= book.id%>"> <img style="width: 25px;" src="/cartasset/images/icons/delete.png" alt=""></a>
                                                     </td>
                                                  
                                                 </tr>
@@ -253,14 +253,14 @@
                                 </div>
                                 <div class="mt-3" style="text-align: center;">
                                     <!-- <button id="checkOutBtn" onclick="checkAndUpdateLink()"> -->
-                                        <a href="/user/userPayment" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                        <a href="/userPayment" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                                             Proceed to Checkout
                                         </a>
                                     <!-- </button> -->
                                 
                                     <hr>
                                 
-                                    <a href="/user/userhomepage" class="flex-c-m stext-101 cl0 size-116 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer text-dark">
+                                    <a href="/userhomepage" class="flex-c-m stext-101 cl0 size-116 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer text-dark">
                                         Back to Shopping
                                     </a>
                                 </div>
@@ -385,7 +385,7 @@
     };
 
     function checkAndUpdateLink() {
-        fetch(`/user/check`, {})
+        fetch(`/check`, {})
             .then(response => response.json())
             .then(data => {
                 let checkStatus=data.status
@@ -421,7 +421,7 @@
 
             check()
             function check(){
-                fetch(`/user/check`, {
+                fetch(`/check`, {
                   
                 })
                     .then(response => response.json())
@@ -476,7 +476,7 @@
                 
              
 
-                fetch(`/user/updateQuantity/${bookId}/${quantity}`, {
+                fetch(`/updateQuantity/${bookId}/${quantity}`, {
                     method: 'PUT', 
                 })
                     .then(response => response.json())

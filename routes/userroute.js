@@ -83,7 +83,7 @@ router.get('/removewishlist/:id', cartController.removeWishlist);
 
 router.get('/removecart/:id', cartController.removeCart); 
 
-router.get('/userPayment', paymentController.userPayment);  /// view cart
+router.get('/userPayment', paymentController.userPayment); 
 
 router.post('/confirmCheckoutCOD',paymentController.confirmCheckoutCOD)  
 
@@ -93,7 +93,7 @@ router.get('/orderplaced',paymentController.orderPlaced)
 
 router.get('/userinvoice',paymentController.userInvoice) 
 
-
+router.post('/walletCheckout',paymentController.walletCheckout)  
 
 
 // router.post('/cart-update-quantity/:productId', cartController.updateQuantity);

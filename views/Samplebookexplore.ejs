@@ -152,10 +152,10 @@
 <div class="properties pb-30">
 <div class="properties-card">
 <div class="properties-img">
-<a href="/user/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
+<a href="/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
 </div>
 <div class="properties-caption properties-caption2">
-<h3><a href="/user/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
+<h3><a href="/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
 <p><%= book.author%></p>
 <div class="properties-footer d-flex justify-content-between align-items-center">
 <div class="review">
@@ -318,7 +318,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     function filterGenre(selectElement) {
         var selectedValue = selectElement.value;
         if (selectedValue) {
-            window.location.href = "/user/filter-genre/" + selectedValue;
+            window.location.href = "/filter-genre/" + selectedValue;
         }
     }
 </script>
@@ -328,7 +328,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     function filterBook(selectElement) {
         var selectedValue = selectElement.value;
         if (selectedValue) {
-            window.location.href = "/user/filter-genre/" + selectedValue;
+            window.location.href = "/filter-genre/" + selectedValue;
         }
     }
 </script>

@@ -2,7 +2,7 @@ async function invoiceData(orderId) {
     console.log('orderiiidiifdddd:', orderId);
     let invoiceData;
     try {
-        const response = await fetch(`/user/userinvoice?orderId=${orderId}`);
+        const response = await fetch(`/userinvoice?orderId=${orderId}`);
         const orderData = await response.json();
         console.log('INvoiceData:', orderData);
 

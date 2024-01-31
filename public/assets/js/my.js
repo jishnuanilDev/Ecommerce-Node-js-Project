@@ -52,7 +52,7 @@ function continueToCheckout() {
     alert("Please select an address before continuing to checkout.");
   }
 
-  // fetch('/user/confirmCheckoutCOD', {
+  // fetch('/confirmCheckoutCOD', {
   //   method: "POST",
   //   headers: {
   //     "Content-Type": "application/json",
@@ -133,7 +133,7 @@ function continueToCheckout() {
     
     
     
-    fetch("/user/orderConfirm", {
+    fetch("/orderConfirm", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -157,7 +157,7 @@ function continueToCheckout() {
     
     console.log("After fetch");
     
-    window.location.href = '/user/orderPlaced';
+    window.location.href = '/orderPlaced';
     
     };
       
@@ -210,7 +210,46 @@ function continueToCheckout() {
             return false; // Prevent form submission
         }
 
-        // Additional validation logic can be added here if needed
+        // Additional validation logic can be added here if needed   
 
         return true; // Allow form submission
     }
+
+
+    async function makeWalletPay() {
+      event.preventDefault();
+    
+
+    
+      var selectedAddressIndex = document.querySelector('input[name="selectedAddress"]:checked');
+    
+      if (selectedAddressIndex) {
+        console.log('walletAddress:',selectedAddressIndex)
+        document.getElementById('selectedAddressIndex').value = selectedAddressIndex.value;
+        document.forms[document.forms.length - 1].submit();
+        try{
+
+          const response = await fetch(`/walletCheckout?AdressIndex=${selectedAddressIndex}`)
+        
+          const data = await response.json();
+          window.location.href = '/orderPlaced';
+        }catch(err){
+          console.error('address data and wallet fetch not working')
+        }
+        window.location.href = '/orderPlaced';
+
+      } else {
+        alert("Please select an address before continuing to checkout.");
+      }
+           
+
+
+
+
+    }
+          
+      
+
+
+
+    

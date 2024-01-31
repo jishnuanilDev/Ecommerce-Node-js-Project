@@ -148,7 +148,7 @@
     <main>
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="/user/userhomepage" class="stext-109 cl8 hov-cl1 trans-04">
+                <a href="/userhomepage" class="stext-109 cl8 hov-cl1 trans-04">
                     Home
                     <i class="">→</i>
                 </a>
@@ -206,7 +206,7 @@
                                                      
                                                                </td>
                                                     <td class="column-6">
-                                             <a href="/user/removewishlist/<%= book.id%>"> <img style="width: 25px;" src="/cartasset/images/icons/delete.png" alt="icon"></a>
+                                             <a href="/removewishlist/<%= book.id%>"> <img style="width: 25px;" src="/cartasset/images/icons/delete.png" alt="icon"></a>
                                                     </td>
                                                  
                                                 </tr>
@@ -338,7 +338,7 @@
     };
 
     function checkAndUpdateLink() {
-        fetch(`/user/check`, {})
+        fetch(`/check`, {})
             .then(response => response.json())
             .then(data => {
                 let checkStatus=data.status
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
    console.log('bookidMovecart:',bookId)
 
    try{
-    const response = await  fetch('/user/books/moveToCart', {
+    const response = await  fetch('/books/moveToCart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

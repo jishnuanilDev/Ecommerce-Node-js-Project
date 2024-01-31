@@ -44,7 +44,7 @@ paymentController.userPayment = async (req, res) => {
 
       res.render("checkoutpage", { addresses, cart, coupons, userWallet });
     } else {
-      res.redirect("/user");
+      res.redirect("/");
     }
   } catch (error) {
     console.error(error);
@@ -146,7 +146,7 @@ console.log('getttted address of user:', userAddress);
         res.render("orderplaced");
       }
     } else {
-      res.redirect("/user");
+      res.redirect("/");
     }
   } catch (error) {
     console.error(error);
@@ -218,7 +218,7 @@ if(req.session.userlogin){
 
 
 }else{
-  res.redirect('/user')
+  res.redirect('/')
 }
   
     
@@ -301,5 +301,95 @@ paymentController.userInvoice =  async (req,res)=>{
   }
   
 }
+
+
+
+/////////////////////////////////////////////////////////////
+
+
+paymentController.walletCheckout = async (req, res) => {
+  try {
+    if (req.session.userlogin) {
+      const userId = req.session.userId;
+      const selectedAddressIndex = req.params.selectedAddressIndex;
+      console.log('walletAddressIndex:',selectedAddressIndex);
+      console.log('addressIndex:',selectedAddressIndex)
+  
+      const cart = await Cart.findOne({ userId }).populate("items.productId");
+      const user = await User.findById(userId);
+
+ 
+        let totalAmount = 51;
+        const orderItems = cart.items.forEach((book) => {
+          totalAmount += book.productId.discountPrice * book.quantity;
+        });
+
+
+        const Orders = cart.items.map((book) => ({
+          productId: book.productId._id,
+          quantity: book.quantity,
+        }));
+
+const userAddress = user.address[selectedAddressIndex];
+console.log('getttted address of user:', userAddress);
+        const order = new orderSchema({
+          userId,
+          items: Orders,
+          totalAmount,
+          address:{
+            name:userAddress.name,
+            phone:userAddress.phone,
+            email:userAddress.email,
+            streetaddress: userAddress.streetaddress,
+            landmark:userAddress.landmark,
+            city: userAddress.city,
+            pincode: userAddress.zipcode,
+            state: userAddress.state
+          }
+        });
+        order.paymentMethod = 'Wallet Payment'
+        order.status = 'Order Placed'
+        order.shippingFee = 51;
+        await order.save();
+
+        const wallet = await Wallet.findById(userId);
+        console.log('find wallet:',wallet)
+        console.log('walletBal:',wallet.balance);
+        const walletError = 'You have insufficient funds.';
+        if (wallet.balance < totalAmount) {
+          return res.redirect(`/userPayment?error=${encodeURIComponent(walletError)}`);
+        }else{
+let newWalletBal = wallet.balance-totalAmount;
+wallet.balance = newWalletBal;
+
+        }
+        
+
+        for (const item of Orders) {
+          const product = await productSchema.findById(item.productId);
+
+          if (product) {
+            product.quantity -= item.quantity; 
+
+            await product.save();
+          } else {
+            console.error("Product not found:", item.productId);
+          }
+        }
+
+        await cartModule.clearCart(userId);
+
+        res.render("orderplaced");
+      
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
 
 module.exports = paymentController;

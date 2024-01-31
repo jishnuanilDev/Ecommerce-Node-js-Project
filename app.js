@@ -58,7 +58,7 @@ app.use(
 
 
  
-app.use('/user', userroute);
+app.use('/', userroute);
 app.use('/admin', adminroute);
 
 

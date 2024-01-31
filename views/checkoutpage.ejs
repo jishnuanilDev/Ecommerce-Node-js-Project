@@ -38,7 +38,7 @@
                       <div class="header-info-left d-flex align-items-center">
     
                         <div class="logo">
-                          <a href="/user/userhomepage"><img style="width: 200px;" src="/assets/img/logo/" alt></a>
+                          <a href="/userhomepage"><img style="width: 200px;" src="/assets/img/logo/" alt></a>
                         </div>
     
                         <form style="display: flex;" action="#" class="form-box ">
@@ -53,7 +53,7 @@
                         <ul>
                      
                           <li class="shopping-card">
-                            <a href="/user/userviewcart"><img src="/assets/img/icon/cart.svg" alt></a>
+                            <a href="/userviewcart"><img src="/assets/img/icon/cart.svg" alt></a>
                           </li>
                           <!-- <li><a href="/userLogout" class="btn header-btn">Search</a></li> -->
                           <li class="nav-item dropdown no-arrow ">
@@ -66,7 +66,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/user/userprofile">
+                                <a class="dropdown-item" href="/userprofile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -79,7 +79,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/user/userLogout" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/userLogout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -97,7 +97,7 @@
                   <div class="col-xl-12">
     
                     <div class="logo2 text-center">
-                      <a href="/user/userhomepage"><img style="width: 110px;" src="/assets/img/logo/biblio.jpg" alt></a>
+                      <a href="/userhomepage"><img style="width: 110px;" src="/assets/img/logo/biblio.jpg" alt></a>
                     </div>
     
                     <div class="main-menu text-center d-none d-lg-block ">
@@ -106,8 +106,8 @@
     
                         <ul id="navigation">
                        
-                          <li><a href="/user/userhomepage">Home</a></li>
-                          <li><a href="/user/userhomepage-books">Categories</a></li>
+                          <li><a href="/userhomepage">Home</a></li>
+                          <li><a href="/userhomepage-books">Categories</a></li>
                           <li><a href="">About</a></li>
                     
                          
@@ -172,7 +172,7 @@
 <div class="col-lg-8">
 
 <h3>Billing Details</h3> 
-<a  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" href="/user/useraddaddress" class="genric-btn danger radius mb-5">Add new billing Address  +</a>
+<a  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" href="/useraddaddress" class="genric-btn danger radius mb-5">Add new billing Address  +</a>
 <% addresses.forEach((address, Index) => { %>
     <div style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" class="col-md-4 mt-3">
       <div class="card mb-2" style="width: 100%; height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -185,12 +185,12 @@
           <p class="card-text"><%= address.zipcode %></p>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <form method="get" action="/user/useraddress-edit" class="mr-2">
+          <form method="get" action="/useraddress-edit" class="mr-2">
             <input type="hidden" value="<%= Index %>" name="addressIndex">
             <button class="genric-btn link radius" type="submit">Edit</button>
           </form>
   
-          <form method="post" action="/user/useraddress-delete">
+          <form method="post" action="/useraddress-delete">
             <input type="hidden" value="<%= address._id %>" name="addressId">
             <button class="genric-btn link radius" type="submit">Delete</button>
           </form>
@@ -221,7 +221,11 @@
         <span id="walletBalance"><%= userWallet.balance%></span>
     </div>
     <!-- <button id="addFundsBtn">Add Funds</button> -->
-    <button id="makePaymentBtn" onclick=" makeWalletPayment()">Make Payment</button>
+
+
+  <a  onclick="makeWalletPay()" class="genric-btn primary radius" id="makePaymentBtn">Make Payment</a>
+
+
   </div>
 <div class="order_box">
 <h2>Your Order</h2>
@@ -267,7 +271,7 @@
 </ul>
 
 <h3 class="text-center">Select payment method</h3>
-<form method="post" action="/user/confirmCheckoutCOD">
+<form method="post" action="/confirmCheckoutCOD">
   <div class="payment_item active">
     <div class="radion_btn">
       <input type="radio" id="f-option5" name="paymentMethod" value="onlinePayment" />
@@ -435,7 +439,7 @@ async function applyCoupon(event) {
   const inputCouponCode = document.getElementById('couponInput').value.trim().toUpperCase();
 
   try {
-    const response = await fetch('/user/coupons'); 
+    const response = await fetch('/coupons'); 
     const coupons = await response.json();
 
     const validCoupon = coupons.find(coupon => coupon.couponCode === inputCouponCode );
@@ -532,7 +536,7 @@ function calculateRemainingAmount(walletBalance, totalAmount) {
 
 function updateWalletInDatabase(newBalance) {
 
-    fetch('/user/updateWallet', {
+    fetch('/updateWallet', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

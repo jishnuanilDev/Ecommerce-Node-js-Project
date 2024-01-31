@@ -98,31 +98,31 @@
               <span class="sr-only">Toggle Menu</span>
             </button>
           </div>
-          <h1 class="text-center my-auto "><a href="/user/userprofile" class="text-light text-center mt-3">Account</a></h1>
+          <h1 class="text-center my-auto "><a href="/userprofile" class="text-light text-center mt-3">Account</a></h1>
 
           <hr>
           <ul class="list-unstyle components mb-5">
             <li class="">
-              <a href="/user/userprofile" style="font-size: smaller;"><span class="fa fa-user mr-3"></span> Personal
+              <a href="/userprofile" style="font-size: smaller;"><span class="fa fa-user mr-3"></span> Personal
                 Details</a>
             </li>
             <li>
-              <a href="/user/user-myOrders" style="font-size: smaller;"><span class="fa fa-shopping-bag mr-3"></span> My
+              <a href="/user-myOrders" style="font-size: smaller;"><span class="fa fa-shopping-bag mr-3"></span> My
                 Orders</a>
             </li>
             <li>
               <a href="#" style="font-size: smaller;"><span class="fa fa-heart mr-3"></span> My Wishlist</a>
             </li>
             <li>
-              <a href="/user/userviewcart" style="font-size: smaller;"><span class="fa fa-shopping-cart  mr-3"></span> My
+              <a href="/userviewcart" style="font-size: smaller;"><span class="fa fa-shopping-cart  mr-3"></span> My
                 Cart</a>
             </li>
             <li>
-              <a href="/user/userChangePassword" style="font-size: smaller;"><span class="fa fa-key mr-3"></span>
+              <a href="/userChangePassword" style="font-size: smaller;"><span class="fa fa-key mr-3"></span>
                 Password</a>
             </li>
             <li>
-              <a href="/user/useraddress" style="font-size: smaller;"><span class="fa fa-address-book mr-3"></span> My
+              <a href="/useraddress" style="font-size: smaller;"><span class="fa fa-address-book mr-3"></span> My
                 Address</a>
             </li>
           </ul>
@@ -158,7 +158,7 @@
                       <% } %>
                       <span class="order-status text-primary">Payment:<%= order.paymentMethod%></span> <br>
 
-                      <form action="<%= order.status === 'Delivered' ? '/user/orders/return-order/' : '/user/orders/cancel-order/' %><%= order.id %>" method="post">
+                      <form action="<%= order.status === 'Delivered' ? '/orders/return-order/' : '/orders/cancel-order/' %><%= order.id %>" method="post">
                         <% if(order.status === 'Cancelled'){ %>
                             <img style="width: 50px;" src="/assets/img/icon/cancelled.png" alt="">
                         <% } else if(order.status === 'Delivered'){ %>
@@ -170,7 +170,7 @@
                        <p class="text-success">Order Returned</p>
                         <% }else { %>
                             <button data-toggle="modal" data-target="#cancelModal"  id="cancelButton" type="submit" class="genric-btn danger radius">Cancel Order</button>
-                            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
@@ -191,7 +191,7 @@
                                       </div>
                                   </div>
                               </div>
-                          </div>
+                          </div> -->
                         <% } %>
                       
                     </form>
@@ -328,7 +328,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="/user/userLogout">Logout</a>
+            <a class="btn btn-primary" href="/userLogout">Logout</a>
           </div>
         </div>
       </div>

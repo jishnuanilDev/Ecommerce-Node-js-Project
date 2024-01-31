@@ -161,10 +161,10 @@
                     <div class="properties pb-30">
                     <div class="properties-card custom-card">
                     <div class="properties-img">
-                    <a href="/user/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
+                    <a href="/books/bookInfo/<%= book.id%>"><img src="<%= book.Image[0].slice('./public'.length) %>" alt></a>
                     </div>
                     <div class="properties-caption properties-caption2">
-                    <h3><a href="/user/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
+                    <h3><a href="/books/bookInfo/<%= book.id%>"><%= book.bookname%></a></h3>
                     <p><%= book.author%></p>
                     <div class="properties-footer d-flex justify-content-between align-items-center">
                     <div class="review">
@@ -195,7 +195,7 @@
                   <ul class="pagination justify-content-center">
                     <% if (currentPage> 1) { %>
                       <li class="page-item">
-                        <a class="page-link" href="/user/userhomepage-books?page=<%= currentPage - 1 %>"
+                        <a class="page-link" href="/userhomepage-books?page=<%= currentPage - 1 %>"
                           aria-label="Previous">
                           <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -204,7 +204,7 @@
 
                         <% for (let i=1; i <=totalPages; i++) { %>
                           <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                            <a class="page-link" href="/user/userhomepage-books?page=<%= i %>">
+                            <a class="page-link" href="/userhomepage-books?page=<%= i %>">
                               <%= i %>
                             </a>
                           </li>
@@ -212,7 +212,7 @@
 
                             <% if (currentPage < totalPages) { %>
                               <li class="page-item">
-                                <a class="page-link" href="/user/userhomepage-books?page=<%= currentPage + 1 %>"
+                                <a class="page-link" href="/userhomepage-books?page=<%= currentPage + 1 %>"
                                   aria-label="Next">
                                   <span aria-hidden="true">&raquo;</span>
                                 </a>
@@ -378,7 +378,7 @@
 try{
 
 
-const response  = await fetch(`/user/sort-price/?data=${value}`);
+const response  = await fetch(`/sort-price/?data=${value}`);
 console.log('dataFetch:',response);
 const products = await response.json();
 
@@ -412,7 +412,7 @@ console.error('Error filtering datas',err);
  try{
 
 
-  const response  = await fetch(`/user/filter-genre/?data=${genreValue}`);
+  const response  = await fetch(`/filter-genre/?data=${genreValue}`);
   console.log('dataFetch:',response);
   const products = await response.json();
 
@@ -441,10 +441,10 @@ console.error('Error filtering datas',err);
                 <div class="properties pb-30">
                     <div class="properties-card custom-card">
                         <div class="properties-img">
-                            <a href="/user/books/bookInfo/${product.id}"><img src="${product.Image[0].slice('./public'.length)}" alt></a>
+                            <a href="/books/bookInfo/${product.id}"><img src="${product.Image[0].slice('./public'.length)}" alt></a>
                         </div>
                         <div class="properties-caption properties-caption2">
-                            <h3><a href="/user/books/bookInfo/${product.id}">${product.bookname}</a></h3>
+                            <h3><a href="/books/bookInfo/${product.id}">${product.bookname}</a></h3>
                             <p>${product.author}</p>
                             <div class="properties-footer d-flex justify-content-between align-items-center">
                                 <div class="review">
@@ -480,7 +480,7 @@ document.getElementById('PaginationArea').style.display = 'none';
   
   allGenre.addEventListener('click',()=>{
     if(allGenre.checked){
-    window.location.href = '/user/userhomepage-books';
+    window.location.href = '/userhomepage-books';
   }
   })
   
@@ -491,9 +491,9 @@ document.getElementById('PaginationArea').style.display = 'none';
 
         if (selectedValue === 'All') {
 
-          window.location.href = '/user/userhomepage-books';
+          window.location.href = '/userhomepage-books';
         } else {
-          window.location.href = "/user/filter-genre/" + selectedValue;
+          window.location.href = "/filter-genre/" + selectedValue;
         }
       }
 
@@ -509,10 +509,10 @@ document.getElementById('PaginationArea').style.display = 'none';
 
         if (selectedValue === 'All') {
 
-          window.location.href = '/user/userhomepage-books';
+          window.location.href = '/userhomepage-books';
         } else {
 
-          window.location.href = "/user/filter-book/" + selectedValue;
+          window.location.href = "/filter-book/" + selectedValue;
 
         }
       }

@@ -33,7 +33,7 @@ let exploreBookController = {};
 
 //             return res.render('bookexplore', { books, genres, message: "", totalPages: '', currentPage: "" });
 //         } else {
-//             return res.redirect('/user');
+//             return res.redirect('/');
 //         }
 //     } catch (err) {
 //         console.error('Error:', err);
@@ -67,7 +67,7 @@ exploreBookController.userFilterGenre = async (req, res) => {
          
            
         } else {
-                return res.redirect('/user');
+                return res.redirect('/');
             }
     } catch (err) {
         console.error('Error:', err);
@@ -102,7 +102,7 @@ exploreBookController.userFilterBook = async (req, res) => {
 
             res.render('bookexplore', {books,genres,message:'',totalPages:"",currentPage: ""});
         } else {
-            res.redirect('/user');
+            res.redirect('/');
         }
     } catch (err) {
         console.error('Error:', err);
@@ -135,7 +135,7 @@ exploreBookController.userSortPrice = async (req, res) => {
          
            
         } else {
-                return res.redirect('/user');
+                return res.redirect('/');
             }
     } catch (err) {
         console.error('Error:', err);

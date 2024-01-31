@@ -89,11 +89,11 @@
 
 <!-- Assuming you have productId and cart available in your template -->
 <% if(bookpage.quantity > 0) { %>
-  <form id="addToCartForm" action="/user/books/bookInfo/<%= bookpage.id %>" method="post" style="margin-right: 10px;">
+  <form id="addToCartForm" action="/books/bookInfo/<%= bookpage.id %>" method="post" style="margin-right: 10px;">
 
 
     <% if (inCart) { %>
-        <a  class="white-btn" href="/user/userviewcart">View Cart</a>
+        <a  class="white-btn" href="/userviewcart">View Cart</a>
     <% } else { %>
         <button class="white-btn" type="submit" >Add to Cart</button>
     <% } %>
@@ -450,7 +450,7 @@ async function addToWishlist(bookId) {
     }).then(async (result) => {
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`/user/books/addwishlist`, {
+                const response = await fetch(`/books/addwishlist`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

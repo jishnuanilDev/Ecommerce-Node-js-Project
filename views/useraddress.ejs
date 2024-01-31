@@ -62,12 +62,12 @@
             <span class="sr-only">Toggle Menu</span>
           </button>
         </div>
-        <h1 class="text-center my-auto "><a href="/user/userprofile" class="text-light text-center mt-3">Account</a></h1>
+        <h1 class="text-center my-auto "><a href="/userprofile" class="text-light text-center mt-3">Account</a></h1>
 
         <hr>
         <ul class="list-unstyle components mb-5">
           <li class="">
-            <a href="/user/userprofile" style="font-size: smaller;"><span class="fa fa-user mr-3"></span> Personal
+            <a href="/userprofile" style="font-size: smaller;"><span class="fa fa-user mr-3"></span> Personal
               Details</a>
           </li>
           <li>
@@ -80,7 +80,7 @@
             <a href="#" style="font-size: smaller;"><span class="fa fa-shopping-cart  mr-3"></span> My Cart</a>
           </li>
           <li>
-            <a href="/user/userChangePassword" style="font-size: smaller;"><span class="fa fa-key mr-3"></span> Password</a>
+            <a href="/userChangePassword" style="font-size: smaller;"><span class="fa fa-key mr-3"></span> Password</a>
           </li>
           <li>
             <a href="#" style="font-size: smaller;"><span class="fa fa-address-book mr-3"></span> My Address</a>
@@ -100,7 +100,7 @@
             <div class="card custom-card1 mr-2 mb-2" style="width: 18rem;">
               <div class="card-body text-center">
                 <h5 style="font-weight: 600;" class="card-title text-danger">Add new Address</h5>
-                <a href="/user/useraddaddress"> <img class="mt-3" width="64" height="64" src="/images/address.png"
+                <a href="/useraddaddress"> <img class="mt-3" width="64" height="64" src="/images/address.png"
                     alt="address--v1" /></a>
               </div>
             </div>
@@ -124,12 +124,12 @@
                   </p>
 
                   <div class="d-flex">
-                    <form method="get" action="/user/useraddress-edit" class="mr-2">
+                    <form method="get" action="/useraddress-edit" class="mr-2">
                       <input type="hidden" value="<%= Index %>" name="addressIndex">
                       <button class="genric-btn primary-border circle arrow" type="submit">Edit</button>
                     </form>
 
-                    <form method="post" action="/user/useraddress-delete">
+                    <form method="post" action="/useraddress-delete">
                       <input type="hidden" value="<%= address._id %>" name="addressId">
                       <button class="genric-btn danger-border circle arrow" type="submit">Delete</button>
                     </form>
@@ -193,7 +193,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="/user/userLogout">Logout</a>
+          <a class="btn btn-primary" href="/userLogout">Logout</a>
         </div>
       </div>
     </div>
