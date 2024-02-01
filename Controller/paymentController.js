@@ -178,6 +178,7 @@ paymentController.orderConfirm = async (req, res) => {
     const order = new orderSchema({
       userId,
       items: Orders,
+      
       totalAmount: req.body.orderDetails.totalAmount/100,
       address:{
         name:userAddress.name,

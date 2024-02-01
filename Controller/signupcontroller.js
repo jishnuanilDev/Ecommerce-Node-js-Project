@@ -36,6 +36,7 @@ signUpController.register = (req, res) => {
 
 
 signUpController.signUp = async (req,res)=>{
+  console.log('got it user-signUp')
   const {firstname,lastname,email,password} = req.body;
 
 req.session.useremail = email;
@@ -47,7 +48,7 @@ req.session.useremail = email;
       res.render('signuppage',{error:'User already exists'});
     }
 
-    const hashedPassword = await process.env.bcrypt 
+    const hashedPassword = await bcrypt.hash(password, 10); 
 
     const OTP = generateOTP(6);
     const subject = 'Your OTP for verification';

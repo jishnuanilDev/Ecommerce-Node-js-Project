@@ -299,7 +299,7 @@
                                             <td><%= book.genrename %></td>
                                             <td><%= book.quantity %></td>
                                             <td><%= book.
-                                                discountPrice %></td>
+                                                discountPrice > 0 ? book.discountPrice:book.originalPrice %></td>
                                             <td><%= book.status %></td>
                                             <td> <%= book.isListed ? 'Listed': 'Unlisted' %></td>
                                             <td>
@@ -311,7 +311,7 @@
                                                 <a class="text-warning" href="/admin/admin/productlist/<%= book.id %>">| List</a>
                                              <% } %>
                                              
-                                              <a class="text-danger" onclick="confirmDelete();" href="/admin/bookdelete/<%= book.id %>">| Delete</a>
+                                              <!-- <a class="text-danger" onclick="confirmDelete();" href="/admin/bookdelete/<%= book.id %>">| Delete</a> -->
                                             </td>
                                           </tr>
                                         <% }) %>

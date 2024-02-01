@@ -466,6 +466,11 @@ adminHomeController.postUpdateInfo = async (req, res) => {
  
       }
 
+    const book = await productSchema.findById(bookId);
+    console.log('updateBOOkadmin:',book.Image);
+
+
+
       const updatedBook = await productSchema.findByIdAndUpdate(bookId, {
         bookname,
         genrename,
@@ -481,7 +486,7 @@ adminHomeController.postUpdateInfo = async (req, res) => {
         originalPrice,
         quantity,
         status,
-        Image: imagePaths,
+        Image:  imagePaths.length > 0 ? imagePaths :book.Image ,
       });
 
       res.redirect("/admin/adminbooks");

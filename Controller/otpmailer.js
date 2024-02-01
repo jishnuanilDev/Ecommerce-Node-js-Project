@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-function sendEmail(Email, subject, text) {rs
+function sendEmail(Email, subject, text) {
   const mailOptions = {
     from: 'biblioboutique.jisonline.site',
     to: Email,
