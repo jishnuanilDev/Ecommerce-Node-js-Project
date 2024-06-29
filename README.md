@@ -1,5 +1,15 @@
 # Ecommerce Book Store Application
-![Image Alt Text](https://miro.medium.com/v2/resize:fit:1400/1*C8gWRnGYKl8E6K1qePqVXg.jpeg)
+Welcome to the Ecommerce Book Store Application. You can access the live demo of the project [here](https://biblioboutique.jisonline.site/).
+![Image Alt Text]([https://miro.medium.com/v2/resize:fit:1400/1*C8gWRnGYKl8E6K1qePqVXg.jpeg](https://drive.google.com/drive/u/0/folders/168WEbBB4q2gBt7TCgWAgri68fNcxqI_d))
+
+### Deployment Details
+
+This project is deployed on AWS and configured with Nginx for serving web pages. HTTPS has been integrated to ensure secure communication with users.
+
+- **Hosting Platform**: AWS (Amazon Web Services)
+- **Web Server**: Nginx
+- **HTTPS**: Configured and enforced for secure connections.
+
 
 ## Introduction
 Welcome to the Ecommerce Book Store Application, an online platform for purchasing books. This project is developed using MongoDB, Express, and Node.js, with integration of Razorpay for payment processing. The application includes an admin dashboard for managing users, products, offers, and coupons.
