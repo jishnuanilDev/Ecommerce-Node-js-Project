@@ -1,6 +1,13 @@
 # Ecommerce Book Store Application
 Welcome to the Ecommerce Book Store Application. You can access the live demo of the project [here](https://biblioboutique.jisonline.site/).
-![Image Alt Text]([https://miro.medium.com/v2/resize:fit:1400/1*C8gWRnGYKl8E6K1qePqVXg.jpeg](https://drive.google.com/drive/u/0/folders/168WEbBB4q2gBt7TCgWAgri68fNcxqI_d))
+
+### Userhome Page
+![Image Alt Text](https://github.com/jishnuanilDev/BookStore-Ecommerce-webiste-Front-end-Back-end/blob/main/screenshots/BookShop-GoogleChrome2024-06-2918-18-39-ezgif.com-video-to-gif-converter.gif?raw=true)
+
+### Admin Dashboard
+![Image Alt Text](https://github.com/jishnuanilDev/BookStore-Ecommerce-webiste-Front-end-Back-end/blob/main/screenshots/Admin-GoogleChrome2024-06-2918-33-29-ezgif.com-video-to-gif-converter.gif?raw=true)
+
+
 
 ### Deployment Details
 
